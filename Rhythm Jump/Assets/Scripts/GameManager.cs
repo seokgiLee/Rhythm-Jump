@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject player;
     SpriteRenderer playerImage;
+    Animator playerAnimation;
     public Sprite[] playerImages;
 
     public float time;
@@ -14,10 +15,12 @@ public class GameManager : MonoBehaviour
 
     public int direction; // 0: 상, 1: 하, 2: 좌, 3: 우
     public Button[] buttons; // 조작버튼
+    int backJump = 0; // 0: 일반 점프, 4: 뒤로 점프
 
     void Awake()
     {
         playerImage = player.GetComponent<SpriteRenderer>();
+        playerAnimation = player.GetComponent<Animator>();
         Move(1);
     }
 
@@ -28,7 +31,8 @@ public class GameManager : MonoBehaviour
         {
             time = 0;
 
-            switch (direction)
+            playerAnimation.SetInteger("PlayerDirection", direction + backJump);
+            switch (direction + backJump)
             {
                 case 0:
                     player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 1);
