@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     SpriteRenderer playerImage;
     Animator playerAnimation;
     public Sprite[] playerImages;
+    public MapManager mapManager;
 
     public float time; // 현재시간
     public float timeScale; // 시간증감 변수
@@ -21,15 +22,6 @@ public class PlayerManager : MonoBehaviour
 
     public bool jump; // 점프버튼 클릭 여부
     public bool buttonOn; // 버튼을 누르는 타이밍 여부
-
-    public int errorCount; // 틀린 횟수
-
-    public MapManager[] maps; // 발판
-    public int row; // 발판의 행
-    public int col; // 발판의 열
-
-    public float time2;
-    int n = 0;
 
     void Awake()
     {
@@ -60,19 +52,10 @@ public class PlayerManager : MonoBehaviour
 
             if (time > (2 / timeScale) * 1.2f) // 정해진 시간의 120%에 도달
             {
-                // 데미지
+                mapManager.ErrorCount();
                 time -= 2 / timeScale;
                 buttonOn = false;
             }
-        }
-
-        time2 += Time.deltaTime;
-
-        if (time2 > 2 / timeScale)
-        {
-            MapPattern(n % maps.Length);
-            n++;
-            time2 -= 2;
         }
     }
 
@@ -83,15 +66,19 @@ public class PlayerManager : MonoBehaviour
         {
             case 0:
                 y += 1;
+                mapManager.floorNum -= mapManager.floorCol;
                 break;
             case 1:
                 y -= 1;
+                mapManager.floorNum += mapManager.floorCol;
                 break;
             case 2:
                 x -= 1;
+                mapManager.floorNum -= 1;
                 break;
             case 3:
                 x += 1;
+                mapManager.floorNum += 1;
                 break;
         }
         playerPosition.transform.position = new Vector3(x, y);
@@ -109,6 +96,7 @@ public class PlayerManager : MonoBehaviour
         }
         else // 버튼을 누르는 타이밍이 아님
         {
+            mapManager.ErrorCount();
             PlayerSprite(n);
         }
     }
@@ -116,10 +104,5 @@ public class PlayerManager : MonoBehaviour
     public void PlayerSprite(int n)
     {
         playerImage.sprite = playerImages[n];
-    }
-
-    public void MapPattern(int n)
-    {
-        maps[n].MapPattern1();
     }
 }
