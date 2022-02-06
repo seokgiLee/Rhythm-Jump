@@ -1014,7 +1014,6 @@ GameObject:
   m_Component:
   - component: {fileID: 534087302}
   - component: {fileID: 534087301}
-  - component: {fileID: 534087303}
   - component: {fileID: 534087304}
   m_Layer: 0
   m_Name: Player
@@ -1064,12 +1063,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7364682651488144517, guid: dea2a8b1f864a434995eb7002052ae53, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1083,31 +1082,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534087300}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
-  m_Father: {fileID: 1340834027}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &534087303
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534087300}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ebf26ecec8134b249a08c3013f626213, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &534087304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1121,7 +1101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1653848384}
-  playerPosition: {fileID: 1340834026}
   playerImages:
   - {fileID: -2311659948842064771, guid: dea2a8b1f864a434995eb7002052ae53, type: 3}
   - {fileID: 7364682651488144517, guid: dea2a8b1f864a434995eb7002052ae53, type: 3}
@@ -1133,13 +1112,14 @@ MonoBehaviour:
   - {fileID: 5938012242645255967, guid: dea2a8b1f864a434995eb7002052ae53, type: 3}
   mapManager: {fileID: 1587567931}
   time: 0
-  timeScale: 1
-  direction: 1
+  patternTime: 0
   buttons:
   - {fileID: 1402105037}
   - {fileID: 719201392}
   - {fileID: 953505676}
   - {fileID: 1262978225}
+  x: 0
+  y: 0
   jump: 0
   buttonOn: 0
 --- !u!1 &569607783
@@ -2609,37 +2589,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262978223}
   m_CullTransparentMesh: 1
---- !u!1 &1340834026
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1340834027}
-  m_Layer: 0
-  m_Name: Player Position
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1340834027
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340834026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 534087302}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1375683287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,7 +3202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 519420028}
-  playerPosition: {fileID: 1340834026}
+  playerPosition: {fileID: 534087300}
   floorsPosition:
   - {fileID: 120865205}
   - {fileID: 1774218103}
@@ -3307,13 +3256,20 @@ MonoBehaviour:
   - {fileID: 923998789}
   - {fileID: 1971919588}
   playerManager: {fileID: 534087304}
-  floorRow: 3
-  floorCol: 3
+  floorRow: 5
+  floorCol: 5
   floorNum: 0
   time: 0
-  timeScale: 1
+  patternTime: 2
   errorText: {fileID: 701898556}
   errorCount: 0
+  nextPattern: 1
+  patternNums: 0b000000
+  pattenIntervals: 
+  curPatternNum: 0
+  pattern: 0
+  startNum: 0
+  small: 0
 --- !u!4 &1587567932
 Transform:
   m_ObjectHideFlags: 0

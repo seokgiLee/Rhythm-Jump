@@ -8,7 +8,7 @@ public class FloorManager : MonoBehaviour
     public PlayerManager player;
     public MapManager mapManager;
     public bool damage;
-    float timeScale;
+    float patternTime;
 
     void Awake()
     {
@@ -17,29 +17,19 @@ public class FloorManager : MonoBehaviour
 
     public void TimeScale()
     {
-        timeScale = mapManager.timeScale;
+        patternTime = mapManager.patternTime;
     }
 
     public void floorPatternStart() // 패턴 시작
     {
-        spriteRenderer.color = new Color(0, 1, 0);
-        Invoke("floorPatternYellow", 2 / timeScale);
-    }
-    void floorPatternYellow() // 패턴 경고
-    {
-        spriteRenderer.color = new Color(1, 1, 0);
-        Invoke("floorPatternRed", 2 / timeScale);
-    }
-    void floorPatternRed() // 패턴 경고
-    {
         spriteRenderer.color = new Color(1, 0, 0);
-        Invoke("floorPatternDamage", 2 / timeScale);
+        Invoke("floorPatternDamage", patternTime);
     }
     void floorPatternDamage() // 데미지를 받는 패턴
     {
         spriteRenderer.color = new Color(0, 0, 0);
         damage = true;
-        Invoke("floorPatternEnd", 2 / timeScale);
+        Invoke("floorPatternEnd", patternTime);
     }
     void floorPatternEnd() // 패턴 끝
     {
