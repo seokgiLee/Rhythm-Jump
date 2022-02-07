@@ -11,16 +11,32 @@ public class MapManager : MonoBehaviour
     public FloorManager[] floors;
     public PlayerManager playerManager;
 
+    public Button[] buttons;
+    public Animator[] countDowns;
+
+    public Animator[] ButtonAnimators;
+
+    public bool start; // 맵, 플레이어 등장
+
+    public bool buttonOn; // 버튼을 누르는 타이밍 여부
+    public bool buttonClick; // 버튼을 눌렀는지 여부
+
+    public int playerX; // 플레이어 위치
+    public int playerY;
+
     public int floorRow; // 발판의 행
     public int floorCol; // 발판의 열
     public int floorNum; // 플레이어가 밟은 발판 번호
 
     public float time; // 발판패턴용 시간
     public float patternTime; // 패턴주기
+    public float patternAccuracy; // 박자 정확도
+    public bool animationHint; // 박자 힌트 여부 (이동버튼)
 
     public Text errorText;
     public int errorCount; // 틀린 횟수
 
+    public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
     public int[] patternNums; // 패턴순서 모음
     public int[] pattenIntervals; // 패턴사이 간격 모음
@@ -32,276 +48,378 @@ public class MapManager : MonoBehaviour
     void Awake()
     {
         errorText.text = errorCount.ToString();
-        int x = (floorCol - 1) / 2;
-        int y = (floorRow - 1) / 2;
-        floorNum = x + y * floorCol;
-        cameraPosition.transform.position = new Vector3(x, -1 * y, -10);
-        playerPosition.transform.position = new Vector3(x, -1 * y);
-        playerManager.x = x;
-        playerManager.y = -1 * y;
-        playerManager.patternTime = patternTime;
+        playerX = (floorCol - 1) / 2;
+        playerY = -1 * (floorRow - 1) / 2;
+        floorNum = playerX + -1 * playerY * floorCol;
+        cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
+        playerPosition.transform.position = new Vector3(playerX, playerY + 10);
+
         for (int i = 0; i < floorRow * floorCol; i++)
         {
             floorsPosition[i].SetActive(true);
-            floorsPosition[i].transform.position = new Vector3(i % floorCol, -1 * i / floorCol);
-            floors[i].TimeScale();
+            floorsPosition[i].transform.position = new Vector3(i % floorCol, -1 * i / floorCol + 10);
+            floors[i].PatternTime();
         }
+
+        if (floorRow > floorCol)
+        {
+            small = (floorCol + 1) / 2;
+        }
+        else
+        {
+            small = (floorRow + 1) / 2;
+        }
+
+        Invoke("MapStart", 1);
     }
 
     void Update()
     {
         time += Time.deltaTime;
-
-        if (curPatternNum >= patternNums.Length)
+        
+        if (start)
         {
-            // 맵 종료
+            if (time > 0.5f)
+            {
+                for (int i = 0; i < floorRow * floorCol; i++) // 맵 등장
+                {
+                    if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
+                        && i % floorCol >= startNum && i % floorCol < floorCol - startNum)
+                        && (i % floorCol == startNum || i % floorCol == floorCol - 1 - startNum
+                        || i < floorCol * (1 + startNum) || (i > floorCol * (floorRow - 1 - startNum))))
+                    {
+                        floors[i].FloorStart(i, floorCol);
+                    }
+                }
+                time -= 0.5f;
+                startNum++;
+            }
+            if (startNum > small) // 플레이어 등장
+            {
+                playerManager.PlayerPosition(playerX, playerY);
+                start = false;
+                Invoke("CountDown3", 0.5f);
+            }
         }
 
-        if (nextPattern)
+        if (patternStart)
         {
-            nextPattern = false;
-            if (curPatternNum >= patternNums.Length)
+            // 정해진 시간에 도달
+            if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
-                // 맵 종료
-                pattern = 0;
+                // 버튼 활성화
+                Debug.Log("버튼 활성화");
+                buttonOn = true;
             }
-            else
+            // 정해진 시간초과
+            else if (time > patternTime * patternAccuracy && time < patternTime * (1 - patternAccuracy) && buttonOn)
             {
-                pattern = patternNums[curPatternNum++];
+                Debug.Log("시간초과");
+                ErrorCount();
+                buttonOn = false;
             }
 
-            if (pattern < 3)
+            if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
             {
-                startNum = 0;
+                Debug.Log("검은 발판");
+                ErrorCount();
+                floors[floorNum].damage = false;
             }
-            else if (pattern < 5)
+
+            if (nextPattern)
             {
-                startNum = floorRow * floorCol - 1;
-            }
-            else if (pattern < 6)
-            {
-                startNum = 0;
-            }
-            else if (pattern < 7)
-            {
-                startNum = floorCol - 1;
-            }
-            else if (pattern < 8)
-            {
-                startNum = 0;
-            }
-            else if (pattern < 9)
-            {
-                startNum = (floorRow - 1) * floorCol;
-            }
-            else if (pattern < 11)
-            {
-                if (floorRow > floorCol)
+                nextPattern = false;
+                if (curPatternNum >= patternNums.Length)
                 {
-                    small = (floorCol + 1) / 2;
-                    startNum = 0;
+                    // 맵 종료
+                    pattern = 0;
+                    patternStart = false;
+
+                    for (int i = 0; i < buttons.Length; i++)
+                    {
+                        buttons[i].interactable = false;
+                    }
+
+                    for (int i = 0; i < ButtonAnimators.Length; i++)
+                    {
+                        ButtonAnimators[i].SetTrigger("isStart");
+                    }
                 }
                 else
                 {
-                    small = (floorRow + 1) / 2;
+                    pattern = patternNums[curPatternNum++];
+                }
+
+                if (pattern < 3)
+                {
+                    startNum = 0;
+                }
+                else if (pattern < 5)
+                {
+                    startNum = floorRow * floorCol - 1;
+                }
+                else if (pattern < 6)
+                {
+                    startNum = 0;
+                }
+                else if (pattern < 7)
+                {
+                    startNum = floorCol - 1;
+                }
+                else if (pattern < 8)
+                {
+                    startNum = 0;
+                }
+                else if (pattern < 9)
+                {
+                    startNum = (floorRow - 1) * floorCol;
+                }
+                else if (pattern < 10)
+                {
+                    startNum = 0;
+                }
+                else if (pattern < 11)
+                {
                     startNum = small;
                 }
+                else if (pattern < 12)
+                {
+                    startNum = 1;
+                }
             }
-            else if (pattern < 12)
+
+            switch (pattern)
             {
-                startNum = 1;
+                case 0: // 공백타임
+                    if (time > patternTime)
+                    {
+                        time -= patternTime;
+                        nextPattern = true;
+                        if(buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    break;
+                case 1: // 처음부터 끝까지 가로 순서대로
+                    if (time > patternTime)
+                    {
+                        floorPattern(startNum++);
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum >= floorRow * floorCol)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 2: // 처음부터 끝까지 세로 순서대로
+                    if (time > patternTime)
+                    {
+                        floorPattern(startNum);
+                        startNum += floorCol;
+                        if (startNum >= floorRow * floorCol && startNum < (floorRow + 1) * floorCol - 1)
+                        {
+                            startNum = (startNum + 1) % floorCol;
+                        }
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum >= floorRow * floorCol)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 3: // 끝부터 처음까지 가로 순서대로
+                    if (time > patternTime)
+                    {
+                        floorPattern(startNum--);
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum < 0)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 4: // 끝부터 처음까지 세로 순서대로
+                    if (time > patternTime)
+                    {
+                        floorPattern(startNum);
+                        startNum -= floorCol;
+                        if (startNum < 0 && startNum > -1 * floorCol)
+                        {
+                            startNum = (startNum - 1) + floorRow * floorCol;
+                        }
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum < 0)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 5: // 세로줄 왼쪽 순서대로
+                    if (time > patternTime)
+                    {
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            floorPattern(startNum + i * floorCol);
+                        }
+                        startNum += 1;
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum >= floorCol - 1)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 6: // 세로줄 오른쪽 순서대로
+                    if (time > patternTime)
+                    {
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            floorPattern(startNum + i * floorCol);
+                        }
+                        startNum -= 1;
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum < 1)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 7: // 가로줄 위 순서대로
+                    if (time > patternTime)
+                    {
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            floorPattern(startNum + i);
+                        }
+                        startNum += floorCol;
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum / floorCol >= floorRow - 1)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 8: // 가로줄 아래 순서대로
+                    if (time > patternTime)
+                    {
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            floorPattern(startNum + i);
+                        }
+                        startNum -= floorCol;
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum < 1)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 9: // 가장자리에서 순서대로
+                    if (time > patternTime)
+                    {
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
+                                && i % floorCol >= startNum && i % floorCol < floorCol - startNum)
+                                && (i % floorCol == startNum || i % floorCol == floorCol - 1 - startNum
+                                || i < floorCol * (1 + startNum) || (i > floorCol * (floorRow - 1 - startNum))))
+                            {
+                                floorPattern(i);
+                            }
+                        }
+                        startNum++;
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum > small)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 10:  // 가운데에서 순서대로
+                    if (time > patternTime)
+                    {
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
+                                && i % floorCol >= startNum && i % floorCol < floorCol - startNum)
+                                && (i % floorCol == startNum || i % floorCol == floorCol - 1 - startNum
+                                || i < floorCol * (1 + startNum) || (i > floorCol * (floorRow - 1 - startNum))))
+                            {
+                                floorPattern(i);
+                            }
+                        }
+                        startNum--;
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum < 0)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
+                case 11: // 홀짝
+                    if (time > patternTime)
+                    {
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            if (i % 2 == startNum % 2)
+                            {
+                                floorPattern(i);
+                            }
+                        }
+                        startNum++;
+                        time -= patternTime;
+                        if (buttonClick)
+                        {
+                            buttonClick = false;
+                        }
+                    }
+                    if (startNum > 10)
+                    {
+                        nextPattern = true;
+                    }
+                    break;
             }
-        }
-
-        switch (pattern)
-        {
-            case 0: // 공백타임
-                if (time > patternTime * 3)
-                {
-                    time -= patternTime * 3;
-                    nextPattern = true;
-                }
-                break;
-            case 1: // 처음부터 끝까지 가로 순서대로
-                if (time > patternTime)
-                {
-                    floorPattern(startNum++);
-                    time -= patternTime;
-                }
-                if (startNum >= floorRow * floorCol)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 2: // 처음부터 끝까지 세로 순서대로
-                if (time > patternTime)
-                {
-                    floorPattern(startNum);
-                    startNum += floorCol;
-                    if (startNum >= floorRow * floorCol && startNum < (floorRow + 1) * floorCol - 1)
-                    {
-                        startNum = (startNum + 1) % floorCol;
-                    }
-                    time -= patternTime;
-                }
-                if (startNum >= floorRow * floorCol)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 3: // 끝부터 처음까지 가로 순서대로
-                if (time > patternTime)
-                {
-                    floorPattern(startNum--);
-                    time -= patternTime;
-                }
-                if (startNum < 0)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 4: // 끝부터 처음까지 세로 순서대로
-                if (time > patternTime)
-                {
-                    floorPattern(startNum);
-                    startNum -= floorCol;
-                    if (startNum < 0 && startNum > -1 * floorCol)
-                    {
-                        startNum = (startNum - 1) + floorRow * floorCol;
-                    }
-                    time -= patternTime;
-                }
-                if (startNum < 0)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 5: // 세로줄 왼쪽 순서대로
-                if (time > patternTime)
-                {
-                    for (int i = 0; i < floorRow; i++)
-                    {
-                        floorPattern(startNum + i * floorCol);
-                    }
-                    startNum += 1;
-                    time -= patternTime;
-                }
-                if (startNum >= floorCol - 1)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 6: // 세로줄 오른쪽 순서대로
-                if (time > patternTime)
-                {
-                    for (int i = 0; i < floorRow; i++)
-                    {
-                        floorPattern(startNum + i * floorCol);
-                    }
-                    startNum -= 1;
-                    time -= patternTime;
-                }
-                if (startNum < 1)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 7: // 가로줄 위 순서대로
-                if (time > patternTime)
-                {
-                    for (int i = 0; i < floorCol; i++)
-                    {
-                        floorPattern(startNum + i);
-                    }
-                    startNum += floorCol;
-                    time -= patternTime;
-                }
-                if (startNum / floorCol >= floorRow - 1)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 8: // 가로줄 아래 순서대로
-                if (time > patternTime)
-                {
-                    for (int i = 0; i < floorCol; i++)
-                    {
-                        floorPattern(startNum + i);
-                    }
-                    startNum -= floorCol;
-                    time -= patternTime;
-                }
-                if (startNum < 1)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 9: // 가장자리에서 순서대로
-                if (time > patternTime)
-                {
-                    for (int i = 0; i < floorRow * floorCol; i++)
-                    {
-                        if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
-                            && i % floorCol >= startNum && i % floorCol < floorCol - startNum)
-                            && (i % floorCol == startNum || i % floorCol == floorCol - 1 - startNum
-                            || i < floorCol * (1 + startNum) || (i > floorCol * (floorRow - 1 - startNum))))
-                        {
-                            floorPattern(i);
-                        }
-                    }
-                    startNum++;
-                    time -= patternTime;
-                }
-                if (startNum > small)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 10:  // 가운데에서 순서대로
-                if (time > patternTime)
-                {
-                    for (int i = 0; i < floorRow * floorCol; i++)
-                    {
-                        if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
-                            && i % floorCol >= startNum && i % floorCol < floorCol - startNum)
-                            && (i % floorCol == startNum || i % floorCol == floorCol - 1 - startNum
-                            || i < floorCol * (1 + startNum) || (i > floorCol * (floorRow - 1 - startNum))))
-                        {
-                            floorPattern(i);
-                        }
-                    }
-                    startNum--;
-                    time -= patternTime;
-                }
-                if (startNum < 0)
-                {
-                    nextPattern = true;
-                }
-                break;
-            case 11: // 홀짝
-                if (time > patternTime)
-                {
-                    for (int i = 0; i < floorRow * floorCol; i++)
-                    {
-                        if (i % 2 == startNum % 2)
-                        {
-                            floorPattern(i);
-                        }
-                    }
-                    startNum++;
-                    time -= patternTime;
-                }
-                if (startNum > 10)
-                {
-                    nextPattern = true;
-                }
-                break;
-        }
-
-        if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
-        {
-            ErrorCount();
-            floors[floorNum].damage = false;
         }
     }
 
@@ -310,9 +428,121 @@ public class MapManager : MonoBehaviour
         floors[n].floorPatternStart();
     }
 
-    public void ErrorCount()
+    public void MoveButton(int n)
     {
-        errorCount++;
-        errorText.text = errorCount.ToString();
+        if (buttonOn) // 버튼을 누르는 타이밍
+        {
+            buttonOn = false;
+            buttonClick = true;
+            switch (n)
+            {
+                case 0:
+                    if (floorNum - floorCol < 0)
+                    {
+                        Debug.Log("방향 틀림");
+                        ErrorCount();
+                    }
+                    else
+                    {
+                        playerY += 1;
+                        floorNum -= floorCol;
+                    }
+                    break;
+                case 1:
+                    if (floorNum + floorCol >= floorRow * floorCol)
+                    {
+                        Debug.Log("방향 틀림");
+                        ErrorCount();
+                    }
+                    else
+                    {
+                        playerY -= 1;
+                        floorNum += floorCol;
+                    }
+                    break;
+                case 2:
+                    if (floorNum % floorCol == 0)
+                    {
+                        Debug.Log("방향 틀림");
+                        ErrorCount();
+                    }
+                    else
+                    {
+                        playerX -= 1;
+                        floorNum -= 1;
+                    }
+                    break;
+                case 3:
+                    if (floorNum % floorCol == floorCol - 1)
+                    {
+                        Debug.Log("방향 틀림");
+                        ErrorCount();
+                    }
+                    else
+                    {
+                        playerX += 1;
+                        floorNum += 1;
+                    }
+                    break;
+            }
+            playerPosition.transform.position = new Vector3(playerX, playerY);
+        }
+        else // 버튼을 누르는 타이밍이 아님
+        {
+            Debug.Log("타이밍 틀림");
+            ErrorCount();
+        }
+    }
+
+    void MapStart()
+    {
+        start = true;
+        time = 0;
+    }
+
+    public void ErrorCount() // 틀린 횟수
+    {
+        if (buttons[0].interactable)
+        {
+            errorCount++;
+            errorText.text = errorCount.ToString();
+        }
+    }
+
+    void CountDown3()
+    {
+        countDowns[2].SetTrigger("isStart");
+        Invoke("CountDown2", 1f);
+    }
+    void CountDown2()
+    {
+        countDowns[1].SetTrigger("isStart");
+        Invoke("CountDown1", 1f);
+    }
+    void CountDown1()
+    {
+        countDowns[0].SetTrigger("isStart");
+        Invoke("PatternStart", 1f);
+    }
+    void PatternStart()
+    {
+        Debug.Log("시작");
+        playerManager.PlayerStart(false);
+        patternStart = true;
+        nextPattern = true;
+        time = 0;
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].interactable = true;
+        }
+
+        if (animationHint)
+        {
+            for (int i = 0; i < ButtonAnimators.Length; i++)
+            {
+                ButtonAnimators[i].SetTrigger("isStart");
+            }
+        }
     }
 }

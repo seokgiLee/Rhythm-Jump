@@ -342,6 +342,7 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/MapManager.cs"
 "Assets/Scripts/PlayerManager.cs"
+"Assets/Scripts/Test.cs"
 -langversion:8.0
 
 /deterministic

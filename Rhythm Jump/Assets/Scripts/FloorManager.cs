@@ -10,12 +10,35 @@ public class FloorManager : MonoBehaviour
     public bool damage;
     float patternTime;
 
+    int i = -1;
+    int floorCol;
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void TimeScale()
+    void Update()
+    {
+        if (i >= 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(i % floorCol, -1 * i / floorCol), Time.deltaTime * 50);
+            Invoke("FloorStay", 1f);
+        }
+    }
+
+    public void FloorStart(int n, int col)
+    {
+        i = n;
+        floorCol = col;
+    }
+
+    void FloorStay()
+    {
+        i = -1;
+    }
+
+    public void PatternTime()
     {
         patternTime = mapManager.patternTime;
     }
