@@ -67,9 +67,9 @@ MonoBehaviour:
     width: 1672.6667
     height: 818
   m_ShowMode: 4
-  m_Title: Animation
+  m_Title: Scene
   m_RootView: {fileID: 12}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 0
 --- !u!114 &4
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 880, y: 237}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 23
+  controlID: 187
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 121}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 194
+  controlID: 242
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_MinSize: {x: 565, y: 271}
   m_MaxSize: {x: 24005, y: 10021}
   vertical: 0
-  controlID: 219
+  controlID: 141
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_MinSize: {x: 842, y: 492}
   m_MaxSize: {x: 28007, y: 14042}
   vertical: 0
-  controlID: 255
+  controlID: 220
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_MinSize: {x: 565, y: 492}
   m_MaxSize: {x: 24005, y: 14042}
   vertical: 1
-  controlID: 78
+  controlID: 221
 --- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -418,10 +418,10 @@ MonoBehaviour:
     y: 0
     width: 1329
     height: 491
-  m_MinSize: {x: 303, y: 221}
-  m_MaxSize: {x: 8003, y: 4021}
+  m_MinSize: {x: 402, y: 221}
+  m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 79
+  controlID: 222
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -441,8 +441,8 @@ MonoBehaviour:
     y: 0
     width: 433
     height: 491
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 26}
   m_Panes:
   - {fileID: 26}
@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: AnimationWindow
+  m_Name: SceneView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -467,16 +467,16 @@ MonoBehaviour:
     y: 0
     width: 896
     height: 491
-  m_MinSize: {x: 102, y: 121}
+  m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 28}
+  m_ActualView: {fileID: 27}
   m_Panes:
   - {fileID: 27}
   - {fileID: 28}
   - {fileID: 25}
   - {fileID: 29}
-  m_Selected: 1
-  m_LastSelected: 2
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -530,7 +530,7 @@ MonoBehaviour:
     height: 417.6667
   m_ViewDataDictionary: {fileID: 0}
   m_VertSplit:
-    ID: 44
+    ID: 208
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
@@ -609,7 +609,7 @@ MonoBehaviour:
         m_PaneScroll: {x: 0, y: 0}
         m_ViewType: 0
         updateViewLive: 1
-        m_CurrentFrameIndex: 14517
+        m_CurrentFrameIndex: 24656
         m_HierarchyOverruledThreadFromSelection: 0
         m_ProfilerViewFilteringOptions: 1
         m_FrameDataHierarchyView:
@@ -1527,22 +1527,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Unity\Rhythm-Jump\Rhythm Jump
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f4550000
-    m_LastClickedID: 22004
-    m_ExpandedIDs: 00000000ea55000000ca9a3b
+    m_SelectedIDs: 1e580000
+    m_LastClickedID: 22558
+    m_ExpandedIDs: 000000001258000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1570,7 +1570,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ea550000
+    m_ExpandedIDs: 0000000012580000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1766,7 +1766,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 00f9ffff42fbffff
+      m_ExpandedIDs: 7c3affffea3affff6c3bffff1844ffff9e44fffffc48fffffc4effff3451ffff8051fffffedcfffffadeffffacdfffff88f2ffffdef5ffffdaf7ffff70f8ffffaef8ffff1ef9ffff7ef9ffffb8f9ffff2afaffff42fbffff40560000dc7b0000ec7b0000247c0000aa84000098850000a4970000e09c0000fe9f0000eca00000ecb6000012ba000000bb0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1810,10 +1810,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 584
+    x: 584.6667
     y: 188
     width: 894
-    height: 470.33334
+    height: 470
   m_ViewDataDictionary: {fileID: 0}
   m_ShowContextualTools: 0
   m_WindowGUID: 403fc1188f9d89447abbf1eb92b708ef
@@ -1826,9 +1826,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 310.5, y: 828, z: 0}
+    m_Target: {x: 0, y: 0, z: 0}
     speed: 2
-    m_Value: {x: 310.5, y: 828, z: 0}
+    m_Value: {x: 0, y: 0, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1879,9 +1879,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 325.26913
+    m_Target: 10
     speed: 2
-    m_Value: 325.26913
+    m_Value: 10
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1933,7 +1933,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 24882
+  m_LastSelectedObjectID: 47206
 --- !u!114 &29
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1997,22 +1997,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Sprites
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Sprites
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Unity\Rhythm-Jump\Rhythm Jump
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f8550000
-    m_LastClickedID: 22008
-    m_ExpandedIDs: 00000000ea55000000ca9a3b
+    m_SelectedIDs: 1c580000
+    m_LastClickedID: 22556
+    m_ExpandedIDs: 000000001258000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2040,7 +2040,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ea550000
+    m_ExpandedIDs: 0000000012580000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2067,7 +2067,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000585800008c3b0000403900000e3900000c390000103900001c390000b84a00006c4a0000e43b0000343c00008c390000383d0000343d0000ee3a00007a3e000048f7ffff1c3b0000bc4900003882ffff0437ffffa8400000a4400000c040000026420000a2420000bc400000f43d00004a420000be400000623e00002e3e0000ee3d0000984200009c4200003a3e0000323e00007241000048740200f06d0200ca3e00004c760000b0450000404600004a8500000000000010510000ba3c00001a4c0000c69c0200ca9c020096410000283d0000b24400009a430000582d0100944d00003c4400009a3d000012700000ac3d0000a83d000092420000983d0000283f0000ec3e00005a3d00006e3c00002c3d00000e3d00006c3e0000683e0000583e0000743e00005c3e0000703e0000643e0000603e0000783e0000c2750000164b0000184b0000e86100000a590000b64b0000c04a0000c84b0000784b0000ea4a0000e84a0000aa4a00003a4b0000bc4a00000ea70000d6ac0000405000004e50000064500000be5c0000e05000002e5500002c5c0000f45300000e5400001654000032540000265400001a54000036540000225400002a5400002e540000125400001e540000086a00000c6a0000a06b0000bc530000947b0000148a00006a570000685100007c510000a65300003e70000054520000d2550000e0550000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

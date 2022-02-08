@@ -39,7 +39,6 @@ public class MapManager : MonoBehaviour
     public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
     public int[] patternNums; // 패턴순서 모음
-    public int[] pattenIntervals; // 패턴사이 간격 모음
     public int curPatternNum; // 현재 패턴순서
     public int pattern; // 현재 패턴번호
     public int startNum; // 패턴 시작발판
@@ -485,6 +484,7 @@ public class MapManager : MonoBehaviour
                     }
                     break;
             }
+            cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
             playerPosition.transform.position = new Vector3(playerX, playerY);
         }
         else // 버튼을 누르는 타이밍이 아님
