@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
+    public StageData stageData;
     public GameObject cameraPosition;
     public GameObject playerPosition;
     public GameObject[] floorsPosition;
     public FloorManager[] floors;
     public PlayerManager playerManager;
 
+    public GameObject pause;
+
     public Button[] buttons;
     public Animator[] countDowns;
 
     public Animator[] ButtonAnimators;
+
 
     public bool start; // 맵, 플레이어 등장
 
@@ -46,6 +51,13 @@ public class MapManager : MonoBehaviour
 
     void Awake()
     {
+        stageData = GameObject.Find("Stage Data").GetComponent<StageData>();
+        floorRow = stageData.floorRow;
+        floorCol = stageData.floorCol;
+        patternTime = stageData.patternTime;
+        patternAccuracy = stageData.patternAccuracy;
+        patternNums = stageData.patternNums;
+
         errorText.text = errorCount.ToString();
         playerX = (floorCol - 1) / 2;
         playerY = -1 * (floorRow - 1) / 2;
@@ -544,5 +556,22 @@ public class MapManager : MonoBehaviour
                 ButtonAnimators[i].SetTrigger("isStart");
             }
         }
+    }
+
+    public void PauseButton() // 일시정지 버튼
+    {
+        Time.timeScale = 0;
+        pause.SetActive(true);
+    }
+
+    public void ContinueButton() // 계속하기 버튼
+    {
+        Time.timeScale = 1;
+        pause.SetActive(false);
+    }
+
+    public void ExitButton() // 나가기 버튼
+    {
+        SceneManager.LoadScene("Main Scene");
     }
 }

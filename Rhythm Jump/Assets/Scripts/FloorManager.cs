@@ -5,7 +5,6 @@ using UnityEngine;
 public class FloorManager : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-    public PlayerManager player;
     public MapManager mapManager;
     public GameManager gameManager;
     public bool damage;

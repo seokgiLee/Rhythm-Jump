@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public StageData stageData;
     public GameObject cameraPosition;
     public GameObject playerPosition;
     public GameObject[] floorsPosition;
@@ -13,7 +15,6 @@ public class GameManager : MonoBehaviour
 
     public Button[] buttons;
     public Animator[] countDowns;
-    public GameObject stageTexts;
 
     public Animator[] ButtonAnimators;
 
@@ -27,8 +28,6 @@ public class GameManager : MonoBehaviour
     public int curStage; // 방금 완료한 스테이지
     public int playerX; // 플레이어 위치
     public int playerY;
-    public float stageTextX; // 스테이지 번호 위치
-    public float stageTextY;
 
     public int floorRow; // 발판의 행
     public int floorCol; // 발판의 열
@@ -52,14 +51,14 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1;
+        stageData = GameObject.Find("Stage Data").GetComponent<StageData>();
         errorText.text = errorCount.ToString();
         playerX = (curStage - 1) % floorRow;
         playerY = -1 * ((curStage - 1) / floorRow);
         floorNum = playerX + -1 * playerY * floorCol;
         cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
         playerPosition.transform.position = new Vector3(playerX, playerY + 10);
-        stageTextX = stageTexts.transform.position.x;
-        stageTextY = stageTexts.transform.position.y;
 
         /*
         for (int i = 0; i < floorRow * floorCol; i++)
@@ -92,25 +91,25 @@ public class GameManager : MonoBehaviour
                 playerManager.PlayerPosition(playerX, playerY);
                 start = false;
                 //Invoke("CountDown3", 0.5f);
-                Invoke("PlayerMoveStart", 1f);
+                Invoke("PlayerMoveStart", 0.5f);
             }
         }
 
         if(playerMove)
         {
-            if (!buttonClick && !buttonOn)
+            if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
                 Debug.Log("버튼 활성화");
                 buttonOn = true;
             }
 
-            if(buttonClick && time>patternTime)
+            else if(buttonClick && time > patternTime)
             {
                 buttonClick = false;
                 time -= patternTime;
             }
 
-            if (time > patternTime * (2 - patternAccuracy))
+            else if(time > patternTime * (1 + patternAccuracy))
             {
                 ErrorCount();
                 time -= patternTime;
@@ -460,9 +459,8 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        playerY += 1;
+                        playerY += 2;
                         floorNum -= floorCol;
-                        stageTextY -= 131;
                     }
                     break;
                 case 1:
@@ -473,46 +471,71 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        playerY -= 1;
+                        playerY -= 2;
                         floorNum += floorCol;
-                        stageTextY += 131;
                     }
                     break;
                 case 2:
                     if (floorNum % floorCol == 0)
                     {
-                        Debug.Log("방향 틀림");
-                        ErrorCount();
+                        if (floorNum == floorRow * floorCol)
+                        {
+                            playerX -= 2;
+                            floorNum -= 1;
+                        }
+                        else
+                        {
+                            Debug.Log("방향 틀림");
+                            ErrorCount();
+                        }
                     }
                     else
                     {
-                        playerX -= 1;
+                        playerX -= 2;
                         floorNum -= 1;
-                        stageTextX += 131;
                     }
                     break;
                 case 3:
                     if (floorNum % floorCol == floorCol - 1)
                     {
-                        Debug.Log("방향 틀림");
-                        ErrorCount();
+                        if (floorNum == floorRow * floorCol - 1)
+                        {
+                            playerX += 2;
+                            floorNum += 1;
+                        }
+                        else
+                        {
+                            Debug.Log("방향 틀림");
+                            ErrorCount();
+                        }
                     }
                     else
                     {
-                        playerX += 1;
+                        playerX += 2;
                         floorNum += 1;
-                        stageTextX -= 131;
                     }
                     break;
             }
             cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
             playerPosition.transform.position = new Vector3(playerX, playerY);
-            stageTexts.transform.position = new Vector3(stageTextX, stageTextY);
         }
         else // 버튼을 누르는 타이밍이 아님
         {
             Debug.Log("타이밍 틀림");
             ErrorCount();
+        }
+    }
+
+    public void StartButton()
+    {
+        if (floorNum < maxStage)
+        {
+            stageData.StageDataMake(3, 4, 2, 0.1f, new int[] { 1, 2, 3, 4 });
+            SceneManager.LoadScene("Stage Scene");
+        }
+        else
+        {
+            // 경고음
         }
     }
 
