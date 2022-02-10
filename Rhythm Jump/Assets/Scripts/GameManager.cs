@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -132,14 +133,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("시간초과");
                 ErrorCount();
                 buttonOn = false;
-            }
 
-            if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
-            {
-                Debug.Log("검은 발판");
-                ErrorCount();
-                floors[floorNum].damage = false;
-            }          
+                FloorDamage();
+            }
 
             if (nextPattern)
             {
@@ -461,6 +457,10 @@ public class GameManager : MonoBehaviour
                     {
                         playerY += 2;
                         floorNum -= floorCol;
+                        playerPosition.transform.DOMoveY(playerY - 0.5f, 0.5f).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
                     }
                     break;
                 case 1:
@@ -473,6 +473,10 @@ public class GameManager : MonoBehaviour
                     {
                         playerY -= 2;
                         floorNum += floorCol;
+                        playerPosition.transform.DOMoveY(playerY + 1f, 0.5f).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
                     }
                     break;
                 case 2:
@@ -482,6 +486,9 @@ public class GameManager : MonoBehaviour
                         {
                             playerX -= 2;
                             floorNum -= 1;
+                            playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
+                            playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
                         }
                         else
                         {
@@ -493,6 +500,9 @@ public class GameManager : MonoBehaviour
                     {
                         playerX -= 2;
                         floorNum -= 1;
+                        playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
+                        playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
                     }
                     break;
                 case 3:
@@ -502,6 +512,9 @@ public class GameManager : MonoBehaviour
                         {
                             playerX += 2;
                             floorNum += 1;
+                            playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
+                            playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
                         }
                         else
                         {
@@ -513,11 +526,14 @@ public class GameManager : MonoBehaviour
                     {
                         playerX += 2;
                         floorNum += 1;
+                        playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
+                        playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
                     }
                     break;
             }
-            cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
-            playerPosition.transform.position = new Vector3(playerX, playerY);
+            cameraPosition.transform.DOMove(new Vector3(playerX, playerY, -10), 1f);
+            Invoke("FloorDamage", 1f);
         }
         else // 버튼을 누르는 타이밍이 아님
         {
@@ -526,11 +542,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void FloorDamage()
+    {
+        if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
+        {
+            Debug.Log("검은 발판");
+            ErrorCount();
+            floors[floorNum].damage = false;
+        }
+    }
+
     public void StartButton()
     {
         if (floorNum < maxStage)
         {
-            stageData.StageDataMake(3, 4, 2, 0.1f, new int[] { 1, 2, 3, 4 });
+            stageData.StageDataMake(3, 4, 2, 0.2f, new int[] { 1, 2, 3, 4 });
             SceneManager.LoadScene("Stage Scene");
         }
         else

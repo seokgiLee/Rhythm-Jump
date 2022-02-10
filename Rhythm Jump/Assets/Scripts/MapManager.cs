@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -128,13 +129,8 @@ public class MapManager : MonoBehaviour
                 Debug.Log("시간초과");
                 ErrorCount();
                 buttonOn = false;
-            }
 
-            if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
-            {
-                Debug.Log("검은 발판");
-                ErrorCount();
-                floors[floorNum].damage = false;
+                FloorDamage();
             }
 
             if (nextPattern)
@@ -457,6 +453,10 @@ public class MapManager : MonoBehaviour
                     {
                         playerY += 1;
                         floorNum -= floorCol;
+                        playerPosition.transform.DOMoveY(playerY - 0.25f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 1:
@@ -469,6 +469,10 @@ public class MapManager : MonoBehaviour
                     {
                         playerY -= 1;
                         floorNum += floorCol;
+                        playerPosition.transform.DOMoveY(playerY + 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 2:
@@ -481,6 +485,9 @@ public class MapManager : MonoBehaviour
                     {
                         playerX -= 1;
                         floorNum -= 1;
+                        playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
+                        playerPosition.transform.DOMoveY(playerY + 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 3:
@@ -493,16 +500,29 @@ public class MapManager : MonoBehaviour
                     {
                         playerX += 1;
                         floorNum += 1;
+                        playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
+                        playerPosition.transform.DOMoveY(playerY + 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
             }
-            cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
-            playerPosition.transform.position = new Vector3(playerX, playerY);
+            cameraPosition.transform.DOMove(new Vector3(playerX, playerY, -10), 1f / (2 / patternTime));
+            Invoke("FloorDamage", 1f / (2 / patternTime));
         }
         else // 버튼을 누르는 타이밍이 아님
         {
             Debug.Log("타이밍 틀림");
             ErrorCount();
+        }
+    }
+
+    void FloorDamage()
+    {
+        if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
+        {
+            Debug.Log("검은 발판");
+            ErrorCount();
+            floors[floorNum].damage = false;
         }
     }
 

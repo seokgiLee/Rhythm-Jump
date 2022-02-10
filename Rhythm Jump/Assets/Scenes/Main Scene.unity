@@ -13449,7 +13449,6 @@ MonoBehaviour:
   - {fileID: 2001412926}
   - {fileID: 851967314}
   - {fileID: 169946671}
-  stageTexts: {fileID: 0}
   ButtonAnimators:
   - {fileID: 1131182551}
   - {fileID: 1916875842}
