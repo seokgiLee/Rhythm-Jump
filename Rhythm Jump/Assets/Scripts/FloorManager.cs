@@ -7,6 +7,7 @@ public class FloorManager : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public MapManager mapManager;
     public GameManager gameManager;
+    public TutorialManager tutorialManager;
     public bool damage;
     float patternTime;
 
@@ -44,9 +45,13 @@ public class FloorManager : MonoBehaviour
         {
             patternTime = mapManager.patternTime;
         }
-        else
+        else if(gameManager != null)
         {
             patternTime = gameManager.patternTime;
+        }
+        else
+        {
+            patternTime = tutorialManager.patternTime;
         }
     }
 

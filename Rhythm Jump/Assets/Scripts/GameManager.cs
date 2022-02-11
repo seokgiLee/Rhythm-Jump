@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public FloorManager[] floors;
     public PlayerManager playerManager;
 
+    public GameObject pause;
+
     public Button[] buttons;
     public Animator[] countDowns;
 
@@ -448,35 +450,43 @@ public class GameManager : MonoBehaviour
             switch (n)
             {
                 case 0:
-                    if (floorNum - floorCol < 0)
+                    if (floorNum - floorCol < 0 || floorNum == floorRow * floorCol)
                     {
                         Debug.Log("방향 틀림");
+                        playerPosition.transform.DOMoveY(playerY + 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
                     {
                         playerY += 2;
                         floorNum -= floorCol;
-                        playerPosition.transform.DOMoveY(playerY - 0.5f, 0.5f).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
+                        playerPosition.transform.DOMoveY(playerY - 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 1:
-                    if (floorNum + floorCol >= floorRow * floorCol)
+                    if (floorNum + floorCol >= floorRow * floorCol || floorNum == floorRow * floorCol)
                     {
                         Debug.Log("방향 틀림");
+                        playerPosition.transform.DOMoveY(playerY - 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
                     {
                         playerY -= 2;
                         floorNum += floorCol;
-                        playerPosition.transform.DOMoveY(playerY + 1f, 0.5f).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f).SetEase(Ease.InCubic).SetDelay(0.5f);
+                        playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 2:
@@ -486,13 +496,17 @@ public class GameManager : MonoBehaviour
                         {
                             playerX -= 2;
                             floorNum -= 1;
-                            playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
-                            playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
-                            playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
+                            playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
+                            playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
                         }
                         else
                         {
                             Debug.Log("방향 틀림");
+                            playerPosition.transform.DOMoveX(playerX - 0.25f, 0.25f / (2 / patternTime)).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 0.25f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                            playerPosition.transform.DOMoveX(playerX, 0.25f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.25f / (2 / patternTime));
+                            playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                             ErrorCount();
                         }
                     }
@@ -500,9 +514,9 @@ public class GameManager : MonoBehaviour
                     {
                         playerX -= 2;
                         floorNum -= 1;
-                        playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
-                        playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
-                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
+                        playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
+                        playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
+                        playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 3:
@@ -512,23 +526,39 @@ public class GameManager : MonoBehaviour
                         {
                             playerX += 2;
                             floorNum += 1;
-                            playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
-                            playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
-                            playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
+                            playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
+                            playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
                         }
                         else
                         {
                             Debug.Log("방향 틀림");
+                            playerPosition.transform.DOMoveX(playerX + 0.25f, 0.25f / (2 / patternTime)).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 0.25f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                            playerPosition.transform.DOMoveX(playerX, 0.25f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.25f / (2 / patternTime));
+                            playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                             ErrorCount();
                         }
                     }
                     else
                     {
-                        playerX += 2;
-                        floorNum += 1;
-                        playerPosition.transform.DOMoveX(playerX, 1f).SetEase(Ease.Linear);
-                        playerPosition.transform.DOMoveY(playerY + 1, 0.5f).SetEase(Ease.OutQuart);
-                        playerPosition.transform.DOMoveY(playerY, 0.5f).SetEase(Ease.InQuart).SetDelay(0.5f);
+                        if (floorNum == floorRow * floorCol)
+                        {
+                            Debug.Log("방향 틀림");
+                            playerPosition.transform.DOMoveX(playerX + 0.25f, 0.25f / (2 / patternTime)).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 0.25f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                            playerPosition.transform.DOMoveX(playerX, 0.25f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.25f / (2 / patternTime));
+                            playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                            ErrorCount();
+                        }
+                        else
+                        {
+                            playerX += 2;
+                            floorNum += 1;
+                            playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
+                            playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
+                            playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
+                        }
                     }
                     break;
             }
@@ -623,5 +653,22 @@ public class GameManager : MonoBehaviour
         {
             ButtonAnimators[i].SetTrigger("isStart");
         }
+    }
+
+    public void PauseButton() // 일시정지 버튼
+    {
+        Time.timeScale = 0;
+        pause.SetActive(true);
+    }
+
+    public void ContinueButton() // 계속하기 버튼
+    {
+        Time.timeScale = 1;
+        pause.SetActive(false);
+    }
+
+    public void ExitButton() // 나가기 버튼
+    {
+        Application.Quit();
     }
 }

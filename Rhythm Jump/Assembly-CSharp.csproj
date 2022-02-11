@@ -59,6 +59,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\Scripts\StartManager.cs" />
+    <Compile Include="Assets\Scripts\TutorialManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scripts\TutorialManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -354,14 +354,14 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\2021.1.6f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
+    </Reference>
     <Reference Include="MiscUtil">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.5.2\Runtime\VisualScripting.Core\Dependencies\MiscUtil\MiscUtil.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.5.2\Runtime\VisualScripting.Flow\Dependencies\NCalc\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\2021.1.6f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>

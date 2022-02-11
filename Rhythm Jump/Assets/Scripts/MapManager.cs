@@ -447,6 +447,10 @@ public class MapManager : MonoBehaviour
                     if (floorNum - floorCol < 0)
                     {
                         Debug.Log("방향 틀림");
+                        playerPosition.transform.DOMoveY(playerY + 0.4f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
@@ -463,6 +467,10 @@ public class MapManager : MonoBehaviour
                     if (floorNum + floorCol >= floorRow * floorCol)
                     {
                         Debug.Log("방향 틀림");
+                        playerPosition.transform.DOMoveY(playerY - 0.4f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
@@ -479,6 +487,10 @@ public class MapManager : MonoBehaviour
                     if (floorNum % floorCol == 0)
                     {
                         Debug.Log("방향 틀림");
+                        playerPosition.transform.DOMoveX(playerX - 0.25f, 0.25f / (2 / patternTime)).SetEase(Ease.Linear);
+                        playerPosition.transform.DOMoveY(playerY + 0.25f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveX(playerX, 0.125f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
@@ -494,6 +506,10 @@ public class MapManager : MonoBehaviour
                     if (floorNum % floorCol == floorCol - 1)
                     {
                         Debug.Log("방향 틀림");
+                        playerPosition.transform.DOMoveX(playerX + 0.25f, 0.125f / (2 / patternTime)).SetEase(Ease.Linear);
+                        playerPosition.transform.DOMoveY(playerY + 0.25f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveX(playerX, 0.125f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
