@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public PlayerManager playerManager;
 
     public GameObject pause;
+    public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
+    public bool backButton; // 스마트폰 뒤로가기 버튼 클릭가능 여부
+    public GameObject option;
 
     public Button[] buttons;
     public Animator[] countDowns;
@@ -85,6 +88,36 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (!backButton)
+        {
+            backButtonTime += Time.deltaTime;
+            if (backButtonTime > 0.5f) // 0.5초마다 클릭가능
+            {
+                backButton = true;
+                time = 0;
+            }
+        }
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape) && backButton) // 뒤로가기
+            {
+                if(option.activeSelf) // 옵션이 켜져있으면 끄기
+                {
+                    OptionCloseButton();
+                }
+                else if (pause.activeSelf) // 일시정지창이 켜져있으면 끄기
+                {
+                    ContinueButton();
+                }
+                else // 일시정지창이 꺼져있으면 일시정지
+                {
+                    PauseButton();
+                }
+                backButton = false;
+            }
+        }
+
         time += Time.deltaTime;
 
         if (start)
@@ -653,6 +686,18 @@ public class GameManager : MonoBehaviour
         {
             ButtonAnimators[i].SetTrigger("isStart");
         }
+    }
+
+    public void OptionButton() // 옵션 버튼
+    {
+        Time.timeScale = 0;
+        option.SetActive(true);
+    }
+
+    public void OptionCloseButton() // 옵션 닫기
+    {
+        Time.timeScale = 1;
+        option.SetActive(false);
     }
 
     public void PauseButton() // 일시정지 버튼
