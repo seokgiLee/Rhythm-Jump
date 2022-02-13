@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
-    public StageData stageData;
+    public StageDataManager stageData;
     public GameObject cameraPosition;
     public GameObject playerPosition;
     public GameObject[] floorsPosition;
@@ -42,6 +42,8 @@ public class MapManager : MonoBehaviour
 
     public Text errorText;
     public int errorCount; // 틀린 횟수
+    public int cutLine; // 클리어 커트라인
+    public int stageNum; // 현재 스테이지 번호
 
     public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
@@ -53,12 +55,14 @@ public class MapManager : MonoBehaviour
 
     void Awake()
     {
-        stageData = GameObject.Find("Stage Data").GetComponent<StageData>();
-        floorRow = stageData.floorRow;
-        floorCol = stageData.floorCol;
-        patternTime = stageData.patternTime;
-        patternAccuracy = stageData.patternAccuracy;
-        patternNums = stageData.patternNums;
+        stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
+        stageNum = stageData.stageDatas[0].stageNum;
+        cutLine = stageData.stageDatas[0].cutLine;
+        floorRow = stageData.stageDatas[0].floorRow;
+        floorCol = stageData.stageDatas[0].floorCol;
+        patternTime = stageData.stageDatas[0].patternTime;
+        patternAccuracy = stageData.stageDatas[0].patternAccuracy;
+        patternNums = stageData.stageDatas[0].patternNums;
 
         errorText.text = errorCount.ToString();
         playerX = (floorCol - 1) / 2;
@@ -168,6 +172,20 @@ public class MapManager : MonoBehaviour
                     // 맵 종료
                     pattern = 0;
                     patternStart = false;
+
+                    if(cutLine < errorCount) // 실패
+                    {
+                        
+                    }
+                    else // 클리어
+                    {
+                        int maxStage = PlayerPrefs.GetInt("Max Stage");
+
+                        if (maxStage == stageNum)
+                        {
+                            PlayerPrefs.SetInt("Max Stage", stageNum);
+                        }
+                    }
 
                     for (int i = 0; i < buttons.Length; i++)
                     {
@@ -619,6 +637,11 @@ public class MapManager : MonoBehaviour
                 ButtonAnimators[i].SetTrigger("isStart");
             }
         }
+    }
+
+    public void StageEnd()
+    {
+        SceneManager.LoadScene("Main Scene");
     }
 
     public void PauseButton() // 일시정지 버튼

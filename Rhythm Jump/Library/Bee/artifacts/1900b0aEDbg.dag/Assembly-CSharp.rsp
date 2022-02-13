@@ -345,6 +345,7 @@
 "Assets/Scripts/MapManager.cs"
 "Assets/Scripts/PlayerManager.cs"
 "Assets/Scripts/StageData.cs"
+"Assets/Scripts/StageDataManager.cs"
 "Assets/Scripts/StartManager.cs"
 "Assets/Scripts/TalkManager.cs"
 "Assets/Scripts/TutorialManager.cs"

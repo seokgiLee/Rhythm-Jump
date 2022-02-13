@@ -4522,7 +4522,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1897700158}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SFXAudioControl
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &629876395
 GameObject:
   m_ObjectHideFlags: 0
@@ -7338,7 +7350,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1897700158}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: BGMAudioControl
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &890420514
 GameObject:
   m_ObjectHideFlags: 0
@@ -15453,6 +15477,9 @@ MonoBehaviour:
   backButtonTime: 0
   backButton: 0
   option: {fileID: 24916279}
+  audioMixer: {fileID: 24100000, guid: 3672d77991efb0f4c979ac24c907242c, type: 2}
+  bgmSlider: {fileID: 888465406}
+  sfxSlider: {fileID: 629828620}
   buttons:
   - {fileID: 1131182552}
   - {fileID: 1916875843}

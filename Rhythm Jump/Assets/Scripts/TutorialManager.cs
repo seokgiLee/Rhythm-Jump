@@ -129,6 +129,8 @@ public class TutorialManager : MonoBehaviour
                     pattern = 0;
                     patternStart = false;
 
+                    PlayerPrefs.SetInt("Max Stage", 1);
+
                     for (int i = 0; i < buttons.Length; i++)
                     {
                         buttons[i].interactable = false;
@@ -600,6 +602,11 @@ public class TutorialManager : MonoBehaviour
                 ButtonAnimators[i].SetTrigger("isStart");
             }
         }
+    }
+
+    public void StageEnd()
+    {
+        SceneManager.LoadScene("Main Scene");
     }
 
     public void PauseButton() // 일시정지 버튼

@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
-    public StageData stageData;
+    public StageDataManager stageData;
     public GameObject cameraPosition;
     public GameObject playerPosition;
     public GameObject[] floorsPosition;
@@ -18,6 +19,9 @@ public class GameManager : MonoBehaviour
     public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
     public bool backButton; // 스마트폰 뒤로가기 버튼 클릭가능 여부
     public GameObject option;
+    public AudioMixer audioMixer;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
 
     public Button[] buttons;
     public Animator[] countDowns;
@@ -58,7 +62,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Time.timeScale = 1;
-        stageData = GameObject.Find("Stage Data").GetComponent<StageData>();
+        stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
+        maxStage = PlayerPrefs.GetInt("Max Stage");
         errorText.text = errorCount.ToString();
         playerX = (curStage - 1) % floorRow;
         playerY = -1 * ((curStage - 1) / floorRow);
@@ -619,7 +624,7 @@ public class GameManager : MonoBehaviour
     {
         if (floorNum < maxStage)
         {
-            stageData.StageDataMake(3, 4, 2, 0.2f, new int[] { 1, 2, 3, 4 });
+            stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
             SceneManager.LoadScene("Stage Scene");
         }
         else
@@ -692,6 +697,38 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         option.SetActive(true);
+    }
+
+    public void BGMAudioControl() // 볼륨조절
+    {
+        float bgm = bgmSlider.value;
+
+        if (bgm == -40)
+        {
+            audioMixer.SetFloat("BGM", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("BGM", bgm);
+        }
+
+        PlayerPrefs.SetFloat("BGM", bgm);
+    }
+
+    public void SFXAudioControl() // 볼륨조절
+    {
+        float sfx = sfxSlider.value;
+
+        if (sfx == -40)
+        {
+            audioMixer.SetFloat("SFX", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("SFX", sfx);
+        }
+
+        PlayerPrefs.SetFloat("SFX", sfx);
     }
 
     public void OptionCloseButton() // 옵션 닫기
