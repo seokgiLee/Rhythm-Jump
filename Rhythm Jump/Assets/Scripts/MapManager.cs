@@ -337,7 +337,7 @@ public class MapManager : MonoBehaviour
                             buttonClick = false;
                         }
                     }
-                    if (startNum >= floorCol - 1)
+                    if (startNum > floorCol - 2)
                     {
                         nextPattern = true;
                     }

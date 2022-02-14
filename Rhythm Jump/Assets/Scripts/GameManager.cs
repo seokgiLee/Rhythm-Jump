@@ -25,8 +25,9 @@ public class GameManager : MonoBehaviour
 
     public Button[] buttons;
     public Animator[] countDowns;
-
     public Animator[] ButtonAnimators;
+    public Animator speachAnimator;
+    public TextMesh speachText; // 스테이지 정보 텍스트
 
     public bool start; // 맵, 플레이어 등장
 
@@ -65,9 +66,13 @@ public class GameManager : MonoBehaviour
         stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
         maxStage = PlayerPrefs.GetInt("Max Stage");
         errorText.text = errorCount.ToString();
-        playerX = (curStage - 1) % floorRow;
-        playerY = -1 * ((curStage - 1) / floorRow);
-        floorNum = playerX + -1 * playerY * floorCol;
+        if (curStage < 1)
+        {
+            curStage = maxStage;
+        }
+        playerX = (curStage - 1) * 2 % floorRow;
+        playerY = -2 * ((curStage - 1) / floorRow);
+        floorNum = playerX / 2 + -1 * playerY / 2 * floorCol;
         cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
         playerPosition.transform.position = new Vector3(playerX, playerY + 10);
 
@@ -610,6 +615,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void SpeachBubbleOn() // 스테이지 정보 말풍선
+    {
+        speachAnimator.SetTrigger("isSpeachOn");
+        //speachText.text = stageData.stageDatas[floorNum + 1].floorRow;
+    }
+
+    void SpeachBubbleOff() // 스테이지 정보 말풍선
+    {
+        speachAnimator.SetTrigger("isSpeachOff");
+
+    }
+
     void FloorDamage()
     {
         if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
@@ -625,6 +642,7 @@ public class GameManager : MonoBehaviour
         if (floorNum < maxStage)
         {
             stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
+            Debug.Log(stageData.stageDatas[0].cutLine);
             SceneManager.LoadScene("Stage Scene");
         }
         else

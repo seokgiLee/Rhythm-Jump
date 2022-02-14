@@ -129,7 +129,7 @@ public class TutorialManager : MonoBehaviour
                     pattern = 0;
                     patternStart = false;
 
-                    PlayerPrefs.SetInt("Max Stage", 1);
+;                   PlayerPrefs.SetInt("Max Stage", 1);
 
                     for (int i = 0; i < buttons.Length; i++)
                     {

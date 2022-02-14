@@ -7,7 +7,7 @@ public class StartManager : MonoBehaviour
 {
     void Awake()
     {
-        
+
     }
 
     void Update()
@@ -17,6 +17,13 @@ public class StartManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene("Main Scene");
+        if (PlayerPrefs.HasKey("Max Stage"))
+        {
+            SceneManager.LoadScene("Main Scene");
+        }
+        else
+        {
+            SceneManager.LoadScene("Tutorial Scene");
+        }
     }
 }
