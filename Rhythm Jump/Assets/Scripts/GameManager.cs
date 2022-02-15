@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
 using UnityEngine.Audio;
+using DG.Tweening;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     public Animator[] countDowns;
     public Animator[] ButtonAnimators;
     public Animator speachAnimator;
-    public TextMesh speachText; // 스테이지 정보 텍스트
+    public TextMeshPro[] speachTexts; // 스테이지 정보 텍스트
 
     public bool start; // 맵, 플레이어 등장
 
@@ -490,6 +491,7 @@ public class GameManager : MonoBehaviour
         {
             buttonOn = false;
             buttonClick = true;
+            SpeachBubbleOff();
             switch (n)
             {
                 case 0:
@@ -501,6 +503,7 @@ public class GameManager : MonoBehaviour
                         playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
+                        Invoke("SpeachBubbleOn", 0.5f / (2 / patternTime));
                     }
                     else
                     {
@@ -510,6 +513,7 @@ public class GameManager : MonoBehaviour
                         playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                     }
                     break;
                 case 1:
@@ -521,6 +525,7 @@ public class GameManager : MonoBehaviour
                         playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
+                        Invoke("SpeachBubbleOn", 0.5f / (2 / patternTime));
                     }
                     else
                     {
@@ -530,6 +535,7 @@ public class GameManager : MonoBehaviour
                         playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                     }
                     break;
                 case 2:
@@ -542,6 +548,7 @@ public class GameManager : MonoBehaviour
                             playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
                             playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
                             playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
+                            Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                         }
                         else
                         {
@@ -551,6 +558,7 @@ public class GameManager : MonoBehaviour
                             playerPosition.transform.DOMoveX(playerX, 0.25f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.25f / (2 / patternTime));
                             playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                             ErrorCount();
+                            Invoke("SpeachBubbleOn", 0.5f / (2 / patternTime));
                         }
                     }
                     else
@@ -560,6 +568,7 @@ public class GameManager : MonoBehaviour
                         playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
                         playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
+                        Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                     }
                     break;
                 case 3:
@@ -572,6 +581,7 @@ public class GameManager : MonoBehaviour
                             playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
                             playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
                             playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
+                            Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                         }
                         else
                         {
@@ -581,6 +591,7 @@ public class GameManager : MonoBehaviour
                             playerPosition.transform.DOMoveX(playerX, 0.25f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.25f / (2 / patternTime));
                             playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                             ErrorCount();
+                            Invoke("SpeachBubbleOn", 0.5f / (2 / patternTime));
                         }
                     }
                     else
@@ -593,6 +604,7 @@ public class GameManager : MonoBehaviour
                             playerPosition.transform.DOMoveX(playerX, 0.25f / (2 / patternTime)).SetEase(Ease.Linear).SetDelay(0.25f / (2 / patternTime));
                             playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                             ErrorCount();
+                            Invoke("SpeachBubbleOn", 0.5f / (2 / patternTime));
                         }
                         else
                         {
@@ -601,6 +613,7 @@ public class GameManager : MonoBehaviour
                             playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
                             playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
                             playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
+                            Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                         }
                     }
                     break;
@@ -615,13 +628,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SpeachBubbleOn() // 스테이지 정보 말풍선
+    void SpeachBubbleOn() // 스테이지 정보 말풍선 켜기
     {
         speachAnimator.SetTrigger("isSpeachOn");
-        //speachText.text = stageData.stageDatas[floorNum + 1].floorRow;
+        speachTexts[0].text = (floorNum + 1).ToString();
+        speachTexts[1].text = stageData.stageDatas[floorNum + 1].floorRow.ToString() + "×" + stageData.stageDatas[floorNum + 1].floorCol.ToString();
+        speachTexts[2].text = stageData.stageDatas[floorNum + 1].cutLine.ToString() + "회 이하";
+        speachTexts[3].text = stageData.stageDatas[floorNum + 1].patternTime.ToString() + "초";
+        speachTexts[4].text = (stageData.stageDatas[floorNum + 1].patternAccuracy * 100).ToString() + " %";
     }
 
-    void SpeachBubbleOff() // 스테이지 정보 말풍선
+    void SpeachBubbleOff() // 스테이지 정보 말풍선 끄기
     {
         speachAnimator.SetTrigger("isSpeachOff");
 
@@ -700,6 +717,8 @@ public class GameManager : MonoBehaviour
         playerManager.PlayerStart(false);
         playerMove = true;
         time = 0;
+
+        SpeachBubbleOn();
 
         for (int i = 0; i < buttons.Length; i++)
         {
