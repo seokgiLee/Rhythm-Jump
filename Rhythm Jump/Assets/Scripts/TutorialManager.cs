@@ -50,6 +50,12 @@ public class TutorialManager : MonoBehaviour
     public int startNum; // 패턴 시작발판
     public int small; // 테두리 개수
 
+    public TalkManager talkManager;
+    public GameObject talkPanel;
+    public Text talkText;
+    int talkID;
+    int talkIndex;
+
     void Awake()
     {
         errorText.text = errorCount.ToString();
@@ -550,6 +556,8 @@ public class TutorialManager : MonoBehaviour
     void PlayerAppear()
     {
         playerManager.PlayerPosition(playerX, playerY);
+        talkIndex = 0;
+        PauseGame(1);
     }
 
     void MapStart()
@@ -602,6 +610,30 @@ public class TutorialManager : MonoBehaviour
                 ButtonAnimators[i].SetTrigger("isStart");
             }
         }
+    }
+
+    void PauseGame(int i) // 대화창 표시
+    {
+        Time.timeScale = 0;
+        talkPanel.SetActive(true);
+
+        talkID = i;
+        talkText.text = talkManager.GetTalk(talkID, talkIndex++);
+    }
+
+    public void Talk() // 대화창 확인버튼
+    {
+        string talkData = talkManager.GetTalk(talkID, talkIndex);
+
+        if (talkData == null) // 대화 끝
+        {
+            talkIndex = 0;
+            Time.timeScale = 1;
+            talkPanel.SetActive(false);
+        }
+
+        talkText.text = talkData;
+        talkIndex++;
     }
 
     public void StageEnd()
