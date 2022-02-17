@@ -53,8 +53,14 @@ public class TutorialManager : MonoBehaviour
     public TalkManager talkManager;
     public GameObject talkPanel;
     public Text talkText;
-    int talkID;
-    int talkIndex;
+    public int talkID;
+    public int talkIndex;
+
+    public GameObject jumpSucess;
+    public Text jumpSucessText;
+    bool tutorial1; // 첫번째 튜토리얼 시작
+    int jumpSucessCount = 5; // 남은 점프 성공횟수
+    bool tutorial2; // 두번째 튜토리얼 시작
 
     void Awake()
     {
@@ -107,6 +113,34 @@ public class TutorialManager : MonoBehaviour
 
         time += Time.deltaTime;
 
+        if (tutorial1) // 튜토리얼1 시작
+        {
+            if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
+            {
+                Debug.Log("버튼 활성화");
+                buttonOn = true;
+            }
+
+            else if (buttonClick && time > patternTime)
+            {
+                buttonClick = false;
+                time -= patternTime;
+            }
+
+            else if (time > patternTime * (1 + patternAccuracy))
+            {
+                ErrorCount();
+                time -= patternTime;
+                buttonOn = false;
+            }
+
+            if (jumpSucessCount < 1) // 튜토리얼1 종료
+            {
+                tutorial1 = false;
+                Invoke("Tutorial1_End", 1f / (2 / patternTime));
+            }
+        }
+
         if (patternStart)
         {
             // 정해진 시간에 도달
@@ -136,16 +170,7 @@ public class TutorialManager : MonoBehaviour
                     patternStart = false;
 
 ;                   PlayerPrefs.SetInt("Max Stage", 1);
-
-                    for (int i = 0; i < buttons.Length; i++)
-                    {
-                        buttons[i].interactable = false;
-                    }
-
-                    for (int i = 0; i < ButtonAnimators.Length; i++)
-                    {
-                        ButtonAnimators[i].SetTrigger("isStart");
-                    }
+                    ButtonOff();
                 }
                 else
                 {
@@ -456,6 +481,8 @@ public class TutorialManager : MonoBehaviour
                         playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        jumpSucessCount--;
+                        jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
                     break;
                 case 1:
@@ -476,6 +503,8 @@ public class TutorialManager : MonoBehaviour
                         playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        jumpSucessCount--;
+                        jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
                     break;
                 case 2:
@@ -495,6 +524,8 @@ public class TutorialManager : MonoBehaviour
                         playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
                         playerPosition.transform.DOMoveY(playerY + 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
+                        jumpSucessCount--;
+                        jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
                     break;
                 case 3:
@@ -514,6 +545,8 @@ public class TutorialManager : MonoBehaviour
                         playerPosition.transform.DOMoveX(playerX, 1f / (2 / patternTime)).SetEase(Ease.Linear);
                         playerPosition.transform.DOMoveY(playerY + 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutQuart);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InQuart).SetDelay(0.5f / (2 / patternTime));
+                        jumpSucessCount--;
+                        jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
                     break;
             }
@@ -556,7 +589,6 @@ public class TutorialManager : MonoBehaviour
     void PlayerAppear()
     {
         playerManager.PlayerPosition(playerX, playerY);
-        talkIndex = 0;
         PauseGame(1);
     }
 
@@ -594,10 +626,15 @@ public class TutorialManager : MonoBehaviour
     {
         Debug.Log("시작");
         playerManager.PlayerStart(false);
-        patternStart = true;
-        nextPattern = true;
+        //patternStart = true;
+        //nextPattern = true;
         time = 0;
 
+        ButtonOn();
+    }
+
+    void ButtonOn()
+    {
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].interactable = true;
@@ -612,10 +649,24 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    void ButtonOff()
+    {
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].interactable = false;
+        }
+
+        for (int i = 0; i < ButtonAnimators.Length; i++)
+        {
+            ButtonAnimators[i].SetTrigger("isStop");
+        }
+    }
+
     void PauseGame(int i) // 대화창 표시
     {
         Time.timeScale = 0;
         talkPanel.SetActive(true);
+        talkIndex = 0;
 
         talkID = i;
         talkText.text = talkManager.GetTalk(talkID, talkIndex++);
@@ -627,14 +678,57 @@ public class TutorialManager : MonoBehaviour
 
         if (talkData == null) // 대화 끝
         {
-            talkIndex = 0;
             Time.timeScale = 1;
             talkPanel.SetActive(false);
+
+            if (talkID == 1) // 튜토리얼1 시작
+            {
+                CountDown3();
+                Invoke("Tutorial1", 3f);
+            }
+
+            if (talkID == 2) // 바닥폭발 샘플
+            {
+                ButtonOff();
+                floorPattern(6);
+                Invoke("Explosion", 4f);
+            }
+
+            if (talkID == 3) // 튜토리얼2 시작
+            {
+                CountDown3();
+            }
+
+            return;
         }
 
         talkText.text = talkData;
         talkIndex++;
     }
+
+    void Tutorial1()
+    {
+        tutorial1 = true;
+        jumpSucess.SetActive(true);
+        jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
+    }
+
+    void Tutorial1_End()
+    {
+        jumpSucess.SetActive(false);
+        PauseGame(2);
+    }
+
+    void Explosion()
+    {
+        PauseGame(3);
+    }
+
+    void Tutorial2()
+    {
+        tutorial2 = true;
+    }
+
 
     public void StageEnd()
     {
