@@ -311,6 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 150148077}
+  - component: {fileID: 150148078}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -341,6 +342,25 @@ RectTransform:
   m_AnchoredPosition: {x: 300, y: 300}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &150148078
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150148076}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9495bc5c573bff0408799a0b92392912, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &213485973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,8 +2844,8 @@ RectTransform:
   m_Children:
   - {fileID: 1820142437}
   - {fileID: 150148077}
-  - {fileID: 796042846}
   - {fileID: 1708904039}
+  - {fileID: 796042846}
   - {fileID: 701898558}
   - {fileID: 2025697377}
   - {fileID: 1396675755}
@@ -2850,6 +2870,7 @@ GameObject:
   - component: {fileID: 796042849}
   - component: {fileID: 796042848}
   - component: {fileID: 796042847}
+  - component: {fileID: 796042850}
   m_Layer: 5
   m_Name: Pause Button
   m_TagString: Untagged
@@ -2864,12 +2885,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796042845}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 792340125}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2970,6 +2991,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796042845}
   m_CullTransparentMesh: 1
+--- !u!95 &796042850
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796042845}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9495bc5c573bff0408799a0b92392912, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &815396868
 GameObject:
   m_ObjectHideFlags: 0
@@ -6158,11 +6198,13 @@ MonoBehaviour:
   - {fileID: 1961880689}
   - {fileID: 1733643982}
   - {fileID: 1994208197}
-  ButtonAnimators:
+  buttonAnimators:
   - {fileID: 1402105040}
   - {fileID: 719201395}
   - {fileID: 953505679}
   - {fileID: 1262978228}
+  moveButtonsAnimator: {fileID: 150148078}
+  pauseButtonAnimator: {fileID: 796042850}
   start: 0
   buttonOn: 0
   buttonClick: 0
@@ -6624,7 +6666,7 @@ RectTransform:
   - {fileID: 1733643981}
   - {fileID: 1994208196}
   m_Father: {fileID: 792340125}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6909,7 +6951,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 4eee7b461b4fcbe41a92759fbba13c1f, type: 3}
     m_FontSize: 300
     m_FontStyle: 1
     m_BestFit: 0
@@ -7820,7 +7862,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 4eee7b461b4fcbe41a92759fbba13c1f, type: 3}
     m_FontSize: 300
     m_FontStyle: 1
     m_BestFit: 0
@@ -8019,7 +8061,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 4eee7b461b4fcbe41a92759fbba13c1f, type: 3}
     m_FontSize: 300
     m_FontStyle: 1
     m_BestFit: 0

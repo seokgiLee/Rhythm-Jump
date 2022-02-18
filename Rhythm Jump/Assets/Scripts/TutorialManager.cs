@@ -20,7 +20,9 @@ public class TutorialManager : MonoBehaviour
     public Button[] buttons;
     public Animator[] countDowns;
 
-    public Animator[] ButtonAnimators;
+    public Animator[] buttonAnimators;
+    public Animator moveButtonsAnimator;
+    public Animator pauseButtonAnimator;
 
     public bool start; // 맵, 플레이어 등장
 
@@ -661,9 +663,9 @@ public class TutorialManager : MonoBehaviour
 
         if (animationHint)
         {
-            for (int i = 0; i < ButtonAnimators.Length; i++)
+            for (int i = 0; i < buttonAnimators.Length; i++)
             {
-                ButtonAnimators[i].SetTrigger("isStart");
+                buttonAnimators[i].SetTrigger("isStart");
             }
         }
     }
@@ -675,15 +677,14 @@ public class TutorialManager : MonoBehaviour
             buttons[i].interactable = false;
         }
 
-        for (int i = 0; i < ButtonAnimators.Length; i++)
+        for (int i = 0; i < buttonAnimators.Length; i++)
         {
-            ButtonAnimators[i].SetTrigger("isStop");
+            buttonAnimators[i].SetTrigger("isStop");
         }
     }
 
     void PauseGame(int i) // 대화창 표시
     {
-        Time.timeScale = 0;
         talkPanel.SetActive(true);
         talkIndex = 0;
 
@@ -695,13 +696,29 @@ public class TutorialManager : MonoBehaviour
     {
         string talkData = talkManager.GetTalk(talkID, talkIndex);
 
+        if(talkID == 1)
+        {
+            if (talkIndex == 3)
+            {
+                moveButtonsAnimator.SetTrigger("isMove");
+            }
+            else if(talkIndex == 4)
+            {
+                moveButtonsAnimator.SetTrigger("isStop");
+            }
+            else if(talkIndex==8)
+            {
+                pauseButtonAnimator.SetTrigger("isMove");
+            }
+        }
+
         if (talkData == null) // 대화 끝
         {
-            Time.timeScale = 1;
             talkPanel.SetActive(false);
 
             if (talkID == 1) // 튜토리얼1 시작
             {
+                pauseButtonAnimator.SetTrigger("isStop");
                 CountDown3();
                 Invoke("Tutorial1", 3f);
             }
