@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &150148076
 GameObject:
@@ -358,7 +358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &213485974
 Transform:
   m_ObjectHideFlags: 0
@@ -367,7 +367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213485973}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 1, y: -1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1534670162}
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &233620497
 GameObject:
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &257325102
 Transform:
@@ -691,7 +691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &288788987
 Transform:
   m_ObjectHideFlags: 0
@@ -700,7 +700,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288788986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1534670162}
@@ -772,7 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &300980975
 GameObject:
@@ -806,7 +806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &300980977
 Transform:
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &361238862
 Transform:
@@ -1072,7 +1072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &435516802
 Transform:
@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &515717430
 Transform:
@@ -1317,7 +1317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: -1, z: -10}
+  m_LocalPosition: {x: 1, y: -1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &531337933
 Transform:
@@ -1501,7 +1501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534087300}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: -1, z: 1}
+  m_LocalPosition: {x: 1, y: -1, z: 1}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1553,7 +1553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &541591226
 Transform:
@@ -1653,7 +1653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &569607785
 Transform:
@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &576900390
 Transform:
@@ -1853,7 +1853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &626490480
 Transform:
@@ -1953,7 +1953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &641311981
 Transform:
@@ -2053,7 +2053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &680693545
 Transform:
@@ -2217,7 +2217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &703674307
 Transform:
   m_ObjectHideFlags: 0
@@ -2226,7 +2226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703674306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: -1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1534670162}
@@ -2298,7 +2298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &712001134
 GameObject:
@@ -2332,7 +2332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &712001136
 Transform:
@@ -2663,7 +2663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &777158310
 Transform:
@@ -3002,7 +3002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &815396870
 Transform:
@@ -3087,7 +3087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &817721141
 Transform:
   m_ObjectHideFlags: 0
@@ -3096,7 +3096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817721140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 2, y: -1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1534670162}
@@ -3168,7 +3168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &923998788
 GameObject:
@@ -3202,7 +3202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &923998790
 Transform:
@@ -3533,7 +3533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &957733417
 Transform:
@@ -3633,7 +3633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!212 &994810106
 SpriteRenderer:
@@ -3733,7 +3733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1037513516
 Transform:
@@ -3833,7 +3833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1045982792
 Transform:
@@ -3933,7 +3933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1051538416
 Transform:
@@ -4033,7 +4033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1071861123
 Transform:
@@ -4133,7 +4133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1121233382
 Transform:
@@ -4233,7 +4233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1122038959
 Transform:
@@ -4333,7 +4333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1255736442
 Transform:
@@ -4499,7 +4499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &1262978223
 GameObject:
@@ -4728,7 +4728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1375683289
 Transform:
@@ -5056,7 +5056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1436400788
 Transform:
@@ -5234,7 +5234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1459092457
 Transform:
@@ -5334,7 +5334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1463559499
 Transform:
@@ -5434,7 +5434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1466253692
 Transform:
@@ -5767,7 +5767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1513860795
 Transform:
@@ -5852,7 +5852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1528537437
 Transform:
   m_ObjectHideFlags: 0
@@ -5861,7 +5861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528537436}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: -1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1534670162}
@@ -5933,7 +5933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &1534670161
 GameObject:
@@ -6135,12 +6135,6 @@ MonoBehaviour:
   - {fileID: 703674306}
   - {fileID: 1909089773}
   - {fileID: 1528537436}
-  - {fileID: 1375683287}
-  - {fileID: 1071861121}
-  - {fileID: 1764319825}
-  - {fileID: 712001134}
-  - {fileID: 361238860}
-  - {fileID: 569607783}
   floors:
   - {fileID: 120865208}
   - {fileID: 1774218106}
@@ -6151,12 +6145,6 @@ MonoBehaviour:
   - {fileID: 703674309}
   - {fileID: 1909089776}
   - {fileID: 1528537439}
-  - {fileID: 1375683288}
-  - {fileID: 1071861122}
-  - {fileID: 1764319826}
-  - {fileID: 712001135}
-  - {fileID: 361238861}
-  - {fileID: 569607784}
   playerManager: {fileID: 534087304}
   pause: {fileID: 2025697376}
   backButtonTime: 0
@@ -6181,7 +6169,7 @@ MonoBehaviour:
   playerX: 0
   playerY: 0
   floorRow: 3
-  floorCol: 5
+  floorCol: 3
   floorNum: 0
   time: 0
   patternTime: 2
@@ -6191,7 +6179,7 @@ MonoBehaviour:
   errorCount: 0
   patternStart: 0
   nextPattern: 0
-  patternNums: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  patternNums: 010000000000000002000000000000000300000000000000040000000000000000000000
   curPatternNum: 0
   pattern: 0
   startNum: 0
@@ -6203,6 +6191,7 @@ MonoBehaviour:
   talkIndex: 0
   jumpSucess: {fileID: 1468579773}
   jumpSucessText: {fileID: 1468579775}
+  jumpSucessCount: 5
 --- !u!4 &1587567932
 Transform:
   m_ObjectHideFlags: 0
@@ -6536,7 +6525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1699636151
 Transform:
@@ -6674,7 +6663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1713446169
 Transform:
@@ -6774,7 +6763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1715047693
 Transform:
@@ -6973,7 +6962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1751747025
 Transform:
@@ -7073,7 +7062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1764319827
 Transform:
@@ -7239,7 +7228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &1820142436
 GameObject:
@@ -7352,7 +7341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1844577986
 Transform:
@@ -7570,7 +7559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1909089774
 Transform:
   m_ObjectHideFlags: 0
@@ -7579,7 +7568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909089773}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: -1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1534670162}
@@ -7651,7 +7640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!1 &1931814977
 GameObject:
@@ -7685,7 +7674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &1931814979
 Transform:
@@ -7884,7 +7873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!212 &1971919589
 SpriteRenderer:
@@ -8159,7 +8148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &2066934809
 Transform:
@@ -8259,7 +8248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
-  tutorialManager: {fileID: 0}
+  tutorialManager: {fileID: 1587567931}
   damage: 0
 --- !u!4 &2134641898
 Transform:

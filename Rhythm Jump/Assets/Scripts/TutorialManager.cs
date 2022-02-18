@@ -59,7 +59,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject jumpSucess;
     public Text jumpSucessText;
     bool tutorial1; // 첫번째 튜토리얼 시작
-    int jumpSucessCount = 5; // 남은 점프 성공횟수
+    public int jumpSucessCount; // 남은 점프 성공횟수
     bool tutorial2; // 두번째 튜토리얼 시작
 
     void Awake()
@@ -70,6 +70,11 @@ public class TutorialManager : MonoBehaviour
         floorNum = playerX + -1 * playerY * floorCol;
         cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
         playerPosition.transform.position = new Vector3(playerX, playerY + 10);
+
+        for (int i = 0; i < floorRow * floorCol; i++)
+        {
+            floors[i].PatternTime();
+        }
 
         if (floorRow > floorCol)
         {
@@ -141,7 +146,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (patternStart)
+        if (tutorial2)
         {
             // 정해진 시간에 도달
             if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
@@ -171,6 +176,23 @@ public class TutorialManager : MonoBehaviour
 
 ;                   PlayerPrefs.SetInt("Max Stage", 1);
                     ButtonOff();
+
+                    if (errorCount <= 10)
+                    {
+                        PauseGame(4);
+                    }
+                    else if (errorCount <= 50)
+                    {
+                        PauseGame(5);
+                    }
+                    else if (errorCount <= 100)
+                    {
+                        PauseGame(6);
+                    }
+                    else
+                    {
+                        PauseGame(7);
+                    }
                 }
                 else
                 {
@@ -574,14 +596,11 @@ public class TutorialManager : MonoBehaviour
     {
         for (int i = 0; i < floorRow * floorCol; i++)
         {
-            if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
-                && i % floorCol >= startNum && i % floorCol < floorCol - startNum)
-                && (i % floorCol == startNum || i % floorCol == floorCol - 1 - startNum
-                || i < floorCol * (1 + startNum) || (i > floorCol * (floorRow - 1 - startNum))))
+            if ((i / floorCol == 0) || (i / floorCol == floorCol - 1))
             {
                 floorsPosition[i].SetActive(true);
                 floorsPosition[i].transform.position = new Vector3(i % floorCol, -1 * i / floorCol + 10);
-                floors[i].PatternTime();
+                floors[i].FloorStart(i, floorCol);
             }
         }
     }
@@ -686,17 +705,27 @@ public class TutorialManager : MonoBehaviour
                 CountDown3();
                 Invoke("Tutorial1", 3f);
             }
-
-            if (talkID == 2) // 바닥폭발 샘플
+            else if (talkID == 2) // 튜토리얼1 종료, 바닥폭발 샘플
             {
-                ButtonOff();
-                floorPattern(6);
-                Invoke("Explosion", 4f);
+                if (floorNum == 4)
+                {
+                    floorPattern(3);
+                }
+                else
+                {
+                    floorPattern(4);
+                }
+                Invoke("Explosion_End", 4f);
             }
-
-            if (talkID == 3) // 튜토리얼2 시작
+            else if (talkID == 3) // 튜토리얼2 시작
             {
+                TutorialStart();
                 CountDown3();
+                Invoke("Tutorial2", 3f);
+            }
+            else // 튜토리얼2 종료
+            {
+                SceneManager.LoadScene("Main Scene");
             }
 
             return;
@@ -715,11 +744,12 @@ public class TutorialManager : MonoBehaviour
 
     void Tutorial1_End()
     {
+        ButtonOff();
         jumpSucess.SetActive(false);
         PauseGame(2);
     }
 
-    void Explosion()
+    void Explosion_End()
     {
         PauseGame(3);
     }
@@ -727,6 +757,7 @@ public class TutorialManager : MonoBehaviour
     void Tutorial2()
     {
         tutorial2 = true;
+        nextPattern = true;
     }
 
 
