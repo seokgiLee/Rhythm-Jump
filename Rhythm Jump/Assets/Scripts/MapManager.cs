@@ -13,6 +13,8 @@ public class MapManager : MonoBehaviour
     public GameObject[] floorsPosition;
     public FloorManager[] floors;
     public PlayerManager playerManager;
+    public GameObject cameraBorderPosition;
+    public BoxCollider2D cameraBorder;
 
     public GameObject pause;
     public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
@@ -63,6 +65,8 @@ public class MapManager : MonoBehaviour
         patternTime = stageData.stageDatas[0].patternTime;
         patternAccuracy = stageData.stageDatas[0].patternAccuracy;
         patternNums = stageData.stageDatas[0].patternNums;
+        cameraBorderPosition.transform.position = new Vector3((float)(floorCol) / 2 - 0.5f, -1 * ((float)(floorRow) / 2 - 0.5f), 0);
+        cameraBorder.size = new Vector2(floorCol + 2, floorRow + 2);
 
         errorText.text = errorCount.ToString();
         playerX = (floorCol - 1) / 2;
