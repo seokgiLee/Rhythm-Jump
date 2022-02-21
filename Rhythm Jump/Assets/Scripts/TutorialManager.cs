@@ -742,7 +742,7 @@ public class TutorialManager : MonoBehaviour
             }
             else // 튜토리얼2 종료
             {
-                SceneManager.LoadScene("Main Scene");
+                LoadingCanvasManager.Instance.ChangeScene("Main Scene");
             }
 
             return;

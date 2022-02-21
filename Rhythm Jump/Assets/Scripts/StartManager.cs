@@ -19,11 +19,11 @@ public class StartManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("Max Stage"))
         {
-            SceneManager.LoadScene("Main Scene");
+            LoadingCanvasManager.Instance.ChangeScene("Main Scene");
         }
         else
         {
-            SceneManager.LoadScene("Tutorial Scene");
+            LoadingCanvasManager.Instance.ChangeScene("Tutorial Scene");
         }
     }
 }

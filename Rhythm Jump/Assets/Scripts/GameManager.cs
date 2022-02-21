@@ -659,7 +659,7 @@ public class GameManager : MonoBehaviour
         if (floorNum < maxStage)
         {
             stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
-            SceneManager.LoadScene("Stage Scene");
+            LoadingCanvasManager.Instance.ChangeScene("Stage Scene");
         }
         else
         {

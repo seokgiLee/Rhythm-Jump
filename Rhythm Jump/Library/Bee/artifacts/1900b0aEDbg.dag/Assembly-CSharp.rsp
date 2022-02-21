@@ -348,6 +348,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/VSSettingsProvider.ref.dll"
 "Assets/Scripts/FloorManager.cs"
 "Assets/Scripts/GameManager.cs"
+"Assets/Scripts/LoadingCanvasManager.cs"
 "Assets/Scripts/MapManager.cs"
 "Assets/Scripts/PlayerManager.cs"
 "Assets/Scripts/StageData.cs"

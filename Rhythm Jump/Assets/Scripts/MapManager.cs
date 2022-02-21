@@ -645,7 +645,7 @@ public class MapManager : MonoBehaviour
 
     public void StageEnd()
     {
-        SceneManager.LoadScene("Main Scene");
+        LoadingCanvasManager.Instance.ChangeScene("Main Scene");
     }
 
     public void PauseButton() // 일시정지 버튼
