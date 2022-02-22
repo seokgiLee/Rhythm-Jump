@@ -956,6 +956,7 @@ GameObject:
   - component: {fileID: 166686676}
   - component: {fileID: 166686675}
   - component: {fileID: 166686674}
+  - component: {fileID: 166686677}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1018,7 +1019,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -3919779002189068522, guid: e4c5fcafdbde7e0488bfb643a50fb897, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1038,12 +1039,31 @@ Transform:
   m_GameObject: {fileID: 166686673}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 1609885856}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &166686677
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166686673}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a77d461be5c9614682470e3195de1da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &169946667
 GameObject:
   m_ObjectHideFlags: 0
@@ -12091,6 +12111,7 @@ GameObject:
   - component: {fileID: 1397792759}
   - component: {fileID: 1397792758}
   - component: {fileID: 1397792757}
+  - component: {fileID: 1397792760}
   m_Layer: 0
   m_Name: Cinemachine
   m_TagString: Untagged
@@ -12137,14 +12158,14 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 1
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.4734338, y: 1}
+    m_SensorSize: {x: 0.47406226, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -12168,6 +12189,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1397792760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397792756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdee3e1533f3eec40b9113e1e293121a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  vCam: {fileID: 0}
 --- !u!1 &1419670371
 GameObject:
   m_ObjectHideFlags: 0
@@ -17489,6 +17524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4d1d5e4be8f814b9b2f19406ab6593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraManager: {fileID: 1397792760}
   stageData: {fileID: 0}
   cameraPosition: {fileID: 1397792756}
   playerPosition: {fileID: 166686673}
@@ -17612,7 +17648,7 @@ MonoBehaviour:
   - {fileID: 2001412926}
   - {fileID: 851967314}
   - {fileID: 169946671}
-  ButtonAnimators:
+  buttonAnimations:
   - {fileID: 1131182551}
   - {fileID: 1916875842}
   - {fileID: 661711132}
@@ -19444,7 +19480,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -19468,7 +19504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038326250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8671994, y: 0.49996042, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

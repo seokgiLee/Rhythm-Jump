@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+    public CamaerManager cameraManager;
+
     public GameObject cameraPosition;
     public GameObject playerPosition;
     public GameObject[] floorsPosition;
@@ -20,7 +22,7 @@ public class TutorialManager : MonoBehaviour
     public Button[] buttons;
     public Animator[] countDowns;
 
-    public Animator[] buttonAnimators;
+    public Animator[] buttonAnimations;
     public Animator moveButtonsAnimator;
     public Animator pauseButtonAnimator;
 
@@ -66,6 +68,8 @@ public class TutorialManager : MonoBehaviour
 
     void Awake()
     {
+        cameraManager.Zoom(5);
+
         errorText.text = errorCount.ToString();
         playerX = (floorCol - 1) / 2;
         playerY = -1 * (floorRow - 1) / 2;
@@ -174,6 +178,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     // 맵 종료
                     pattern = 0;
+                    tutorial2 = false;
                     patternStart = false;
 
 ;                   PlayerPrefs.SetInt("Max Stage", 1);
@@ -491,20 +496,20 @@ public class TutorialManager : MonoBehaviour
                     if (floorNum - floorCol < 0)
                     {
                         Debug.Log("방향 틀림");
-                        playerPosition.transform.DOMoveY(playerY + 0.4f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOMoveY(playerY + 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
                     {
                         playerY += 1;
                         floorNum -= floorCol;
-                        playerPosition.transform.DOMoveY(playerY - 0.25f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY - 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         jumpSucessCount--;
                         jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
@@ -513,20 +518,20 @@ public class TutorialManager : MonoBehaviour
                     if (floorNum + floorCol >= floorRow * floorCol)
                     {
                         Debug.Log("방향 틀림");
-                        playerPosition.transform.DOMoveY(playerY - 0.4f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOMoveY(playerY - 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
                     {
                         playerY -= 1;
                         floorNum += floorCol;
-                        playerPosition.transform.DOMoveY(playerY + 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         jumpSucessCount--;
                         jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
@@ -594,7 +599,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    void TutorialStart() // 튜토리얼 게임시작
+    void FloorAppear() // 튜토리얼 게임시작
     {
         for (int i = 0; i < floorRow * floorCol; i++)
         {
@@ -610,6 +615,11 @@ public class TutorialManager : MonoBehaviour
     void PlayerAppear()
     {
         playerManager.PlayerPosition(playerX, playerY);
+        Invoke("TutorialStart", 0.8f);
+    }
+
+    void TutorialStart()
+    {
         PauseGame(1);
     }
 
@@ -647,8 +657,6 @@ public class TutorialManager : MonoBehaviour
     {
         Debug.Log("시작");
         playerManager.PlayerStart(false);
-        //patternStart = true;
-        //nextPattern = true;
         time = 0;
 
         ButtonOn();
@@ -663,9 +671,9 @@ public class TutorialManager : MonoBehaviour
 
         if (animationHint)
         {
-            for (int i = 0; i < buttonAnimators.Length; i++)
+            for (int i = 0; i < buttonAnimations.Length; i++)
             {
-                buttonAnimators[i].SetTrigger("isStart");
+                buttonAnimations[i].SetTrigger("isStart");
             }
         }
     }
@@ -677,9 +685,9 @@ public class TutorialManager : MonoBehaviour
             buttons[i].interactable = false;
         }
 
-        for (int i = 0; i < buttonAnimators.Length; i++)
+        for (int i = 0; i < buttonAnimations.Length; i++)
         {
-            buttonAnimators[i].SetTrigger("isStop");
+            buttonAnimations[i].SetTrigger("isStop");
         }
     }
 
@@ -736,12 +744,13 @@ public class TutorialManager : MonoBehaviour
             }
             else if (talkID == 3) // 튜토리얼2 시작
             {
-                TutorialStart();
+                FloorAppear();
                 CountDown3();
                 Invoke("Tutorial2", 3f);
             }
             else // 튜토리얼2 종료
             {
+                cameraManager.Zoom(0);
                 LoadingCanvasManager.Instance.ChangeScene("Main Scene");
             }
 
@@ -777,12 +786,6 @@ public class TutorialManager : MonoBehaviour
         nextPattern = true;
     }
 
-
-    public void StageEnd()
-    {
-        SceneManager.LoadScene("Main Scene");
-    }
-
     public void PauseButton() // 일시정지 버튼
     {
         Time.timeScale = 0;
@@ -797,6 +800,7 @@ public class TutorialManager : MonoBehaviour
 
     public void ExitButton() // 나가기 버튼
     {
-        SceneManager.LoadScene("Main Scene");
+        cameraManager.Zoom(0);
+        LoadingCanvasManager.Instance.ChangeScene("Main Scene");
     }
 }

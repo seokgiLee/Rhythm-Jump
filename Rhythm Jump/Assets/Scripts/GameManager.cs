@@ -9,6 +9,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public CamaerManager cameraManager;
+
     public StageDataManager stageData;
     public GameObject cameraPosition;
     public GameObject playerPosition;
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     public Button[] buttons;
     public Animator[] countDowns;
-    public Animator[] ButtonAnimators;
+    public Animator[] buttonAnimations;
     public Animator speachAnimator;
     public TextMeshPro[] speachTexts; // 스테이지 정보 텍스트
 
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        cameraManager.Zoom(5);
         Time.timeScale = 1;
         stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
         maxStage = PlayerPrefs.GetInt("Max Stage");
@@ -197,9 +200,9 @@ public class GameManager : MonoBehaviour
                         buttons[i].interactable = false;
                     }
 
-                    for (int i = 0; i < ButtonAnimators.Length; i++)
+                    for (int i = 0; i < buttonAnimations.Length; i++)
                     {
-                        ButtonAnimators[i].SetTrigger("isStart");
+                        buttonAnimations[i].SetTrigger("isStart");
                     }
                 }
                 else
@@ -499,9 +502,9 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("방향 틀림");
                         playerPosition.transform.DOMoveY(playerY + 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                         Invoke("SpeachBubbleOn", 0.5f / (2 / patternTime));
                     }
@@ -510,9 +513,9 @@ public class GameManager : MonoBehaviour
                         playerY += 2;
                         floorNum -= floorCol;
                         playerPosition.transform.DOMoveY(playerY - 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                     }
                     break;
@@ -521,9 +524,9 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("방향 틀림");
                         playerPosition.transform.DOMoveY(playerY - 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                         Invoke("SpeachBubbleOn", 0.5f / (2 / patternTime));
                     }
@@ -532,9 +535,9 @@ public class GameManager : MonoBehaviour
                         playerY -= 2;
                         floorNum += floorCol;
                         playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         Invoke("SpeachBubbleOn", 1f / (2 / patternTime));
                     }
                     break;
@@ -658,6 +661,7 @@ public class GameManager : MonoBehaviour
     {
         if (floorNum < maxStage)
         {
+            cameraManager.Zoom(0);
             stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
             LoadingCanvasManager.Instance.ChangeScene("Stage Scene");
         }
@@ -723,9 +727,9 @@ public class GameManager : MonoBehaviour
         {
             buttons[i].interactable = true;
         }
-        for (int i = 0; i < ButtonAnimators.Length; i++)
+        for (int i = 0; i < buttonAnimations.Length; i++)
         {
-            ButtonAnimators[i].SetTrigger("isStart");
+            buttonAnimations[i].SetTrigger("isStart");
         }
     }
 

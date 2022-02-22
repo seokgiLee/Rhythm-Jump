@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
+    public CamaerManager cameraManager;
+
     public StageDataManager stageData;
     public GameObject cameraPosition;
     public GameObject playerPosition;
@@ -22,8 +24,10 @@ public class MapManager : MonoBehaviour
 
     public Button[] buttons;
     public Animator[] countDowns;
-
-    public Animator[] ButtonAnimators;
+    public Animator[] buttonAnimations;
+    public Animator endAnimation;
+    public Text endText;
+    public Text endScoreText;
 
     public bool start; // 맵, 플레이어 등장
 
@@ -176,10 +180,12 @@ public class MapManager : MonoBehaviour
                     // 맵 종료
                     pattern = 0;
                     patternStart = false;
+                    endAnimation.SetTrigger("isDown");
 
                     if(cutLine < errorCount) // 실패
                     {
-                        
+                        endText.text = "실 패";
+                        endScoreText.text = "실패 : " + "<color=#FA6464>" + errorCount.ToString() + "</color>" + " / " + cutLine.ToString();
                     }
                     else // 클리어
                     {
@@ -189,6 +195,9 @@ public class MapManager : MonoBehaviour
                         {
                             PlayerPrefs.SetInt("Max Stage", stageNum);
                         }
+
+                        endText.text = "성 공";
+                        endScoreText.text = "실패 : " + errorCount.ToString() + " / " + cutLine.ToString();
                     }
 
                     for (int i = 0; i < buttons.Length; i++)
@@ -196,9 +205,9 @@ public class MapManager : MonoBehaviour
                         buttons[i].interactable = false;
                     }
 
-                    for (int i = 0; i < ButtonAnimators.Length; i++)
+                    for (int i = 0; i < buttonAnimations.Length; i++)
                     {
-                        ButtonAnimators[i].SetTrigger("isStart");
+                        buttonAnimations[i].SetTrigger("isEnd");
                     }
                 }
                 else
@@ -496,40 +505,40 @@ public class MapManager : MonoBehaviour
                     if (floorNum - floorCol < 0)
                     {
                         Debug.Log("방향 틀림");
-                        playerPosition.transform.DOMoveY(playerY + 0.4f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOMoveY(playerY + 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
                     {
                         playerY += 1;
                         floorNum -= floorCol;
-                        playerPosition.transform.DOMoveY(playerY - 0.25f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY - 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 1:
                     if (floorNum + floorCol >= floorRow * floorCol)
                     {
                         Debug.Log("방향 틀림");
-                        playerPosition.transform.DOMoveY(playerY - 0.4f, 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(4f, 4f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOMoveY(playerY, 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.125f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.125f / (2 / patternTime));
+                        playerPosition.transform.DOMoveY(playerY - 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
                     {
                         playerY -= 1;
                         floorNum += floorCol;
-                        playerPosition.transform.DOMoveY(playerY + 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(5f, 5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(3f, 3f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                     }
                     break;
                 case 2:
@@ -593,6 +602,7 @@ public class MapManager : MonoBehaviour
 
     void MapStart()
     {
+        cameraManager.Zoom(5);
         start = true;
         time = 0;
     }
@@ -636,15 +646,17 @@ public class MapManager : MonoBehaviour
 
         if (animationHint)
         {
-            for (int i = 0; i < ButtonAnimators.Length; i++)
+            for (int i = 0; i < buttonAnimations.Length; i++)
             {
-                ButtonAnimators[i].SetTrigger("isStart");
+                buttonAnimations[i].SetTrigger("isStart");
             }
         }
     }
 
     public void StageEnd()
     {
+        endAnimation.SetTrigger("isUp");
+        cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");
     }
 
@@ -662,6 +674,8 @@ public class MapManager : MonoBehaviour
 
     public void ExitButton() // 나가기 버튼
     {
-        SceneManager.LoadScene("Main Scene");
+        ContinueButton();
+        cameraManager.Zoom(0);
+        LoadingCanvasManager.Instance.ChangeScene("Main Scene");
     }
 }
