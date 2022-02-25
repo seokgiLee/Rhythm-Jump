@@ -12,6 +12,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject playerPosition;
     public GameObject[] floorsPosition;
     public FloorManager[] floors;
+    public Animator[] explosion;
     public PlayerManager playerManager;
 
     public GameObject pause;
@@ -595,6 +596,7 @@ public class TutorialManager : MonoBehaviour
             Debug.Log("검은 발판");
             ErrorCount();
             floors[floorNum].damage = false;
+            explosion[floorNum].SetTrigger("isExplosion");
         }
     }
 

@@ -13,6 +13,7 @@ public class MapManager : MonoBehaviour
     public GameObject playerPosition;
     public GameObject[] floorsPosition;
     public FloorManager[] floors;
+    public Animator[] explosion;
     public PlayerManager playerManager;
     public GameObject cameraBorderPosition;
     public BoxCollider2D cameraBorder;
@@ -596,6 +597,7 @@ public class MapManager : MonoBehaviour
             Debug.Log("검은 발판");
             ErrorCount();
             floors[floorNum].damage = false;
+            explosion[floorNum].SetTrigger("isExplosion");
         }
     }
 

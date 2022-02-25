@@ -27,6 +27,7 @@ public class FloorManager : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(i % floorCol, -1 * i / floorCol), Time.deltaTime * 50);
             Invoke("FloorStay", 1f);
         }
+        Debug.Log(transform.position.z);
     }
 
     public void FloorStart(int n, int col)
