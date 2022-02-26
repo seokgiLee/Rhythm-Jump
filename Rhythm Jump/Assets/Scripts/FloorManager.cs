@@ -12,33 +12,14 @@ public class FloorManager : MonoBehaviour
     public bool damage;
     float patternTime;
 
-    int i = -1;
-    int floorCol;
-
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    public void FloorStart(int i, int floorCol)
     {
-        if (i >= 0)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(i % floorCol, -1 * i / floorCol), Time.deltaTime * 50);
-            Invoke("FloorStay", 1f);
-        }
-        Debug.Log(transform.position.z);
-    }
-
-    public void FloorStart(int n, int col)
-    {
-        i = n;
-        floorCol = col;
-    }
-
-    void FloorStay()
-    {
-        i = -1;
+        transform.DOMove(new Vector3(i % floorCol, -1 * i / floorCol), 0.5f).SetEase(Ease.Linear);
     }
 
     public void PatternTime()
@@ -64,13 +45,13 @@ public class FloorManager : MonoBehaviour
     }
     void floorPatternDamage() // 데미지를 받는 패턴
     {
-        spriteRenderer.DOColor(new Color(0, 0, 0), patternTime / 2);
+        spriteRenderer.DOColor(new Color(0.3f, 0.3f, 0.3f), patternTime / 2);
         damage = true;
         Invoke("floorPatternEnd", patternTime);
     }
     void floorPatternEnd() // 패턴 끝
     {
-        spriteRenderer.DOColor(new Color(1, 1, 1), patternTime / 2);
+        spriteRenderer.DOColor(new Color(1, 1, 1), patternTime / 4);
         damage = false;
     }
 }

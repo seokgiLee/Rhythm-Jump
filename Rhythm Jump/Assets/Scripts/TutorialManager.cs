@@ -497,9 +497,9 @@ public class TutorialManager : MonoBehaviour
                     {
                         Debug.Log("방향 틀림");
                         playerPosition.transform.DOMoveY(playerY + 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(0.7f, 0.7f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.5f, 0.5f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
@@ -507,9 +507,9 @@ public class TutorialManager : MonoBehaviour
                         playerY += 1;
                         floorNum -= floorCol;
                         playerPosition.transform.DOMoveY(playerY - 0.5f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.5f, 0.5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         jumpSucessCount--;
                         jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
@@ -519,9 +519,9 @@ public class TutorialManager : MonoBehaviour
                     {
                         Debug.Log("방향 틀림");
                         playerPosition.transform.DOMoveY(playerY - 0.4f, 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(1f, 1f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(0.7f, 0.7f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.5f, 0.5f, 0), 0.25f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.25f / (2 / patternTime));
                         ErrorCount();
                     }
                     else
@@ -529,9 +529,9 @@ public class TutorialManager : MonoBehaviour
                         playerY -= 1;
                         floorNum += floorCol;
                         playerPosition.transform.DOMoveY(playerY + 1f, 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
-                        playerPosition.transform.DOScale(new Vector3(1.2f, 1.2f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
+                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.OutCubic);
                         playerPosition.transform.DOMoveY(playerY, 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
-                        playerPosition.transform.DOScale(new Vector3(0.8f, 0.8f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
+                        playerPosition.transform.DOScale(new Vector3(0.5f, 0.5f, 0), 0.5f / (2 / patternTime)).SetEase(Ease.InCubic).SetDelay(0.5f / (2 / patternTime));
                         jumpSucessCount--;
                         jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
                     }
@@ -622,12 +622,6 @@ public class TutorialManager : MonoBehaviour
     void TutorialStart()
     {
         PauseGame(1);
-    }
-
-    void MapStart()
-    {
-        start = true;
-        time = 0;
     }
 
     public void ErrorCount() // 틀린 횟수
