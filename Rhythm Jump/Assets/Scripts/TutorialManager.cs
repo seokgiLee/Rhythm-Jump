@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+    SFXManager sfxManager;
+    BGMManager bgmManager;
     public CamaerManager cameraManager;
 
     public GameObject cameraPosition;
@@ -68,8 +70,11 @@ public class TutorialManager : MonoBehaviour
 
     void Awake()
     {
-        cameraManager.Zoom(5);
+        sfxManager.PlaySound(7);
+        sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
+        bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
 
+        cameraManager.Zoom(5);
         errorText.text = errorCount.ToString();
         playerX = (floorCol - 1) / 2;
         playerY = -1 * (floorRow - 1) / 2;
@@ -96,6 +101,7 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        // 스마트폰 뒤로가기버튼
         if (!backButton)
         {
             backButtonTime += Time.deltaTime;
@@ -126,6 +132,15 @@ public class TutorialManager : MonoBehaviour
 
         if (tutorial1) // 튜토리얼1 시작
         {
+            if (time == 0.5f || time == 1f || time == 1.5f)
+            {
+                sfxManager.PlaySound(2);
+            }
+            if (time == 2f)
+            {
+                sfxManager.PlaySound(9);
+            }
+
             if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
                 Debug.Log("버튼 활성화");
@@ -147,6 +162,7 @@ public class TutorialManager : MonoBehaviour
 
             if (jumpSucessCount < 1) // 튜토리얼1 종료
             {
+                sfxManager.PlaySound(5);
                 tutorial1 = false;
                 Invoke("Tutorial1_End", 1f / (2 / patternTime));
             }
@@ -154,6 +170,15 @@ public class TutorialManager : MonoBehaviour
 
         if (tutorial2)
         {
+            if (time == 0.5f || time == 1f || time == 1.5f)
+            {
+                sfxManager.PlaySound(2);
+            }
+            if (time == 2f)
+            {
+                sfxManager.PlaySound(9);
+            }
+
             // 정해진 시간에 도달
             if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
@@ -184,6 +209,7 @@ public class TutorialManager : MonoBehaviour
 ;                   PlayerPrefs.SetInt("Max Stage", 1);
                     ButtonOff();
 
+                    sfxManager.PlaySound(5);
                     if (errorCount <= 10)
                     {
                         PauseGame(4);
@@ -488,6 +514,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (buttonOn) // 버튼을 누르는 타이밍
         {
+            sfxManager.PlaySound(1);
             buttonOn = false;
             buttonClick = true;
             switch (n)
@@ -597,6 +624,7 @@ public class TutorialManager : MonoBehaviour
             ErrorCount();
             floors[floorNum].damage = false;
             explosion[floorNum].SetTrigger("isExplosion");
+            sfxManager.PlaySound(3);
         }
     }
 
@@ -688,6 +716,7 @@ public class TutorialManager : MonoBehaviour
 
     void PauseGame(int i) // 대화창 표시
     {
+        sfxManager.PlaySound(10);
         talkPanel.SetActive(true);
         talkIndex = 0;
 
@@ -697,19 +726,20 @@ public class TutorialManager : MonoBehaviour
 
     public void Talk() // 대화창 확인버튼
     {
+        sfxManager.PlaySound(0);
         string talkData = talkManager.GetTalk(talkID, talkIndex);
 
-        if(talkID == 1)
+        if (talkID == 1)
         {
             if (talkIndex == 3)
             {
                 moveButtonsAnimator.SetTrigger("isMove");
             }
-            else if(talkIndex == 4)
+            else if (talkIndex == 4)
             {
                 moveButtonsAnimator.SetTrigger("isStop");
             }
-            else if(talkIndex==8)
+            else if (talkIndex == 8)
             {
                 pauseButtonAnimator.SetTrigger("isMove");
             }
@@ -745,6 +775,7 @@ public class TutorialManager : MonoBehaviour
             }
             else // 튜토리얼2 종료
             {
+                sfxManager.PlaySound(8);
                 cameraManager.Zoom(0);
                 LoadingCanvasManager.Instance.ChangeScene("Main Scene");
             }
@@ -783,18 +814,22 @@ public class TutorialManager : MonoBehaviour
 
     public void PauseButton() // 일시정지 버튼
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 0;
         pause.SetActive(true);
     }
 
     public void ContinueButton() // 계속하기 버튼
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 1;
         pause.SetActive(false);
     }
 
     public void ExitButton() // 나가기 버튼
     {
+        sfxManager.PlaySound(8);
+        ContinueButton();
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");
     }

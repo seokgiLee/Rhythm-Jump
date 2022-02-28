@@ -8,6 +8,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    SFXManager sfxManager;
+    BGMManager bgmManager;
     public CamaerManager cameraManager;
 
     public StageDataManager stageData;
@@ -31,6 +33,9 @@ public class GameManager : MonoBehaviour
     public Animator[] buttonAnimations;
     public Animator speachAnimator;
     public TextMeshPro[] speachTexts; // 스테이지 정보 텍스트
+    public Animator endAnimation;
+    public Text endText;
+    public Text endScoreText;
 
     public bool start; // 맵, 플레이어 등장
 
@@ -54,6 +59,8 @@ public class GameManager : MonoBehaviour
 
     public Text errorText;
     public int errorCount; // 틀린 횟수
+    public int cutLine; // 클리어 커트라인
+    public int stageNum; // 현재 스테이지 번호
 
     public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
@@ -65,6 +72,10 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        sfxManager.PlaySound(7);
+        sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
+        bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+
         cameraManager.Zoom(5);
         Time.timeScale = 1;
         stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
@@ -147,6 +158,11 @@ public class GameManager : MonoBehaviour
 
         if(playerMove)
         {
+            if (time == 0.5f || time == 1f || time == 1.5f || time == 2f)
+            {
+                sfxManager.PlaySound(2);
+            }
+
             if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
                 Debug.Log("버튼 활성화");
@@ -194,15 +210,26 @@ public class GameManager : MonoBehaviour
                     // 맵 종료
                     pattern = 0;
                     patternStart = false;
+                    endAnimation.SetTrigger("isDown");
 
-                    for (int i = 0; i < buttons.Length; i++)
+                    if (cutLine < errorCount) // 실패
                     {
-                        buttons[i].interactable = false;
+                        sfxManager.PlaySound(6);
+                        endText.text = "실 패";
+                        endScoreText.text = "실패 : " + "<color=#FA6464>" + errorCount.ToString() + "</color>" + " / " + cutLine.ToString();
                     }
-
-                    for (int i = 0; i < buttonAnimations.Length; i++)
+                    else // 클리어
                     {
-                        buttonAnimations[i].SetTrigger("isStart");
+                        int maxStage = PlayerPrefs.GetInt("Max Stage");
+
+                        sfxManager.PlaySound(5);
+                        if (maxStage == stageNum)
+                        {
+                            PlayerPrefs.SetInt("Max Stage", stageNum);
+                        }
+
+                        endText.text = "성 공";
+                        endScoreText.text = "실패 : " + errorCount.ToString() + " / " + cutLine.ToString();
                     }
                 }
                 else
@@ -492,6 +519,7 @@ public class GameManager : MonoBehaviour
     {
         if (buttonOn) // 버튼을 누르는 타이밍
         {
+            sfxManager.PlaySound(1);
             buttonOn = false;
             buttonClick = true;
             SpeachBubbleOff();
@@ -655,6 +683,7 @@ public class GameManager : MonoBehaviour
             ErrorCount();
             floors[floorNum].damage = false;
             explosion[floorNum].SetTrigger("isExplosion");
+            sfxManager.PlaySound(3);
         }
     }
 
@@ -662,6 +691,7 @@ public class GameManager : MonoBehaviour
     {
         if (floorNum < maxStage)
         {
+            sfxManager.PlaySound(8);
             cameraManager.Zoom(0);
             stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
             LoadingCanvasManager.Instance.ChangeScene("Stage Scene");
@@ -669,6 +699,7 @@ public class GameManager : MonoBehaviour
         else
         {
             // 경고음
+            sfxManager.PlaySound(3);
         }
     }
 
@@ -736,6 +767,7 @@ public class GameManager : MonoBehaviour
 
     public void OptionButton() // 옵션 버튼
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 0;
         option.SetActive(true);
     }
@@ -774,24 +806,28 @@ public class GameManager : MonoBehaviour
 
     public void OptionCloseButton() // 옵션 닫기
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 1;
         option.SetActive(false);
     }
 
     public void PauseButton() // 일시정지 버튼
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 0;
         pause.SetActive(true);
     }
 
     public void ContinueButton() // 계속하기 버튼
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 1;
         pause.SetActive(false);
     }
 
     public void ExitButton() // 나가기 버튼
     {
+        sfxManager.PlaySound(0);
         Application.Quit();
     }
 }

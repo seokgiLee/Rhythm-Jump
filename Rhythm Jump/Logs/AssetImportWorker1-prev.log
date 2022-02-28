@@ -1,0 +1,357 @@
+Using pre-set license
+Built from '2021.1/staging' branch; Version is '2021.1.6f1 (c0fade0cc7e9) revision 12647134'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Education; OS build 19042.1526; Version 2009; 64bit' Language: 'ko' Physical Memory: 16310 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\2021.1.6f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker1
+-projectPath
+C:/Unity/Rhythm-Jump/Rhythm Jump
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+13008
+Successfully changed project path to: C:/Unity/Rhythm-Jump/Rhythm Jump
+C:/Unity/Rhythm-Jump/Rhythm Jump
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 114.55 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.1.6f1 (c0fade0cc7e9)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/2021.1.6f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Unity/Rhythm-Jump/Rhythm Jump/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1080 (ID=0x1b80)
+    Vendor:   NVIDIA
+    VRAM:     8079 MB
+    Driver:   30.0.15.1179
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/2021.1.6f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/2021.1.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/2021.1.6f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56688
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/2021.1.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.003991 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 116.38 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.941 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.009935 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 114.25 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.665 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Refreshing native plugins compatible for Editor in 0.77 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3605 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.4 MB.
+System memory in use after: 140.9 MB.
+
+Unloading 44 unused Assets to reduce memory usage. Loaded Objects now: 4049.
+Total: 3.024700 ms (FindLiveObjects: 0.321400 ms CreateObjectMapping: 0.096500 ms MarkObjects: 2.287200 ms  DeleteObjects: 0.318200 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Sound
+  artifactKey: Guid(cce97f1558403a8408832db61ac83fee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound using Guid(cce97f1558403a8408832db61ac83fee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a57e7f32ca7a0174442bd88c5eaf053d') in 0.013028 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000328 seconds.
+  path: Assets/Sound/SFX
+  artifactKey: Guid(9fba9825d82e5974788bff2610c739e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX using Guid(9fba9825d82e5974788bff2610c739e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '569c9e9fdd89e1f436fe18dfebe23582') in 0.007646 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5579.367949 seconds.
+  path: Assets/Sound/SFX/Boing sound 4.wav
+  artifactKey: Guid(851c3bd873622ae4b9895fca234c78ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Boing sound 4.wav using Guid(851c3bd873622ae4b9895fca234c78ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '721bbd95f565130542f3cd047e210437') in 0.198879 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 155.491068 seconds.
+  path: Assets/Sound/SFX/Click sound 18.wav
+  artifactKey: Guid(e65121f1a390244429e5a44e44cc3ffd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Click sound 18.wav using Guid(e65121f1a390244429e5a44e44cc3ffd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99be7feabe1c1948517ad01d56cbe3e5') in 0.020614 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.296698 seconds.
+  path: Assets/Sound/SFX/Error Sound 9.wav
+  artifactKey: Guid(dfeccc46e0d34d64fba89e9c73a64587) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Error Sound 9.wav using Guid(dfeccc46e0d34d64fba89e9c73a64587) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5ac96ed500439247d207173d6c43a00') in 0.018615 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 97.991055 seconds.
+  path: Assets/Sound/SFX/Pop sound 5.wav
+  artifactKey: Guid(297c5fdd196a6224cafc173b45ae5c23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Pop sound 5.wav using Guid(297c5fdd196a6224cafc173b45ae5c23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b75c73085f23f245131463305fe23fbf') in 0.018239 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 763.504793 seconds.
+  path: Assets/Sound/SFX/drum stick 01.mp3
+  artifactKey: Guid(2ca3340cf4120f344989a7bd3dcccec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick 01.mp3 using Guid(2ca3340cf4120f344989a7bd3dcccec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e1ea7a7b20be44264a0a49b889df43b') in 0.034738 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 9.855407 seconds.
+  path: Assets/Sound/SFX/drum stick hit garage raw.mp3
+  artifactKey: Guid(c8c23196958d4d742864a86e4fa173c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick hit garage raw.mp3 using Guid(c8c23196958d4d742864a86e4fa173c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb2276b6c77d9bb0c3526e95310b082a') in 0.016390 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 19.671857 seconds.
+  path: Assets/Sound/SFX/drum stick
+  artifactKey: Guid(545ee7de752ca0f4397254e33b29fd8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick using Guid(545ee7de752ca0f4397254e33b29fd8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b942293c459d703a6bc00d50429303f') in 0.009357 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.625169 seconds.
+  path: Assets/Sound/SFX/drum stick/44 beat kick snare dry 120bpm stick 03.mp3
+  artifactKey: Guid(7bfc948ba212f2b44a9c3e5b3a259325) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/44 beat kick snare dry 120bpm stick 03.mp3 using Guid(7bfc948ba212f2b44a9c3e5b3a259325) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34f1175ef03e037ef52a385ba79f6e5d') in 0.015777 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.641653 seconds.
+  path: Assets/Sound/SFX/drum stick/credit.txt
+  artifactKey: Guid(2cd62dd4b0c2b394e95676e24ea7313f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/credit.txt using Guid(2cd62dd4b0c2b394e95676e24ea7313f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9efb60db3b3336e911b85235efd40365') in 0.018490 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.347559 seconds.
+  path: Assets/Sound/SFX/drum stick/acoustic side stick.mp3
+  artifactKey: Guid(2824f43784d740645808702af6c32a3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/acoustic side stick.mp3 using Guid(2824f43784d740645808702af6c32a3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6bd5b64dea14682e9bad1945eebdc322') in 0.013070 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.541564 seconds.
+  path: Assets/Sound/SFX/drum stick/deep rim flam.mp3
+  artifactKey: Guid(92688e145b80bb8499f5ee697f816ecf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/deep rim flam.mp3 using Guid(92688e145b80bb8499f5ee697f816ecf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4837426a2fb13a95bdff01d3c0e520c0') in 0.015539 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.438755 seconds.
+  path: Assets/Sound/SFX/drum stick/drum stick hit garage raw.mp3
+  artifactKey: Guid(091aa804b60de6b4fa20e83803e94408) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/drum stick hit garage raw.mp3 using Guid(091aa804b60de6b4fa20e83803e94408) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12199d4fe05efadd3fea977f4d7e3020') in 0.011180 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.301793 seconds.
+  path: Assets/Sound/SFX/drum stick/drum stick 01.mp3
+  artifactKey: Guid(fcb29f2edafe7954ebf68557026011f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/drum stick 01.mp3 using Guid(fcb29f2edafe7954ebf68557026011f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e9a1592a41bcd9f0198156314489d98') in 0.011121 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.930176 seconds.
+  path: Assets/Sound/SFX/drum stick/drum stick on cd.mp3
+  artifactKey: Guid(3bbbc4bb9b767c546a77469fa657b607) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/drum stick on cd.mp3 using Guid(3bbbc4bb9b767c546a77469fa657b607) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb7bf5ef43c7043a0efa2f8d918dff6c') in 0.015995 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.846938 seconds.
+  path: Assets/Sound/SFX/drum stick/drum sticks unprocessed 2.mp3
+  artifactKey: Guid(406c2696dce5be64b86634ee6b49f460) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/drum sticks unprocessed 2.mp3 using Guid(406c2696dce5be64b86634ee6b49f460) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e8b5e4fff7041f015c01442ede50df8') in 0.014967 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.091070 seconds.
+  path: Assets/Sound/SFX/drum stick/drum sticks.mp3
+  artifactKey: Guid(1e683b136006ed147a52277fbae5f519) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/drum sticks.mp3 using Guid(1e683b136006ed147a52277fbae5f519) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdcd42995d565101cbe6ea804b151611') in 0.016040 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.784944 seconds.
+  path: Assets/Sound/SFX/drum stick/fat snare easy 001.mp3
+  artifactKey: Guid(0c5ccfe1499d6ed4c995eb93554da7cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/fat snare easy 001.mp3 using Guid(0c5ccfe1499d6ed4c995eb93554da7cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0633fe6f72acd6f0c2fb9926329d031f') in 0.014281 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.775343 seconds.
+  path: Assets/Sound/SFX/drum stick/floor tom normal hit stick.mp3
+  artifactKey: Guid(610b187b8f8c67945b39a2c1c6b9d0a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/floor tom normal hit stick.mp3 using Guid(610b187b8f8c67945b39a2c1c6b9d0a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7875357f2b1a07b71548f7252066480') in 0.014373 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.843059 seconds.
+  path: Assets/Sound/SFX/drum stick/jd stick.mp3
+  artifactKey: Guid(31f4528be2b5125438830e337d204637) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/jd stick.mp3 using Guid(31f4528be2b5125438830e337d204637) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a32b613c48704a8055311636c51681c') in 0.014195 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.871595 seconds.
+  path: Assets/Sound/SFX/drum stick/peaceful flare stick.mp3
+  artifactKey: Guid(1f3b8588d9b5346488fea8ee10d14e06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/peaceful flare stick.mp3 using Guid(1f3b8588d9b5346488fea8ee10d14e06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '900537ad5630aaad13ba78cafeb4fc23') in 0.015492 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 15.975369 seconds.
+  path: Assets/Sound/SFX/drum stick/perc.mp3
+  artifactKey: Guid(e921b6f19fa4eab4ea2a0853a455715b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/perc.mp3 using Guid(e921b6f19fa4eab4ea2a0853a455715b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e897a045952393786812800e08229dc1') in 0.014871 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.155375 seconds.
+  path: Assets/Sound/SFX/drum stick/repinique head.mp3
+  artifactKey: Guid(228de3359c1bf5c4497a3cb3bdb9b7ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/repinique head.mp3 using Guid(228de3359c1bf5c4497a3cb3bdb9b7ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b97dba2cf39711304866e2f8c38783e3') in 0.013271 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.111333 seconds.
+  path: Assets/Sound/SFX/drum stick/repinique rod.mp3
+  artifactKey: Guid(6367595ddcf2b6e47a48ca6770b3b87a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/repinique rod.mp3 using Guid(6367595ddcf2b6e47a48ca6770b3b87a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '173b73de88bc2abe5ebf09bf00bc0b08') in 0.015134 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.667310 seconds.
+  path: Assets/Sound/SFX/drum stick/rimshot sweet.mp3
+  artifactKey: Guid(6f8f8a9720948ed48bb7e8f4fcd4a37b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/rimshot sweet.mp3 using Guid(6f8f8a9720948ed48bb7e8f4fcd4a37b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85aed5b5ee3ac3c69313618d660c530e') in 0.014986 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.467857 seconds.
+  path: Assets/Sound/SFX/drum stick/rubbing drum sticks manipulation.mp3
+  artifactKey: Guid(9a343ca0e8f1b4d4b9d1a41b74b90e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/rubbing drum sticks manipulation.mp3 using Guid(9a343ca0e8f1b4d4b9d1a41b74b90e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d49687d667037a88b22f11b11bf10b9') in 0.014906 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.257596 seconds.
+  path: Assets/Sound/SFX/drum stick/rubbing drum sticks.mp3
+  artifactKey: Guid(baa2efb82aa189f48bccd2485564a298) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/rubbing drum sticks.mp3 using Guid(baa2efb82aa189f48bccd2485564a298) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '441d235bf6d0cb36e0aad2b135a2cbe4') in 0.014354 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.009206 seconds.
+  path: Assets/Sound/SFX/drum stick/snaredrum vintage lefima brushes and sticks.mp3
+  artifactKey: Guid(77ebdc4f2249ea24c9bb6d31699e3446) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/snaredrum vintage lefima brushes and sticks.mp3 using Guid(77ebdc4f2249ea24c9bb6d31699e3446) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '847a99e8bbabf2f32640db267360144b') in 0.014106 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.418514 seconds.
+  path: Assets/Sound/SFX/drum stick/short snares.mp3
+  artifactKey: Guid(1efc35cdefdb01a408d4ebb7d266b994) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/short snares.mp3 using Guid(1efc35cdefdb01a408d4ebb7d266b994) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '760093ca0aaa046849c06a9dac539ce7') in 0.015842 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.519324 seconds.
+  path: Assets/Sound/SFX/drum stick/stick modular.mp3
+  artifactKey: Guid(cebdeac2853abc7479ffd11454871a12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/stick modular.mp3 using Guid(cebdeac2853abc7479ffd11454871a12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '553a951c453de23a4ae320af981bd1e6') in 0.014406 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.768843 seconds.
+  path: Assets/Sound/SFX/drum stick/sticks of god 001.mp3
+  artifactKey: Guid(77908abce16f96341b1cdcc4618d296c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/sticks of god 001.mp3 using Guid(77908abce16f96341b1cdcc4618d296c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bff52435a2b191a20ee907aaff5d3bfb') in 0.014110 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 8.564143 seconds.
+  path: Assets/Sound/SFX/drum stick/sticks.mp3
+  artifactKey: Guid(edc0f628ccdc970449a47b01dc813b47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/sticks.mp3 using Guid(edc0f628ccdc970449a47b01dc813b47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fbee898cf8a72a4526ba13460f5a5229') in 0.015149 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.593266 seconds.
+  path: Assets/Sound/SFX/drum stick/tapping glass.mp3
+  artifactKey: Guid(8f17496abaa7276428e4a3eb1566f40e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/tapping glass.mp3 using Guid(8f17496abaa7276428e4a3eb1566f40e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e88d07c3b0e74c12cfefd8374f15b57c') in 0.014380 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.032154 seconds.
+  path: Assets/Sound/SFX/drum stick/trip acoustic beat.mp3
+  artifactKey: Guid(1a0290d8f129a5f4f84950aa0b7842ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/trip acoustic beat.mp3 using Guid(1a0290d8f129a5f4f84950aa0b7842ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3f136a233982dd7e18cb5677fbbbe51') in 0.015498 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.446873 seconds.
+  path: Assets/Sound/SFX/drum stick/yamaha beech custom tom high.mp3
+  artifactKey: Guid(8ea0a5f8a03d6f24485a92d1a5342c2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/yamaha beech custom tom high.mp3 using Guid(8ea0a5f8a03d6f24485a92d1a5342c2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '677d39ec7011abb06872b002fd60560a') in 0.013785 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.956488 seconds.
+  path: Assets/Sound/SFX/drum stick/zildjian 8 inch k custom dark splash cymbal bell.mp3
+  artifactKey: Guid(6eeb0c1db9244904a8e73833956e47d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/drum stick/zildjian 8 inch k custom dark splash cymbal bell.mp3 using Guid(6eeb0c1db9244904a8e73833956e47d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '392b82fe4546e5664bc3948a80fcc432') in 0.013724 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 152.334002 seconds.
+  path: Assets/Sound/SFX/Pop sound 1.wav
+  artifactKey: Guid(aa43ddc30c03d244c883bb43fd0cf731) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Pop sound 1.wav using Guid(aa43ddc30c03d244c883bb43fd0cf731) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a7f777a3b3179199a34ac5292f6ae0d') in 0.015635 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 50.340353 seconds.
+  path: Assets/Sound/SFX/Win sound 8.wav
+  artifactKey: Guid(60f391f06b371a643a48a8fd5ed5d032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Win sound 8.wav using Guid(60f391f06b371a643a48a8fd5ed5d032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bef5445bb16474332ddd0217d2f58fed') in 0.014625 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.171891 seconds.
+  path: Assets/Sound/SFX/Notification sound 2.wav
+  artifactKey: Guid(5021f6dbaa2abfa47b33185c8429a5f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Notification sound 2.wav using Guid(5021f6dbaa2abfa47b33185c8429a5f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52f6e420ab2aa484f806a454ea6c8daf') in 0.016141 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.723052 seconds.
+  path: Assets/Sound/SFX/Lost sound 2.wav
+  artifactKey: Guid(b29ed7594a7d76c428f68ae0aa725e35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Lost sound 2.wav using Guid(b29ed7594a7d76c428f68ae0aa725e35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '63986eed3e93d8d4944530a80ec15f90') in 0.016307 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 17.288434 seconds.
+  path: Assets/Sound/SFX/DOOR_CLOSE_12.wav
+  artifactKey: Guid(5a87844a67efb9143a54a9dab1240d75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/DOOR_CLOSE_12.wav using Guid(5a87844a67efb9143a54a9dab1240d75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfc789924acd7ad78c260ec1d9494536') in 0.014660 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.994863 seconds.
+  path: Assets/Sound/SFX/DOOR_OPEN_12.wav
+  artifactKey: Guid(ac8de6c366f78904cb2403a746652caf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/DOOR_OPEN_12.wav using Guid(ac8de6c366f78904cb2403a746652caf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5b86d66f3fccd5eec7c384eb8618b93') in 0.014882 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.200319 seconds.
+  path: Assets/Sound/SFX/Explosion Raw 1.wav
+  artifactKey: Guid(c9a3aba7f08f6e34b8ddd00b15939c8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Explosion Raw 1.wav using Guid(c9a3aba7f08f6e34b8ddd00b15939c8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9019281d2b480836afa6cb914e70ac2') in 0.015062 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 71.645584 seconds.
+  path: Assets/Sound/SFX/Notification sound 15.wav
+  artifactKey: Guid(06fdba74f6ea8dd49893a21b8449dbdf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Notification sound 15.wav using Guid(06fdba74f6ea8dd49893a21b8449dbdf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3c22e3e81303f986b6d590509fb355d') in 0.014560 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 25.557044 seconds.
+  path: Assets/Sound/SFX/Notification sound 14.wav
+  artifactKey: Guid(85ff2a9ad9096fe49b5eac4cb502e076) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Notification sound 14.wav using Guid(85ff2a9ad9096fe49b5eac4cb502e076) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71c8fbe65536e01ec4a8412b5985a419') in 0.015556 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 345.870604 seconds.
+  path: Assets/Sound/SFX/띵 종소리.mp3
+  artifactKey: Guid(b3270f9d3c5402e4f8ccb5569450b59c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/띵 종소리.mp3 using Guid(b3270f9d3c5402e4f8ccb5569450b59c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '682ee339b0aef923bce33d9e099d011c') in 0.017030 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 77.086407 seconds.
+  path: Assets/Sound/SFX/Notification sound 16.wav
+  artifactKey: Guid(ac353a89836bbbd46b4aff2a3b4eee50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sound/SFX/Notification sound 16.wav using Guid(ac353a89836bbbd46b4aff2a3b4eee50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ba82a0bc4d3566125a0bbeaf2694bec') in 0.016093 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

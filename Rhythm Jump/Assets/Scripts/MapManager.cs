@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
+    SFXManager sfxManager;
+    BGMManager bgmManager;
     public CamaerManager cameraManager;
 
     public StageDataManager stageData;
@@ -61,6 +63,10 @@ public class MapManager : MonoBehaviour
 
     void Awake()
     {
+        sfxManager.PlaySound(7);
+        sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
+        bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+
         stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
         stageNum = stageData.stageDatas[0].stageNum;
         cutLine = stageData.stageDatas[0].cutLine;
@@ -155,6 +161,11 @@ public class MapManager : MonoBehaviour
 
         if (patternStart)
         {
+            if (time == 0.5f || time == 1f || time == 1.5f || time == 2f)
+            {
+                sfxManager.PlaySound(2);
+            }
+
             // 정해진 시간에 도달
             if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
@@ -184,6 +195,7 @@ public class MapManager : MonoBehaviour
 
                     if(cutLine < errorCount) // 실패
                     {
+                        sfxManager.PlaySound(6);
                         endText.text = "실 패";
                         endScoreText.text = "실패 : " + "<color=#FA6464>" + errorCount.ToString() + "</color>" + " / " + cutLine.ToString();
                     }
@@ -191,6 +203,7 @@ public class MapManager : MonoBehaviour
                     {
                         int maxStage = PlayerPrefs.GetInt("Max Stage");
 
+                        sfxManager.PlaySound(5);
                         if (maxStage == stageNum)
                         {
                             PlayerPrefs.SetInt("Max Stage", stageNum);
@@ -497,6 +510,7 @@ public class MapManager : MonoBehaviour
     {
         if (buttonOn) // 버튼을 누르는 타이밍
         {
+            sfxManager.PlaySound(1);
             buttonOn = false;
             buttonClick = true;
             switch (n)
@@ -598,6 +612,7 @@ public class MapManager : MonoBehaviour
             ErrorCount();
             floors[floorNum].damage = false;
             explosion[floorNum].SetTrigger("isExplosion");
+            sfxManager.PlaySound(3);
         }
     }
 
@@ -656,6 +671,7 @@ public class MapManager : MonoBehaviour
 
     public void StageEnd()
     {
+        sfxManager.PlaySound(8);
         endAnimation.SetTrigger("isUp");
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");
@@ -663,18 +679,21 @@ public class MapManager : MonoBehaviour
 
     public void PauseButton() // 일시정지 버튼
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 0;
         pause.SetActive(true);
     }
 
     public void ContinueButton() // 계속하기 버튼
     {
+        sfxManager.PlaySound(0);
         Time.timeScale = 1;
         pause.SetActive(false);
     }
 
     public void ExitButton() // 나가기 버튼
     {
+        sfxManager.PlaySound(8);
         ContinueButton();
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");
