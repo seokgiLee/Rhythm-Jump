@@ -28,7 +28,6 @@ public class SFXManager : MonoBehaviour
         // 10: 대화창 표시
         // 11: 카운트다운
 
-        audioSource.clip = sfxAudios[i];
-        audioSource.Play();
+        audioSource.PlayOneShot(sfxAudios[i]);
     }
 }

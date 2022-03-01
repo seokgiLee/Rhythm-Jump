@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
 {
+    public SFXManager sfxManager;
+    public BGMManager bgmManager;
     public CamaerManager camaerManager;
     public Button startButton;
     public Text startButtonText;
@@ -34,6 +36,7 @@ public class StartManager : MonoBehaviour
 
     public void StartButton()
     {
+        sfxManager.PlaySound(8);
         if (PlayerPrefs.HasKey("Max Stage"))
         {
             LoadingCanvasManager.Instance.ChangeScene("Main Scene");

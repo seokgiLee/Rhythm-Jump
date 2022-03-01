@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     public int floorCol; // 발판의 열
     public int floorNum; // 플레이어가 밟은 발판 번호
 
+    public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
@@ -72,9 +73,9 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        sfxManager.PlaySound(7);
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        sfxManager.PlaySound(7);
 
         cameraManager.Zoom(5);
         Time.timeScale = 1;
@@ -158,8 +159,11 @@ public class GameManager : MonoBehaviour
 
         if(playerMove)
         {
-            if (time == 0.5f || time == 1f || time == 1.5f || time == 2f)
+            beatTime += Time.deltaTime;
+
+            if (beatTime > 0.5f)
             {
+                beatTime = 0;
                 sfxManager.PlaySound(2);
             }
 

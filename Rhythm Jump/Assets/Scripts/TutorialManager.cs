@@ -40,6 +40,8 @@ public class TutorialManager : MonoBehaviour
     public int floorCol; // 발판의 열
     public int floorNum; // 플레이어가 밟은 발판 번호
 
+    public bool hint; // 버튼 힌트 효과음 여부
+    public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
@@ -70,9 +72,9 @@ public class TutorialManager : MonoBehaviour
 
     void Awake()
     {
-        sfxManager.PlaySound(7);
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        sfxManager.PlaySound(7);
 
         cameraManager.Zoom(5);
         errorText.text = errorCount.ToString();
@@ -128,31 +130,34 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        time += Time.deltaTime;
-
         if (tutorial1) // 튜토리얼1 시작
         {
-            if (time == 0.5f || time == 1f || time == 1.5f)
+            time += Time.deltaTime;
+            beatTime += Time.deltaTime;
+
+            if (time > patternTime && hint)
             {
-                sfxManager.PlaySound(2);
-            }
-            if (time == 2f)
-            {
+                beatTime = 0;
+                hint = false;
                 sfxManager.PlaySound(9);
+            }
+            else if (beatTime > 0.5f)
+            {
+                beatTime = 0;
+                sfxManager.PlaySound(2);
             }
 
             if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
                 Debug.Log("버튼 활성화");
+                hint = true;
                 buttonOn = true;
             }
-
             else if (buttonClick && time > patternTime)
             {
                 buttonClick = false;
                 time -= patternTime;
             }
-
             else if (time > patternTime * (1 + patternAccuracy))
             {
                 ErrorCount();
@@ -162,7 +167,8 @@ public class TutorialManager : MonoBehaviour
 
             if (jumpSucessCount < 1) // 튜토리얼1 종료
             {
-                sfxManager.PlaySound(5);
+                buttonClick = false;
+                buttonOn = false;
                 tutorial1 = false;
                 Invoke("Tutorial1_End", 1f / (2 / patternTime));
             }
@@ -170,13 +176,19 @@ public class TutorialManager : MonoBehaviour
 
         if (tutorial2)
         {
-            if (time == 0.5f || time == 1f || time == 1.5f)
+            time += Time.deltaTime;
+            beatTime += Time.deltaTime;
+
+            if (time > patternTime && hint)
             {
-                sfxManager.PlaySound(2);
-            }
-            if (time == 2f)
-            {
+                beatTime = 0;
+                hint = false;
                 sfxManager.PlaySound(9);
+            }
+            else if (beatTime > 0.5f)
+            {
+                beatTime = 0;
+                sfxManager.PlaySound(2);
             }
 
             // 정해진 시간에 도달
@@ -184,6 +196,7 @@ public class TutorialManager : MonoBehaviour
             {
                 // 버튼 활성화
                 Debug.Log("버튼 활성화");
+                hint = true;
                 buttonOn = true;
             }
             // 정해진 시간초과
@@ -663,21 +676,25 @@ public class TutorialManager : MonoBehaviour
 
     void CountDown3()
     {
+        sfxManager.PlaySound(11);
         countDowns[2].SetTrigger("isStart");
         Invoke("CountDown2", 1f);
     }
     void CountDown2()
     {
+        sfxManager.PlaySound(11);
         countDowns[1].SetTrigger("isStart");
         Invoke("CountDown1", 1f);
     }
     void CountDown1()
     {
+        sfxManager.PlaySound(11);
         countDowns[0].SetTrigger("isStart");
         Invoke("PatternStart", 1f);
     }
     void PatternStart()
     {
+        sfxManager.PlaySound(11);
         Debug.Log("시작");
         playerManager.PlayerStart(false);
         time = 0;
@@ -789,6 +806,8 @@ public class TutorialManager : MonoBehaviour
 
     void Tutorial1()
     {
+        time = 0;
+        beatTime = 0;
         tutorial1 = true;
         jumpSucess.SetActive(true);
         jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
@@ -796,6 +815,7 @@ public class TutorialManager : MonoBehaviour
 
     void Tutorial1_End()
     {
+        sfxManager.PlaySound(5);
         ButtonOff();
         jumpSucess.SetActive(false);
         PauseGame(2);
@@ -808,6 +828,8 @@ public class TutorialManager : MonoBehaviour
 
     void Tutorial2()
     {
+        time = 0;
+        beatTime = 0;
         tutorial2 = true;
         nextPattern = true;
     }
@@ -828,6 +850,7 @@ public class TutorialManager : MonoBehaviour
 
     public void ExitButton() // 나가기 버튼
     {
+        PlayerPrefs.SetInt("Max Stage", 1);
         sfxManager.PlaySound(8);
         ContinueButton();
         cameraManager.Zoom(0);

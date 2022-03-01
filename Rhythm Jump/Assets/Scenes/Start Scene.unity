@@ -961,6 +961,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b9c40ad9202794ea954db2b5979ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxManager: {fileID: 2094700810}
+  bgmManager: {fileID: 897766711}
   camaerManager: {fileID: 537838478}
   startButton: {fileID: 2097586101}
   startButtonText: {fileID: 1165043968}

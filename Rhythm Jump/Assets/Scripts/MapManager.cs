@@ -43,6 +43,7 @@ public class MapManager : MonoBehaviour
     public int floorCol; // 발판의 열
     public int floorNum; // 플레이어가 밟은 발판 번호
 
+    public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
@@ -63,9 +64,9 @@ public class MapManager : MonoBehaviour
 
     void Awake()
     {
-        sfxManager.PlaySound(7);
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        sfxManager.PlaySound(7);
 
         stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
         stageNum = stageData.stageDatas[0].stageNum;
@@ -161,8 +162,11 @@ public class MapManager : MonoBehaviour
 
         if (patternStart)
         {
-            if (time == 0.5f || time == 1f || time == 1.5f || time == 2f)
+            beatTime += Time.deltaTime;
+
+            if (beatTime > 0.5f)
             {
+                beatTime = 0;
                 sfxManager.PlaySound(2);
             }
 
@@ -634,22 +638,26 @@ public class MapManager : MonoBehaviour
 
     void CountDown3()
     {
+        sfxManager.PlaySound(11);
         countDowns[2].SetTrigger("isStart");
         Invoke("CountDown2", 1f);
     }
     void CountDown2()
     {
+        sfxManager.PlaySound(11);
         countDowns[1].SetTrigger("isStart");
         Invoke("CountDown1", 1f);
     }
     void CountDown1()
     {
+        sfxManager.PlaySound(11);
         countDowns[0].SetTrigger("isStart");
         Invoke("PatternStart", 1f);
     }
     void PatternStart()
     {
         Debug.Log("시작");
+        sfxManager.PlaySound(11);
         playerManager.PlayerStart(false);
         patternStart = true;
         nextPattern = true;
