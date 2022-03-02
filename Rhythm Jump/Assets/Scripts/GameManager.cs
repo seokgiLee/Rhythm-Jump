@@ -214,6 +214,7 @@ public class GameManager : MonoBehaviour
                     // 맵 종료
                     pattern = 0;
                     patternStart = false;
+                    playerMove = false;
                     endAnimation.SetTrigger("isDown");
 
                     if (cutLine < errorCount) // 실패
@@ -695,6 +696,7 @@ public class GameManager : MonoBehaviour
     {
         if (floorNum < maxStage)
         {
+            playerMove = false;
             sfxManager.PlaySound(8);
             cameraManager.Zoom(0);
             stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
@@ -831,6 +833,7 @@ public class GameManager : MonoBehaviour
 
     public void ExitButton() // 나가기 버튼
     {
+        playerMove = false;
         sfxManager.PlaySound(0);
         Application.Quit();
     }

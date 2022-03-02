@@ -701,6 +701,7 @@ public class MapManager : MonoBehaviour
 
     public void ExitButton() // 나가기 버튼
     {
+        patternStart = false;
         sfxManager.PlaySound(8);
         ContinueButton();
         cameraManager.Zoom(0);
