@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
@@ -12,8 +13,16 @@ public class StartManager : MonoBehaviour
     public Button startButton;
     public Text startButtonText;
 
+    public AudioMixer audioMixer;
+    public float sfx;
+    public float bgm;
+
     void Awake()
     {
+        sfx = PlayerPrefs.GetFloat("SFX");
+        bgm = PlayerPrefs.GetFloat("BGM");
+        audioMixer.SetFloat("SFX", sfx);
+        audioMixer.SetFloat("BGM", bgm);
         FadeOut();
     }
 
@@ -24,13 +33,13 @@ public class StartManager : MonoBehaviour
 
     public void FadeOut()
     {
-        startButtonText.DOFade(0, 1);
-        Invoke("FadeIn", 1f);
+        startButtonText.transform.DOScale(1.1f, 0.1f);
+        Invoke("FadeIn", 0.1f);
     }
     public void FadeIn()
     {
-        startButtonText.DOFade(1, 2);
-        Invoke("FadeOut", 2f);
+        startButtonText.transform.DOScale(1f, 0.1f);
+        Invoke("FadeOut", 0.5f);
     }
 
 

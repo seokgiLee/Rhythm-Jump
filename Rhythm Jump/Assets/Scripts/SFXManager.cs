@@ -9,6 +9,10 @@ public class SFXManager : MonoBehaviour
 
     void Awake()
     {
+        if (!PlayerPrefs.HasKey("SFX"))
+        {
+            PlayerPrefs.SetFloat("SFX", -20);
+        }
         audioSource = GetComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
     }

@@ -966,6 +966,9 @@ MonoBehaviour:
   camaerManager: {fileID: 537838478}
   startButton: {fileID: 2097586101}
   startButtonText: {fileID: 1165043968}
+  audioMixer: {fileID: 24100000, guid: 3672d77991efb0f4c979ac24c907242c, type: 2}
+  sfx: 0
+  bgm: 0
 --- !u!4 &437366656
 Transform:
   m_ObjectHideFlags: 0
@@ -1565,7 +1568,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adf13995e5895e4f907984d3de706b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmAudios: []
+  bgmAudios:
+  - {fileID: 8300000, guid: abb0877b334610b479c11129d801314a, type: 3}
+  - {fileID: 8300000, guid: 169845a6a3af7404bb1c4e198a5f31d4, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &897766712
 Transform:
   m_ObjectHideFlags: 0
@@ -1590,11 +1645,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -4100121972518770675, guid: 3672d77991efb0f4c979ac24c907242c, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ebff02b2153701a429d7bf3db8b0f3f1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

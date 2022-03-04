@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public AudioMixer audioMixer;
     public Slider bgmSlider;
     public Slider sfxSlider;
+    public float sfx;
+    public float bgm;
 
     public Button[] buttons;
     public Animator[] countDowns;
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
     public int floorCol; // 발판의 열
     public int floorNum; // 플레이어가 밟은 발판 번호
 
+    public bool hint; // 버튼 힌트 효과음 여부
     public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
     public float patternTime; // 패턴주기
@@ -73,9 +76,14 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        sfx = PlayerPrefs.GetFloat("SFX");
+        bgm = PlayerPrefs.GetFloat("BGM");
+        sfxSlider.value = sfx;
+        bgmSlider.value = bgm;
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
         sfxManager.PlaySound(7);
+        bgmManager.PlaySound(0);
 
         cameraManager.Zoom(5);
         Time.timeScale = 1;
@@ -145,6 +153,7 @@ public class GameManager : MonoBehaviour
         }
 
         time += Time.deltaTime;
+        beatTime += Time.deltaTime;
 
         if (start)
         {
@@ -159,9 +168,13 @@ public class GameManager : MonoBehaviour
 
         if(playerMove)
         {
-            beatTime += Time.deltaTime;
-
-            if (beatTime > 0.5f)
+            if (time > patternTime && hint)
+            {
+                beatTime = 0;
+                hint = false;
+                sfxManager.PlaySound(9);
+            }
+            else if (beatTime > 0.5f)
             {
                 beatTime = 0;
                 sfxManager.PlaySound(2);
@@ -170,6 +183,7 @@ public class GameManager : MonoBehaviour
             if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
                 Debug.Log("버튼 활성화");
+                hint = true;
                 buttonOn = true;
             }
 
@@ -753,11 +767,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PlayerMoveStart() // 패턴없으 박자에 맞춰서 이동만
+    void PlayerMoveStart() // 패턴없이 박자에 맞춰서 이동만
     {
         playerManager.PlayerStart(false);
         playerMove = true;
+        hint = true;
         time = 0;
+        beatTime = 0;
 
         SpeachBubbleOn();
 
