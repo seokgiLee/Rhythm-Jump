@@ -68,6 +68,7 @@ public class MapManager : MonoBehaviour
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
         sfxManager.PlaySound(7);
 
+        bgmManager.PlaySound(bgmManager.curStageNum);
         stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
         stageNum = stageData.stageDatas[0].stageNum;
         cutLine = stageData.stageDatas[0].cutLine;
@@ -197,7 +198,7 @@ public class MapManager : MonoBehaviour
                     patternStart = false;
                     endAnimation.SetTrigger("isDown");
 
-                    if(cutLine < errorCount) // 실패
+                    if (cutLine < errorCount) // 실패
                     {
                         sfxManager.PlaySound(6);
                         endText.text = "실 패";
@@ -224,7 +225,7 @@ public class MapManager : MonoBehaviour
 
                     for (int i = 0; i < buttonAnimations.Length; i++)
                     {
-                        buttonAnimations[i].SetTrigger("isEnd");
+                        buttonAnimations[i].SetTrigger("isStop");
                     }
                 }
                 else

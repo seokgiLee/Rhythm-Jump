@@ -90,23 +90,20 @@ public class GameManager : MonoBehaviour
         stageData = GameObject.Find("Stage Data").GetComponent<StageDataManager>();
         maxStage = PlayerPrefs.GetInt("Max Stage");
         errorText.text = errorCount.ToString();
+        curStage = bgmManager.curStageNum;
         if (curStage < 1)
         {
             curStage = maxStage;
+            if (maxStage == 50)
+            {
+                curStage--;
+            }
         }
-        playerX = (curStage - 1) * 2 % floorRow;
+        playerX = ((curStage - 1) % floorRow) * 2;
         playerY = -2 * ((curStage - 1) / floorRow);
-        floorNum = playerX / 2 + -1 * playerY / 2 * floorCol;
+        floorNum = curStage - 1;
         cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
         playerPosition.transform.position = new Vector3(playerX, playerY + 10);
-
-        /*
-        for (int i = 0; i < floorRow * floorCol; i++)
-        {
-            floorsPosition[i].SetActive(true);
-            floorsPosition[i].transform.position = new Vector3(i % floorCol, -1 * i / floorCol + 10);
-            floors[i].PatternTime();
-        }*/
 
         if (floorRow > floorCol)
         {
@@ -161,7 +158,6 @@ public class GameManager : MonoBehaviour
             {
                 playerManager.PlayerPosition(playerX, playerY);
                 start = false;
-                //Invoke("CountDown3", 0.5f);
                 Invoke("PlayerMoveStart", 0.5f);
             }
         }
@@ -228,7 +224,6 @@ public class GameManager : MonoBehaviour
                     // 맵 종료
                     pattern = 0;
                     patternStart = false;
-                    playerMove = false;
                     endAnimation.SetTrigger("isDown");
 
                     if (cutLine < errorCount) // 실패
@@ -249,6 +244,16 @@ public class GameManager : MonoBehaviour
 
                         endText.text = "성 공";
                         endScoreText.text = "실패 : " + errorCount.ToString() + " / " + cutLine.ToString();
+                    }
+
+                    for (int i = 0; i < buttons.Length; i++)
+                    {
+                        buttons[i].interactable = false;
+                    }
+
+                    for (int i = 0; i < buttonAnimations.Length; i++)
+                    {
+                        buttonAnimations[i].SetTrigger("isStop");
                     }
                 }
                 else
@@ -691,7 +696,6 @@ public class GameManager : MonoBehaviour
     void SpeachBubbleOff() // 스테이지 정보 말풍선 끄기
     {
         speachAnimator.SetTrigger("isSpeachOff");
-
     }
 
     void FloorDamage()
@@ -711,16 +715,57 @@ public class GameManager : MonoBehaviour
         if (floorNum < maxStage)
         {
             playerMove = false;
-            sfxManager.PlaySound(8);
-            cameraManager.Zoom(0);
-            stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
-            LoadingCanvasManager.Instance.ChangeScene("Stage Scene");
+            if (floorNum == 49) // 마지막 맵
+            {
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    buttons[i].interactable = false;
+                }
+                for (int i = 0; i < buttonAnimations.Length; i++)
+                {
+                    buttonAnimations[i].SetTrigger("isStop");
+                }
+
+                playerPosition.transform.DOMoveY(floorsPosition[24].transform.position.y, 1f);
+                floorsPosition[49].transform.DOMoveY(floorsPosition[24].transform.position.y, 1f);
+                cameraPosition.transform.DOMoveY(floorsPosition[24].transform.position.y, 1f);
+                playerPosition.transform.DOMoveX(floorsPosition[24].transform.position.x, 1f).SetDelay(1f);
+                floorsPosition[49].transform.DOMoveX(floorsPosition[24].transform.position.x, 1f).SetDelay(1f);
+                cameraPosition.transform.DOMoveX(floorsPosition[24].transform.position.x, 1f).SetDelay(1f);
+                SpeachBubbleOff();
+                Invoke("FinalStage", 3f);
+            }
+            else
+            {
+                sfxManager.PlaySound(8);
+                cameraManager.Zoom(0);
+                stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
+                bgmManager.curStageNum = floorNum + 1;
+                LoadingCanvasManager.Instance.ChangeScene("Stage Scene");
+            }
         }
         else
         {
             // 경고음
             sfxManager.PlaySound(3);
         }
+    }
+
+    void FinalStage()
+    {
+        errorCount = 0;
+        errorText.text = errorCount.ToString();
+        stageNum = stageData.stageDatas[49].stageNum;
+        cutLine = stageData.stageDatas[49].cutLine;
+        floorRow = stageData.stageDatas[49].floorRow;
+        floorCol = stageData.stageDatas[49].floorCol;
+        patternTime = stageData.stageDatas[49].patternTime;
+        patternAccuracy = stageData.stageDatas[49].patternAccuracy;
+        patternNums = stageData.stageDatas[49].patternNums;
+        playerX = 6;
+        playerY = -6;
+        floorNum = 24;
+        CountDown3();
     }
 
     void MapStart()
@@ -756,7 +801,9 @@ public class GameManager : MonoBehaviour
     void PatternStart() // 패턴시작
     {
         Debug.Log("시작");
+        sfxManager.PlaySound(11);
         playerManager.PlayerStart(false);
+        playerMove = false;
         patternStart = true;
         nextPattern = true;
         time = 0;

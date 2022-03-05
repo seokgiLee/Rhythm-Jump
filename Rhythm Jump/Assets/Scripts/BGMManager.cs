@@ -6,6 +6,7 @@ public class BGMManager : MonoBehaviour
 {
     public AudioClip[] bgmAudios;
     AudioSource audioSource;
+    public int curStageNum;
 
     void Awake()
     {
