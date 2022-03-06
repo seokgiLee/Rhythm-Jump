@@ -1619,7 +1619,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 169845a6a3af7404bb1c4e198a5f31d4, type: 3}
   - {fileID: 8300000, guid: 169845a6a3af7404bb1c4e198a5f31d4, type: 3}
   curStageNum: -1
 --- !u!4 &897766712

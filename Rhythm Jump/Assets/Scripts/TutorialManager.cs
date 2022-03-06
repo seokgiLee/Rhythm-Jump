@@ -832,6 +832,7 @@ public class TutorialManager : MonoBehaviour
         beatTime = 0;
         tutorial2 = true;
         nextPattern = true;
+        bgmManager.PlaySound(51);
     }
 
     public void PauseButton() // 일시정지 버튼

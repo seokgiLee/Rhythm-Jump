@@ -225,6 +225,7 @@ public class GameManager : MonoBehaviour
                     pattern = 0;
                     patternStart = false;
                     endAnimation.SetTrigger("isDown");
+                    bgmManager.StopSound();
 
                     if (cutLine < errorCount) // 실패
                     {
@@ -751,21 +752,72 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void FinalStage()
+    void FinalStage() // 마지막 스테이지 시작
     {
+        bgmManager.StopSound();
+        cameraManager.Zoom(8);
         errorCount = 0;
         errorText.text = errorCount.ToString();
-        stageNum = stageData.stageDatas[49].stageNum;
-        cutLine = stageData.stageDatas[49].cutLine;
-        floorRow = stageData.stageDatas[49].floorRow;
-        floorCol = stageData.stageDatas[49].floorCol;
-        patternTime = stageData.stageDatas[49].patternTime;
-        patternAccuracy = stageData.stageDatas[49].patternAccuracy;
-        patternNums = stageData.stageDatas[49].patternNums;
+        stageNum = stageData.stageDatas[50].stageNum;
+        cutLine = stageData.stageDatas[50].cutLine;
+        floorRow = stageData.stageDatas[50].floorRow;
+        floorCol = stageData.stageDatas[50].floorCol;
+        patternTime = stageData.stageDatas[50].patternTime;
+        patternAccuracy = stageData.stageDatas[50].patternAccuracy;
+        patternNums = stageData.stageDatas[50].patternNums;
+        for (int i = 0; i < floorRow * floorCol; i++)
+        {
+            floors[i].PatternTime();
+        }
         playerX = 6;
         playerY = -6;
         floorNum = 24;
         CountDown3();
+    }
+
+    public void StageEnd() // 스테이지 종료 버튼
+    {
+        sfxManager.PlaySound(8);
+        endAnimation.SetTrigger("isUp");
+        if (cutLine < errorCount) // 실패
+        {
+            bgmManager.PlaySound(0);
+            cameraManager.Zoom(5);
+            patternTime = 2f;
+            patternAccuracy = 0.2f;
+            playerX = 14;
+            playerY = -12;
+            floorNum = 49;
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].interactable = true;
+            }
+            for (int i = 0; i < buttonAnimations.Length; i++)
+            {
+                buttonAnimations[i].SetTrigger("isStart");
+            }
+
+            playerPosition.transform.DOMoveX(playerX, 1f);
+            floorsPosition[49].transform.DOMoveX(playerX, 1f);
+            cameraPosition.transform.DOMoveX(playerX, 1f);
+            playerPosition.transform.DOMoveY(playerY, 1f).SetDelay(1f);
+            floorsPosition[49].transform.DOMoveY(playerY, 1f).SetDelay(1f);
+            cameraPosition.transform.DOMoveY(playerY, 1f).SetDelay(1f);
+            Invoke("PlayerMoveStart", 2f);
+        }
+        else // 성공
+        {
+            playerPosition.transform.DOMoveY(10, 3f).SetEase(Ease.InQuart);
+            floorsPosition[49].transform.DOMoveY(10, 3f).SetEase(Ease.InQuart);
+            cameraPosition.transform.DOMoveY(10, 3f).SetEase(Ease.InQuart);
+            Invoke("Ending", 3.5f);
+        }
+    }
+
+    void Ending()
+    {
+        LoadingCanvasManager.Instance.ChangeScene("End Scene");
     }
 
     void MapStart()
@@ -785,16 +837,19 @@ public class GameManager : MonoBehaviour
 
     void CountDown3()
     {
+        sfxManager.PlaySound(11);
         countDowns[2].SetTrigger("isStart");
         Invoke("CountDown2", 1f);
     }
     void CountDown2()
     {
+        sfxManager.PlaySound(11);
         countDowns[1].SetTrigger("isStart");
         Invoke("CountDown1", 1f);
     }
     void CountDown1()
     {
+        sfxManager.PlaySound(11);
         countDowns[0].SetTrigger("isStart");
         Invoke("PatternStart", 1f);
     }
@@ -802,6 +857,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("시작");
         sfxManager.PlaySound(11);
+        bgmManager.PlaySound(50);
         playerManager.PlayerStart(false);
         playerMove = false;
         patternStart = true;
@@ -818,6 +874,8 @@ public class GameManager : MonoBehaviour
     {
         playerManager.PlayerStart(false);
         playerMove = true;
+        patternStart = false;
+        nextPattern = false;
         hint = true;
         time = 0;
         beatTime = 0;

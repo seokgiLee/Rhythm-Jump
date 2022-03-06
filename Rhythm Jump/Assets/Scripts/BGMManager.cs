@@ -24,4 +24,9 @@ public class BGMManager : MonoBehaviour
         audioSource.clip = bgmAudios[i];
         audioSource.Play();
     }
+
+    public void StopSound()
+    {
+        audioSource.Stop();
+    }
 }
