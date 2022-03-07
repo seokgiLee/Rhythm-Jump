@@ -817,7 +817,7 @@ public class GameManager : MonoBehaviour
 
     void Ending()
     {
-        LoadingCanvasManager.Instance.ChangeScene("End Scene");
+        LoadingCanvasManager.Instance.ChangeScene("Ending Scene");
     }
 
     void MapStart()

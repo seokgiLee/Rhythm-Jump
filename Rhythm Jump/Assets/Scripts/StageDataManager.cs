@@ -58,7 +58,7 @@ public class StageDataManager : MonoBehaviour
         stageDatas.Add(new StageData(46, 10, 3, 3, 2, 0.2f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0 }));
         stageDatas.Add(new StageData(47, 10, 3, 3, 2, 0.2f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0 }));
         stageDatas.Add(new StageData(48, 10, 3, 3, 2, 0.2f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0 }));
-        stageDatas.Add(new StageData(49, 10, 3, 3, 2, 0.2f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0 }));
+        stageDatas.Add(new StageData(49, 10, 3, 3, 2, 0.2f, new int[] { 5, 0 }));
         stageDatas.Add(new StageData(50, 10, 7, 7, 1, 0.1f, new int[] { 5, 0 }));
         DontDestroyOnLoad(gameObject);
     }
