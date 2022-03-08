@@ -46,6 +46,7 @@ public class StartManager : MonoBehaviour
     public void StartButton()
     {
         sfxManager.PlaySound(8);
+        bgmManager.StopSound();
         if (PlayerPrefs.HasKey("Max Stage"))
         {
             LoadingCanvasManager.Instance.ChangeScene("Main Scene");

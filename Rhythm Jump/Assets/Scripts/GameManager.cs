@@ -740,6 +740,7 @@ public class GameManager : MonoBehaviour
             {
                 sfxManager.PlaySound(8);
                 cameraManager.Zoom(0);
+                bgmManager.StopSound();
                 stageData.stageDatas[0] = stageData.stageDatas[floorNum + 1];
                 bgmManager.curStageNum = floorNum + 1;
                 LoadingCanvasManager.Instance.ChangeScene("Stage Scene");

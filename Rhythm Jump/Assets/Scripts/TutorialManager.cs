@@ -223,6 +223,7 @@ public class TutorialManager : MonoBehaviour
                     ButtonOff();
 
                     sfxManager.PlaySound(5);
+                    bgmManager.StopSound();
                     if (errorCount <= 10)
                     {
                         PauseGame(4);
@@ -853,6 +854,7 @@ public class TutorialManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Max Stage", 1);
         sfxManager.PlaySound(8);
+        bgmManager.StopSound();
         ContinueButton();
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");

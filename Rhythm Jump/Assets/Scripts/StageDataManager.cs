@@ -8,9 +8,21 @@ public class StageDataManager : MonoBehaviour
 
     void Awake()
     {
+        // 0: 공백타임
+        // 1: 처음부터 끝까지 가로 순서대로
+        // 2: 처음부터 끝까지 세로 순서대로
+        // 3: 끝부터 처음까지 가로 순서대로
+        // 4: 끝부터 처음까지 세로 순서대로
+        // 5: 세로줄 왼쪽 순서대로
+        // 6: 세로줄 오른쪽 순서대로
+        // 7: 가로줄 위 순서대로
+        // 8: 가로줄 아래 순서대로
+        // 9: 가장자리에서 순서대로
+        // 10: 가운데에서 순서대로
+        // 11: 홀짝
         stageDatas = new List<StageData>();
         stageDatas.Add(null);
-        stageDatas.Add(new StageData(1, 10, 2, 3, 2, 0.2f, new int[] { 1, 2, 3, 4 }));
+        stageDatas.Add(new StageData(1, 10, 2, 3, 2, 0.2f, new int[] { 1, 0, 3, 0, 5, 0, 6, 0, 7, 0, 8, 0 }));
         stageDatas.Add(new StageData(2, 10, 3, 3, 2, 0.2f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0 }));
         stageDatas.Add(new StageData(3, 10, 3, 3, 2, 0.2f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0 }));
         stageDatas.Add(new StageData(4, 10, 3, 3, 2, 0.2f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0 }));

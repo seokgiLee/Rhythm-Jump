@@ -1869,7 +1869,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.47368422, y: 1}
+    m_SensorSize: {x: 0.47355574, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2203,6 +2203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmAudios:
   - {fileID: 8300000, guid: abb0877b334610b479c11129d801314a, type: 3}
+  - {fileID: 8300000, guid: 7e9e684ee17c2fa4b8966e232a412bcb, type: 3}
+  - {fileID: 8300000, guid: 34a53d52a35424e42bfd4b39d250a50a, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -2251,8 +2253,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 8300000, guid: 169845a6a3af7404bb1c4e198a5f31d4, type: 3}
   - {fileID: 8300000, guid: 169845a6a3af7404bb1c4e198a5f31d4, type: 3}
   curStageNum: -1
 --- !u!4 &1376482958
