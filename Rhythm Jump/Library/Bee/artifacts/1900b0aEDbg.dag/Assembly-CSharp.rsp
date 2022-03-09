@@ -349,6 +349,7 @@
 "Assets/Scripts/BackGround.cs"
 "Assets/Scripts/BGMManager.cs"
 "Assets/Scripts/CamaerManager.cs"
+"Assets/Scripts/EndingManager.cs"
 "Assets/Scripts/FloorManager.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/LoadingCanvasManager.cs"

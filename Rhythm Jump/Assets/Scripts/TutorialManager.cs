@@ -32,6 +32,7 @@ public class TutorialManager : MonoBehaviour
 
     public bool buttonOn; // 버튼을 누르는 타이밍 여부
     public bool buttonClick; // 버튼을 눌렀는지 여부
+    public bool isPattern; // 패턴 진행 여부
 
     public int playerX; // 플레이어 위치
     public int playerY;
@@ -41,6 +42,7 @@ public class TutorialManager : MonoBehaviour
     public int floorNum; // 플레이어가 밟은 발판 번호
 
     public bool hint; // 버튼 힌트 효과음 여부
+    public bool colorHint; // 버튼 색깔 힌트
     public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
     public float patternTime; // 패턴주기
@@ -192,20 +194,33 @@ public class TutorialManager : MonoBehaviour
             }
 
             // 정해진 시간에 도달
-            if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
+            if (time > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
             {
                 // 버튼 활성화
                 Debug.Log("버튼 활성화");
                 hint = true;
                 buttonOn = true;
+                isPattern = true;
+
+                if (colorHint)
+                {
+                    for (int i = 0; i < buttons.Length; i++)
+                    {
+                        buttons[i].image.DOColor(new Color(1, 0, 0), patternTime * patternAccuracy);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy);
+                    }
+                    colorHint = false;
+                }
             }
             // 정해진 시간초과
-            else if (time > patternTime * patternAccuracy && time < patternTime * (1 - patternAccuracy) && buttonOn)
+            else if (time > patternTime * (1 + patternAccuracy))
             {
                 Debug.Log("시간초과");
                 ErrorCount();
                 buttonOn = false;
-
+                buttonClick = false;
+                colorHint = true;
+                time -= patternTime;
                 FloorDamage();
             }
 
@@ -219,7 +234,7 @@ public class TutorialManager : MonoBehaviour
                     tutorial2 = false;
                     patternStart = false;
 
-;                   PlayerPrefs.SetInt("Max Stage", 1);
+                    ; PlayerPrefs.SetInt("Max Stage", 1);
                     ButtonOff();
 
                     sfxManager.PlaySound(5);
@@ -284,168 +299,102 @@ public class TutorialManager : MonoBehaviour
                 }
             }
 
-            switch (pattern)
+            if (time > patternTime && isPattern)
             {
-                case 0: // 공백타임
-                    if (time > patternTime)
-                    {
-                        time -= patternTime;
+                isPattern = false;
+                if (buttonClick)
+                {
+                    time -= patternTime;
+                    buttonClick = false;
+                }
+                switch (pattern)
+                {
+                    case 0: // 공백타임
                         nextPattern = true;
-                        if (buttonClick)
-                        {
-                            buttonClick = false;
-                        }
-                    }
-                    break;
-                case 1: // 처음부터 끝까지 가로 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 1: // 처음부터 끝까지 가로 순서대로
                         floorPattern(startNum++);
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum >= floorRow * floorCol)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum >= floorRow * floorCol)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 2: // 처음부터 끝까지 세로 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 2: // 처음부터 끝까지 세로 순서대로
                         floorPattern(startNum);
                         startNum += floorCol;
                         if (startNum >= floorRow * floorCol && startNum < (floorRow + 1) * floorCol - 1)
                         {
                             startNum = (startNum + 1) % floorCol;
                         }
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum >= floorRow * floorCol)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum >= floorRow * floorCol)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 3: // 끝부터 처음까지 가로 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 3: // 끝부터 처음까지 가로 순서대로
                         floorPattern(startNum--);
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum < 0)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum < 0)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 4: // 끝부터 처음까지 세로 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 4: // 끝부터 처음까지 세로 순서대로
                         floorPattern(startNum);
                         startNum -= floorCol;
                         if (startNum < 0 && startNum > -1 * floorCol)
                         {
                             startNum = (startNum - 1) + floorRow * floorCol;
                         }
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum < 0)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum < 0)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 5: // 세로줄 왼쪽 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 5: // 세로줄 왼쪽 순서대로
                         for (int i = 0; i < floorRow; i++)
                         {
                             floorPattern(startNum + i * floorCol);
                         }
                         startNum += 1;
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum > floorCol - 2)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum >= floorCol - 1)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 6: // 세로줄 오른쪽 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 6: // 세로줄 오른쪽 순서대로
                         for (int i = 0; i < floorRow; i++)
                         {
                             floorPattern(startNum + i * floorCol);
                         }
                         startNum -= 1;
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum < 1)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum < 1)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 7: // 가로줄 위 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 7: // 가로줄 위 순서대로
                         for (int i = 0; i < floorCol; i++)
                         {
                             floorPattern(startNum + i);
                         }
                         startNum += floorCol;
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum / floorCol >= floorRow - 1)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum / floorCol >= floorRow - 1)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 8: // 가로줄 아래 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 8: // 가로줄 아래 순서대로
                         for (int i = 0; i < floorCol; i++)
                         {
                             floorPattern(startNum + i);
                         }
                         startNum -= floorCol;
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum < 1)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum < 1)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 9: // 가장자리에서 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 9: // 가장자리에서 순서대로
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
                             if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
@@ -457,20 +406,12 @@ public class TutorialManager : MonoBehaviour
                             }
                         }
                         startNum++;
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum > small)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum > small)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 10:  // 가운데에서 순서대로
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 10:  // 가운데에서 순서대로
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
                             if ((i / floorCol >= startNum && i / floorCol < floorRow - startNum
@@ -482,20 +423,12 @@ public class TutorialManager : MonoBehaviour
                             }
                         }
                         startNum--;
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum < 0)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum < 0)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
-                case 11: // 홀짝
-                    if (time > patternTime)
-                    {
+                        break;
+                    case 11: // 홀짝
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
                             if (i % 2 == startNum % 2)
@@ -504,17 +437,12 @@ public class TutorialManager : MonoBehaviour
                             }
                         }
                         startNum++;
-                        time -= patternTime;
-                        if (buttonClick)
+                        if (startNum > 10)
                         {
-                            buttonClick = false;
+                            nextPattern = true;
                         }
-                    }
-                    if (startNum > 10)
-                    {
-                        nextPattern = true;
-                    }
-                    break;
+                        break;
+                }
             }
         }
     }

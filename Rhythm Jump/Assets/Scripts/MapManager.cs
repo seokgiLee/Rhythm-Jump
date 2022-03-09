@@ -35,6 +35,7 @@ public class MapManager : MonoBehaviour
 
     public bool buttonOn; // 버튼을 누르는 타이밍 여부
     public bool buttonClick; // 버튼을 눌렀는지 여부
+    public bool isPattern; // 패턴 진행 여부
 
     public int playerX; // 플레이어 위치
     public int playerY;
@@ -177,6 +178,7 @@ public class MapManager : MonoBehaviour
                 // 버튼 활성화
                 Debug.Log("버튼 활성화");
                 buttonOn = true;
+                isPattern = true;
 
                 if (colorHint)
                 {
@@ -189,19 +191,15 @@ public class MapManager : MonoBehaviour
                 }
             }
             // 정해진 시간초과
-            else if (time > patternTime * patternAccuracy && time < patternTime * (1 - patternAccuracy) && buttonOn)
+            else if (time > patternTime * (1 + patternAccuracy))
             {
                 Debug.Log("시간초과");
                 ErrorCount();
                 buttonOn = false;
+                buttonClick = false;
                 colorHint = true;
-                FloorDamage();
-            }
-
-            if(!buttonClick && time > patternTime * (1 + patternAccuracy))
-            {
-                buttonOn = false;
                 time -= patternTime;
+                FloorDamage();
             }
 
             if (nextPattern)
@@ -214,7 +212,6 @@ public class MapManager : MonoBehaviour
                     patternStart = false;
                     endAnimation.SetTrigger("isDown");
                     bgmManager.StopSound();
-
 
                     if (cutLine < errorCount) // 실패
                     {
@@ -290,8 +287,9 @@ public class MapManager : MonoBehaviour
                 }
             }
 
-            if (time > patternTime)
+            if (time > patternTime && isPattern)
             {
+                isPattern = false;
                 if (buttonClick)
                 {
                     time -= patternTime;
