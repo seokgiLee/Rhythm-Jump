@@ -17,12 +17,28 @@ public class StartManager : MonoBehaviour
     public float sfx;
     public float bgm;
 
-    void Awake()
+    void Start()
     {
-        sfx = PlayerPrefs.GetFloat("SFX");
-        bgm = PlayerPrefs.GetFloat("BGM");
-        audioMixer.SetFloat("SFX", sfx);
-        audioMixer.SetFloat("BGM", bgm);
+        if (PlayerPrefs.HasKey("SFX"))
+        {
+            sfx = PlayerPrefs.GetFloat("SFX");
+            audioMixer.SetFloat("SFX", sfx);
+        }
+        else
+        {
+            audioMixer.SetFloat("SFX", -20);
+        }
+
+        if(PlayerPrefs.HasKey("BGM"))
+        {
+            bgm = PlayerPrefs.GetFloat("BGM");
+            audioMixer.SetFloat("BGM", bgm);
+        }
+        else
+        {
+            audioMixer.SetFloat("BGM", -20);
+        }
+
         FadeOut();
     }
 
