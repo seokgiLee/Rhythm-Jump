@@ -45,6 +45,7 @@ public class TutorialManager : MonoBehaviour
     public bool colorHint; // 버튼 색깔 힌트
     public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
+    public float playerTime; // 플레이어 타이밍용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
     public bool animationHint; // 박자 힌트 여부 (이동버튼)
@@ -180,6 +181,7 @@ public class TutorialManager : MonoBehaviour
         {
             time += Time.deltaTime;
             beatTime += Time.deltaTime;
+            playerTime += Time.deltaTime;
 
             if (time > patternTime && hint)
             {
@@ -193,8 +195,14 @@ public class TutorialManager : MonoBehaviour
                 sfxManager.PlaySound(2);
             }
 
+            if (buttonClick)
+            {
+                playerTime -= patternTime;
+                buttonClick = false;
+            }
+
             // 정해진 시간에 도달
-            if (time > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
+            if (playerTime > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
             {
                 // 버튼 활성화
                 Debug.Log("버튼 활성화");
@@ -213,14 +221,14 @@ public class TutorialManager : MonoBehaviour
                 }
             }
             // 정해진 시간초과
-            else if (time > patternTime * (1 + patternAccuracy))
+            else if (playerTime > patternTime * (1 + patternAccuracy))
             {
                 Debug.Log("시간초과");
                 ErrorCount();
                 buttonOn = false;
                 buttonClick = false;
                 colorHint = true;
-                time -= patternTime;
+                playerTime -= patternTime;
                 FloorDamage();
             }
 
@@ -302,11 +310,8 @@ public class TutorialManager : MonoBehaviour
             if (time > patternTime && isPattern)
             {
                 isPattern = false;
-                if (buttonClick)
-                {
-                    time -= patternTime;
-                    buttonClick = false;
-                }
+                time -= patternTime;
+                
                 switch (pattern)
                 {
                     case 0: // 공백타임
@@ -627,7 +632,7 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("시작");
         playerManager.PlayerStart(false);
         time = 0;
-
+        playerTime = 0;
         ButtonOn();
     }
 
@@ -737,6 +742,7 @@ public class TutorialManager : MonoBehaviour
     {
         time = 0;
         beatTime = 0;
+        playerTime = 0;
         tutorial1 = true;
         jumpSucess.SetActive(true);
         jumpSucessText.text = "점프를 " + jumpSucessCount.ToString() + "번 하세요";
@@ -759,9 +765,10 @@ public class TutorialManager : MonoBehaviour
     {
         time = 0;
         beatTime = 0;
+        playerTime = 0;
         tutorial2 = true;
         nextPattern = true;
-        bgmManager.PlaySound(51);
+        bgmManager.PlaySound(51, 0.5f);
     }
 
     public void PauseButton() // 일시정지 버튼

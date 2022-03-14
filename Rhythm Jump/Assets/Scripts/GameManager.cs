@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     public bool colorHint; // 버튼 색깔 힌트
     public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
+    public float playerTime; // 플레이어 타이밍용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
     public bool animationHint; // 박자 힌트 여부 (이동버튼)
@@ -85,7 +86,7 @@ public class GameManager : MonoBehaviour
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
         sfxManager.PlaySound(7);
-        bgmManager.PlaySound(0);
+        bgmManager.PlaySound(0, 0);
 
         cameraManager.Zoom(5);
         Time.timeScale = 1;
@@ -96,9 +97,9 @@ public class GameManager : MonoBehaviour
         if (curStage < 1)
         {
             curStage = maxStage;
-            if (maxStage == 50)
+            if (maxStage > 49)
             {
-                curStage--;
+                curStage = 49;
             }
         }
         playerX = ((curStage - 1) % floorRow) * 2;
@@ -153,6 +154,7 @@ public class GameManager : MonoBehaviour
 
         time += Time.deltaTime;
         beatTime += Time.deltaTime;
+        playerTime += Time.deltaTime;
 
         if (start)
         {
@@ -201,8 +203,14 @@ public class GameManager : MonoBehaviour
 
         if (patternStart)
         {
+            if (buttonClick)
+            {
+                playerTime -= patternTime;
+                buttonClick = false;
+            }
+
             // 정해진 시간에 도달
-            if (time > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
+            if (playerTime > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
             {
                 // 버튼 활성화
                 Debug.Log("버튼 활성화");
@@ -220,14 +228,14 @@ public class GameManager : MonoBehaviour
                 }
             }
             // 정해진 시간초과
-            else if (time > patternTime * (1 + patternAccuracy))
+            else if (playerTime > patternTime * (1 + patternAccuracy))
             {
                 Debug.Log("시간초과");
                 ErrorCount();
                 buttonOn = false;
                 buttonClick = false;
                 colorHint = true;
-                time -= patternTime;
+                playerTime -= patternTime;
                 FloorDamage();
             }
 
@@ -242,6 +250,16 @@ public class GameManager : MonoBehaviour
                     endAnimation.SetTrigger("isDown");
                     bgmManager.StopSound();
 
+                    for (int i = 0; i < buttons.Length; i++)
+                    {
+                        buttons[i].interactable = false;
+                    }
+
+                    for (int i = 0; i < buttonAnimations.Length; i++)
+                    {
+                        buttonAnimations[i].SetTrigger("isStop");
+                    }
+
                     if (cutLine < errorCount) // 실패
                     {
                         sfxManager.PlaySound(6);
@@ -255,21 +273,12 @@ public class GameManager : MonoBehaviour
                         sfxManager.PlaySound(5);
                         if (maxStage == stageNum)
                         {
+                            stageNum++;
                             PlayerPrefs.SetInt("Max Stage", stageNum);
                         }
 
                         endText.text = "성 공";
                         endScoreText.text = "실패 : " + errorCount.ToString() + " / " + cutLine.ToString();
-                    }
-
-                    for (int i = 0; i < buttons.Length; i++)
-                    {
-                        buttons[i].interactable = false;
-                    }
-
-                    for (int i = 0; i < buttonAnimations.Length; i++)
-                    {
-                        buttonAnimations[i].SetTrigger("isStop");
                     }
                 }
                 else
@@ -318,11 +327,8 @@ public class GameManager : MonoBehaviour
             if (time > patternTime && isPattern)
             {
                 isPattern = false;
-                if (buttonClick)
-                {
-                    time -= patternTime;
-                    buttonClick = false;
-                }
+                time -= patternTime;
+                
                 switch (pattern)
                 {
                     case 0: // 공백타임
@@ -685,6 +691,7 @@ public class GameManager : MonoBehaviour
     {
         bgmManager.StopSound();
         cameraManager.Zoom(8);
+        curPatternNum = 0;
         errorCount = 0;
         errorText.text = errorCount.ToString();
         stageNum = stageData.stageDatas[50].stageNum;
@@ -710,12 +717,10 @@ public class GameManager : MonoBehaviour
         endAnimation.SetTrigger("isUp");
         if (cutLine < errorCount) // 실패
         {
-            bgmManager.PlaySound(0);
+            bgmManager.PlaySound(0, 0);
             cameraManager.Zoom(5);
             patternTime = 2f;
             patternAccuracy = 0.2f;
-            playerX = 14;
-            playerY = -12;
             floorNum = 49;
 
             for (int i = 0; i < buttons.Length; i++)
@@ -727,19 +732,25 @@ public class GameManager : MonoBehaviour
                 buttonAnimations[i].SetTrigger("isStart");
             }
 
-            playerPosition.transform.DOMoveX(playerX, 1f);
             floorsPosition[49].transform.DOMoveX(playerX, 1f);
-            cameraPosition.transform.DOMoveX(playerX, 1f);
-            playerPosition.transform.DOMoveY(playerY, 1f).SetDelay(1f);
-            floorsPosition[49].transform.DOMoveY(playerY, 1f).SetDelay(1f);
-            cameraPosition.transform.DOMoveY(playerY, 1f).SetDelay(1f);
+            floorsPosition[49].transform.DOMoveY(playerY, 1f);
+            playerX = 14;
+            playerY = -12;
+            playerPosition.transform.DOMoveX(playerX, 1f).SetDelay(1f); ;
+            floorsPosition[49].transform.DOMoveX(playerX, 1f).SetDelay(1f); ;
+            cameraPosition.transform.DOMoveX(playerX, 1f).SetDelay(1f); ;
+            playerPosition.transform.DOMoveY(playerY, 1f).SetDelay(2f);
+            floorsPosition[49].transform.DOMoveY(playerY, 1f).SetDelay(2f);
+            cameraPosition.transform.DOMoveY(playerY, 1f).SetDelay(2f);
             Invoke("PlayerMoveStart", 2f);
         }
         else // 성공
         {
-            playerPosition.transform.DOMoveY(10, 3f).SetEase(Ease.InQuart);
-            floorsPosition[49].transform.DOMoveY(10, 3f).SetEase(Ease.InQuart);
-            cameraPosition.transform.DOMoveY(10, 3f).SetEase(Ease.InQuart);
+            floorsPosition[49].transform.DOMoveX(playerX, 1f);
+            floorsPosition[49].transform.DOMoveY(playerY, 1f);
+            playerPosition.transform.DOMoveY(10, 3f).SetEase(Ease.InQuart).SetDelay(1f);
+            floorsPosition[49].transform.DOMoveY(10, 3f).SetEase(Ease.InQuart).SetDelay(1f);
+            cameraPosition.transform.DOMoveY(10, 3f).SetEase(Ease.InQuart).SetDelay(1f);
             Invoke("Ending", 3.5f);
         }
     }
@@ -753,6 +764,7 @@ public class GameManager : MonoBehaviour
     {
         start = true;
         time = 0;
+        playerTime = 0;
     }
 
     public void ErrorCount() // 틀린 횟수
@@ -786,12 +798,13 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("시작");
         sfxManager.PlaySound(11);
-        bgmManager.PlaySound(50);
+        bgmManager.PlaySound(50, 0);
         playerManager.PlayerStart(false);
         playerMove = false;
         patternStart = true;
         nextPattern = true;
         time = 0;
+        playerTime = 0;
 
         for (int i = 0; i < buttons.Length; i++)
         {

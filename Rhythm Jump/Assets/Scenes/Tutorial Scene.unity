@@ -5405,7 +5405,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.47368422, y: 1}
+    m_SensorSize: {x: 0.47338247, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -11509,14 +11509,17 @@ MonoBehaviour:
   start: 0
   buttonOn: 0
   buttonClick: 0
+  isPattern: 0
   playerX: 0
   playerY: 0
   floorRow: 3
   floorCol: 3
   floorNum: 0
   hint: 0
+  colorHint: 0
   beatTime: 0
   time: 0
+  playerTime: 0
   patternTime: 2
   patternAccuracy: 0.3
   animationHint: 1
@@ -11524,7 +11527,7 @@ MonoBehaviour:
   errorCount: 0
   patternStart: 0
   nextPattern: 0
-  patternNums: 010000000000000002000000000000000300000000000000040000000000000000000000
+  patternNums: 010000000000000003000000000000000200000000000000040000000000000000000000
   curPatternNum: 0
   pattern: 0
   startNum: 0

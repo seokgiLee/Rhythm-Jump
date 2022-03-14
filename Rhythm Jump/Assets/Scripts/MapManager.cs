@@ -47,6 +47,7 @@ public class MapManager : MonoBehaviour
     public bool colorHint; // 버튼 색깔 힌트
     public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
+    public float playerTime; // 플레이어 타이밍용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
     public bool animationHint; // 박자 힌트 여부 (이동버튼)
@@ -56,6 +57,7 @@ public class MapManager : MonoBehaviour
     public int cutLine; // 클리어 커트라인
     public int stageNum; // 현재 스테이지 번호
 
+    public float bgmStartTime; // BGM 시작시간
     public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
     public int[] patternNums; // 패턴순서 모음
@@ -78,6 +80,7 @@ public class MapManager : MonoBehaviour
         patternTime = stageData.stageDatas[0].patternTime;
         patternAccuracy = stageData.stageDatas[0].patternAccuracy;
         patternNums = stageData.stageDatas[0].patternNums;
+        bgmStartTime = stageData.stageDatas[0].bgmStartTime;
         cameraBorderPosition.transform.position = new Vector3((float)(floorCol) / 2 - 0.5f, -1 * ((float)(floorRow) / 2 - 0.5f), 0);
         cameraBorder.size = new Vector2(floorCol + 2, floorRow + 2);
 
@@ -136,7 +139,9 @@ public class MapManager : MonoBehaviour
         }
 
         time += Time.deltaTime;
-        
+        playerTime += Time.deltaTime;
+
+
         if (start)
         {
             if (time > 0.5f)
@@ -172,8 +177,14 @@ public class MapManager : MonoBehaviour
                 sfxManager.PlaySound(2);
             }
 
+            if (buttonClick)
+            {
+                playerTime -= patternTime;
+                buttonClick = false;
+            }
+
             // 정해진 시간에 도달
-            if (time > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
+            if (playerTime > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
             {
                 // 버튼 활성화
                 Debug.Log("버튼 활성화");
@@ -191,14 +202,14 @@ public class MapManager : MonoBehaviour
                 }
             }
             // 정해진 시간초과
-            else if (time > patternTime * (1 + patternAccuracy))
+            else if (playerTime > patternTime * (1 + patternAccuracy))
             {
                 Debug.Log("시간초과");
                 ErrorCount();
                 buttonOn = false;
                 buttonClick = false;
                 colorHint = true;
-                time -= patternTime;
+                playerTime -= patternTime;
                 FloorDamage();
             }
 
@@ -290,11 +301,8 @@ public class MapManager : MonoBehaviour
             if (time > patternTime && isPattern)
             {
                 isPattern = false;
-                if (buttonClick)
-                {
-                    time -= patternTime;
-                    buttonClick = false;
-                }
+                time -= patternTime;
+                
                 switch (pattern)
                 {
                     case 0: // 공백타임
@@ -556,6 +564,7 @@ public class MapManager : MonoBehaviour
         cameraManager.Zoom(5);
         start = true;
         time = 0;
+        playerTime = 0;
     }
 
     public void ErrorCount() // 틀린 횟수
@@ -589,11 +598,12 @@ public class MapManager : MonoBehaviour
     {
         Debug.Log("시작");
         sfxManager.PlaySound(11);
-        bgmManager.PlaySound(bgmManager.curStageNum);
+        bgmManager.PlaySound(bgmManager.curStageNum, bgmStartTime);
         playerManager.PlayerStart(false);
         patternStart = true;
         nextPattern = true;
         time = 0;
+        playerTime = 0;
 
         for (int i = 0; i < buttons.Length; i++)
         {
