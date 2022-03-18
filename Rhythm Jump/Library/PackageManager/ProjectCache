@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637809602502570076
-    m_Hash: 1638273867
+      ticks: 637831253503495806
+    m_Hash: 3543318795
   m_LockFileStatus:
     m_FilePath: C:/Unity/Rhythm-Jump/Rhythm Jump/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637809602502795091
-    m_Hash: 3166374674
+      ticks: 637831253503505798
+    m_Hash: 1763385812
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -89,6 +89,7 @@ m_ResolvedPackages:
     - 3.2.14
     - 3.2.15
     - 3.2.16
+    - 3.2.17
     - 4.0.0
     - 4.0.1
     - 4.1.0
@@ -112,6 +113,7 @@ m_ResolvedPackages:
     - 5.0.9
     - 5.0.10
     - 5.1.0
+    - 5.1.1
     - 6.0.0-pre.1
     - 6.0.0-pre.2
     - 6.0.1
@@ -125,6 +127,7 @@ m_ResolvedPackages:
     - 7.0.1
     - 7.0.2
     - 7.0.3
+    - 7.0.4
     - 8.0.0-pre.3
     - 8.0.0-pre.4
     - 8.0.0
@@ -317,6 +320,7 @@ m_ResolvedPackages:
     - 2.1.8
     - 2.1.9
     - 2.1.10
+    - 2.1.11
     - 3.0.0
     - 3.1.1
     - 3.1.3
@@ -344,6 +348,7 @@ m_ResolvedPackages:
     - 6.0.0
     - 6.0.1
     - 6.0.2
+    - 6.0.3
     - 7.0.0-pre.3
     - 7.0.0-pre.4
     - 7.0.0
@@ -548,6 +553,7 @@ m_ResolvedPackages:
     - 7.0.0
     - 7.0.2
     - 7.0.3
+    - 7.0.4
     - 8.0.0-pre.4
     - 8.0.0-pre.5
     - 8.0.0
@@ -868,12 +874,14 @@ m_ResolvedPackages:
     - 1.14.9
     - 1.14.12
     - 1.14.13
+    - 1.14.15
     - 1.15.1
     - 1.15.4
     - 1.15.7
     - 1.15.9
     - 1.15.12
     - 1.15.13
+    - 1.15.15
     - 2.0.0-preview.6
     - 2.0.0-preview.8
     - 2.0.0-preview.15
@@ -902,12 +910,14 @@ m_ResolvedPackages:
     - 1.14.9
     - 1.14.12
     - 1.14.13
+    - 1.14.15
     - 1.15.1
     - 1.15.4
     - 1.15.7
     - 1.15.9
     - 1.15.12
     - 1.15.13
+    - 1.15.15
     - 2.0.0-preview.6
     - 2.0.0-preview.8
     - 2.0.0-preview.15
@@ -1397,6 +1407,7 @@ m_ResolvedPackages:
     - 2.1.6
     - 2.2.0-preview.1
     - 2.2.0-preview.2
+    - 2.2.0-preview.3
     - 3.0.0-preview.1
     - 3.0.0-preview.3
     - 3.0.0-preview.4
@@ -1416,6 +1427,7 @@ m_ResolvedPackages:
     - 3.0.6
     - 3.2.0-pre.1
     - 3.2.0-pre.2
+    - 3.2.0-pre.3
     - 4.0.0-pre.1
     compatible:
     - 3.0.4
@@ -1423,6 +1435,7 @@ m_ResolvedPackages:
     - 3.0.6
     - 3.2.0-pre.1
     - 3.2.0-pre.2
+    - 3.2.0-pre.3
     verified: 3.0.6
   dependencies:
   - name: com.unity.ugui
@@ -1554,6 +1567,8 @@ m_ResolvedPackages:
     - 1.6.4
     - 1.7.0-pre.1
     - 1.7.0-pre.2
+    - 1.7.0
+    - 1.7.1
     compatible:
     - 1.5.4
     - 1.5.5
@@ -1569,6 +1584,8 @@ m_ResolvedPackages:
     - 1.6.4
     - 1.7.0-pre.1
     - 1.7.0-pre.2
+    - 1.7.0
+    - 1.7.1
     verified: 1.5.7
   dependencies:
   - name: com.unity.modules.director
