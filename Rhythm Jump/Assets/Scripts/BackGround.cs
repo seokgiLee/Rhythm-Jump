@@ -22,7 +22,7 @@ public class BackGround : MonoBehaviour
         Vector3 nextPos = Vector3.left * speed * Time.deltaTime;
         transform.position = curPos + nextPos;
 
-        if (sprites[startIndex].position.x < viewWidth * -1)
+        if (sprites[startIndex].position.x < viewWidth * -2)
         {
             Vector3 backSpritePos = sprites[endIndex].localPosition;
             sprites[startIndex].transform.localPosition = backSpritePos + Vector3.right * viewWidth;
