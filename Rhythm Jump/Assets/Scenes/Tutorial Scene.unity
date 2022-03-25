@@ -11531,6 +11531,7 @@ MonoBehaviour:
   curPatternNum: 0
   pattern: 0
   startNum: 0
+  isOdd: 1
   small: 0
   talkManager: {fileID: 1305216473}
   talkPanel: {fileID: 1396675754}

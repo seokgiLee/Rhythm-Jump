@@ -64,6 +64,7 @@ public class MapManager : MonoBehaviour
     public int curPatternNum; // 현재 패턴순서
     public int pattern; // 현재 패턴번호
     public int startNum; // 패턴 시작발판
+    public int isOdd; // 홀짝 판별
     public int small; // 테두리 개수
 
     void Awake()
@@ -427,16 +428,13 @@ public class MapManager : MonoBehaviour
                     case 11: // 홀짝
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
-                            if (i % 2 == startNum % 2)
+                            if (i % 2 == isOdd % 2)
                             {
                                 floorPattern(i);
                             }
                         }
-                        startNum++;
-                        if (startNum > 10)
-                        {
-                            nextPattern = true;
-                        }
+                        isOdd = (isOdd + 1) % 2;
+                        nextPattern = true;
                         break;
                 }
             }

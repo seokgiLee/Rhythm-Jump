@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     public int errorCount; // 틀린 횟수
     public int cutLine; // 클리어 커트라인
     public int stageNum; // 현재 스테이지 번호
+    public GameObject[] clearNotes; // 스테이지 클리어 표시 음표
 
     public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
     public int curPatternNum; // 현재 패턴순서
     public int pattern; // 현재 패턴번호
     public int startNum; // 패턴 시작발판
+    public int isOdd; // 홀짝 판별
     public int small; // 테두리 개수
 
     void Awake()
@@ -94,6 +96,16 @@ public class GameManager : MonoBehaviour
         maxStage = PlayerPrefs.GetInt("Max Stage");
         errorText.text = errorCount.ToString();
         curStage = bgmManager.curStageNum;
+
+        for (int i = 0; i < maxStage; i++)
+        {
+            if (i > 50)
+            {
+                break;
+            }
+            clearNotes[i].SetActive(true);
+        }
+
         if (curStage < 1)
         {
             curStage = maxStage;
@@ -453,16 +465,13 @@ public class GameManager : MonoBehaviour
                     case 11: // 홀짝
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
-                            if (i % 2 == startNum % 2)
+                            if (i % 2 == isOdd % 2)
                             {
                                 floorPattern(i);
                             }
                         }
-                        startNum++;
-                        if (startNum > 10)
-                        {
-                            nextPattern = true;
-                        }
+                        isOdd = (isOdd + 1) % 2;
+                        nextPattern = true;
                         break;
                 }
             }
@@ -683,7 +692,7 @@ public class GameManager : MonoBehaviour
         else
         {
             // 경고음
-            sfxManager.PlaySound(3);
+            sfxManager.PlaySound(4);
         }
     }
 

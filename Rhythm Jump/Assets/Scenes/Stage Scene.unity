@@ -11659,6 +11659,7 @@ MonoBehaviour:
   curPatternNum: 0
   pattern: 0
   startNum: 0
+  isOdd: 1
   small: 0
 --- !u!4 &1587567932
 Transform:
