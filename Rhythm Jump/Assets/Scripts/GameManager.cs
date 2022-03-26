@@ -97,9 +97,9 @@ public class GameManager : MonoBehaviour
         errorText.text = errorCount.ToString();
         curStage = bgmManager.curStageNum;
 
-        for (int i = 0; i < maxStage; i++)
+        for (int i = 0; i < maxStage - 1; i++)
         {
-            if (i > 50)
+            if (i > 49)
             {
                 break;
             }
@@ -894,6 +894,7 @@ public class GameManager : MonoBehaviour
         sfxManager.PlaySound(0);
         Time.timeScale = 0;
         pause.SetActive(true);
+        bgmManager.PauseSound();
     }
 
     public void ContinueButton() // 계속하기 버튼
@@ -901,6 +902,7 @@ public class GameManager : MonoBehaviour
         sfxManager.PlaySound(0);
         Time.timeScale = 1;
         pause.SetActive(false);
+        bgmManager.ContinueSound();
     }
 
     public void ExitButton() // 나가기 버튼

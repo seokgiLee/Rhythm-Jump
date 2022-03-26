@@ -30,4 +30,14 @@ public class BGMManager : MonoBehaviour
     {
         audioSource.Stop();
     }
+
+    public void PauseSound()
+    {
+        audioSource.Pause();
+    }
+
+    public void ContinueSound()
+    {
+        audioSource.Play();
+    }
 }

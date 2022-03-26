@@ -428,9 +428,30 @@ public class MapManager : MonoBehaviour
                     case 11: // 홀짝
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
-                            if (i % 2 == isOdd % 2)
+                            if (floorCol % 2 < 1)
                             {
-                                floorPattern(i);
+                                if ((i / floorCol) % 2 < 1)
+                                {
+                                    if (i % 2 == isOdd % 2)
+                                    {
+                                        floorPattern(i);
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (i % 2 == (isOdd + 1) % 2)
+                                    {
+                                        floorPattern(i);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (i % 2 == isOdd % 2)
+                                {
+                                    floorPattern(i);
+                                }
                             }
                         }
                         isOdd = (isOdd + 1) % 2;
@@ -630,6 +651,7 @@ public class MapManager : MonoBehaviour
         sfxManager.PlaySound(0);
         Time.timeScale = 0;
         pause.SetActive(true);
+        bgmManager.PauseSound();
     }
 
     public void ContinueButton() // 계속하기 버튼
@@ -637,6 +659,7 @@ public class MapManager : MonoBehaviour
         sfxManager.PlaySound(0);
         Time.timeScale = 1;
         pause.SetActive(false);
+        bgmManager.ContinueSound();
     }
 
     public void ExitButton() // 나가기 버튼
