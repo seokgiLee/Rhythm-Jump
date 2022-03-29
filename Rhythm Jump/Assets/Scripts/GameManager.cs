@@ -629,12 +629,13 @@ public class GameManager : MonoBehaviour
 
     void SpeachBubbleOn() // 스테이지 정보 말풍선 켜기
     {
+        StageData s = stageData.stageDatas[floorNum + 1];
         speachAnimator.SetTrigger("isSpeachOn");
         speachTexts[0].text = (floorNum + 1).ToString();
-        speachTexts[1].text = stageData.stageDatas[floorNum + 1].floorRow.ToString() + "×" + stageData.stageDatas[floorNum + 1].floorCol.ToString();
-        speachTexts[2].text = stageData.stageDatas[floorNum + 1].cutLine.ToString() + "회 이하";
-        speachTexts[3].text = stageData.stageDatas[floorNum + 1].patternTime.ToString() + "초";
-        speachTexts[4].text = (stageData.stageDatas[floorNum + 1].patternAccuracy * 100).ToString() + " %";
+        speachTexts[1].text = s.floorRow.ToString() + "×" + stageData.stageDatas[floorNum + 1].floorCol.ToString();
+        speachTexts[2].text = s.cutLine.ToString() + "회 이하";
+        speachTexts[3].text = s.patternTime.ToString() + "초";
+        speachTexts[4].text = (s.patternAccuracy * 100).ToString() + " %";
     }
 
     void SpeachBubbleOff() // 스테이지 정보 말풍선 끄기
