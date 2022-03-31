@@ -28,6 +28,7 @@ public class MapManager : MonoBehaviour
     public Animator[] countDowns;
     public Animator[] buttonAnimations;
     public Animator endAnimation;
+    public Text stageNumText;
     public Text endText;
     public Text endScoreText;
 
@@ -85,6 +86,7 @@ public class MapManager : MonoBehaviour
         cameraBorderPosition.transform.position = new Vector3((float)(floorCol) / 2 - 0.5f, -1 * ((float)(floorRow) / 2 - 0.5f), 0);
         cameraBorder.size = new Vector2(floorCol + 2, floorRow + 2);
 
+        stageNumText.text += stageNum.ToString();
         errorText.text = errorCount.ToString();
         playerX = (floorCol - 1) / 2;
         playerY = -1 * (floorRow - 1) / 2;
@@ -113,13 +115,14 @@ public class MapManager : MonoBehaviour
 
     void Update()
     {
+        // 스마트폰 뒤로가기버튼
         if (!backButton)
         {
             backButtonTime += Time.deltaTime;
             if (backButtonTime > 0.5f) // 0.5초마다 클릭가능
             {
                 backButton = true;
-                time = 0;
+                backButtonTime = 0;
             }
         }
 
@@ -136,6 +139,7 @@ public class MapManager : MonoBehaviour
                     PauseButton();
                 }
                 backButton = false;
+                StartCoroutine(BackButton());
             }
         }
 
@@ -670,5 +674,11 @@ public class MapManager : MonoBehaviour
         ContinueButton();
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");
+    }
+
+    IEnumerator BackButton()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        backButton = true;
     }
 }

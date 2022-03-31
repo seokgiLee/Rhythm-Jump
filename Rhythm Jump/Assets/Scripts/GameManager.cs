@@ -134,13 +134,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // 스마트폰 뒤로가기버튼
         if (!backButton)
         {
             backButtonTime += Time.deltaTime;
             if (backButtonTime > 0.5f) // 0.5초마다 클릭가능
             {
                 backButton = true;
-                time = 0;
+                backButtonTime = 0;
             }
         }
 
@@ -161,6 +162,7 @@ public class GameManager : MonoBehaviour
                     PauseButton();
                 }
                 backButton = false;
+                StartCoroutine(BackButton());
             }
         }
 
@@ -911,5 +913,11 @@ public class GameManager : MonoBehaviour
         playerMove = false;
         sfxManager.PlaySound(0);
         Application.Quit();
+    }
+
+    IEnumerator BackButton()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        backButton = true;
     }
 }

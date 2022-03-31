@@ -114,7 +114,7 @@ public class TutorialManager : MonoBehaviour
             if (backButtonTime > 0.5f) // 0.5초마다 클릭가능
             {
                 backButton = true;
-                time = 0;
+                backButtonTime = 0;
             }
         }
 
@@ -131,6 +131,7 @@ public class TutorialManager : MonoBehaviour
                     PauseButton();
                 }
                 backButton = false;
+                StartCoroutine(BackButton());
             }
         }
 
@@ -774,6 +775,7 @@ public class TutorialManager : MonoBehaviour
         sfxManager.PlaySound(0);
         Time.timeScale = 0;
         pause.SetActive(true);
+        bgmManager.PauseSound();
     }
 
     public void ContinueButton() // 계속하기 버튼
@@ -781,6 +783,7 @@ public class TutorialManager : MonoBehaviour
         sfxManager.PlaySound(0);
         Time.timeScale = 1;
         pause.SetActive(false);
+        bgmManager.ContinueSound();
     }
 
     public void ExitButton() // 나가기 버튼
@@ -791,5 +794,11 @@ public class TutorialManager : MonoBehaviour
         ContinueButton();
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");
+    }
+
+    IEnumerator BackButton()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        backButton = true;
     }
 }

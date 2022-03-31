@@ -7,8 +7,11 @@ using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
 {
+    public GameObject pause;
+    public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
+    public bool backButton; // 스마트폰 뒤로가기 버튼 클릭가능 여부
+
     public SFXManager sfxManager;
-    public BGMManager bgmManager;
     public CamaerManager camaerManager;
     public Button startButton;
     public Text startButtonText;
@@ -44,7 +47,52 @@ public class StartManager : MonoBehaviour
 
     void Update()
     {
-        
+        // 스마트폰 뒤로가기버튼
+        if (!backButton)
+        {
+            backButtonTime += Time.deltaTime;
+            if (backButtonTime > 0.5f) // 0.5초마다 클릭가능
+            {
+                backButton = true;
+                backButtonTime = 0;
+            }
+        }
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape) && backButton) // 뒤로가기
+            {
+                if (pause.activeSelf) // 일시정지창이 켜져있으면 끄기
+                {
+                    ContinueButton();
+                }
+                else // 일시정지창이 꺼져있으면 일시정지
+                {
+                    PauseButton();
+                }
+                backButton = false;
+            }
+        }
+    }
+
+    public void PauseButton() // 일시정지 버튼
+    {
+        sfxManager.PlaySound(0);
+        Time.timeScale = 0;
+        pause.SetActive(true);
+    }
+
+    public void ContinueButton() // 계속하기 버튼
+    {
+        sfxManager.PlaySound(0);
+        Time.timeScale = 1;
+        pause.SetActive(false);
+    }
+
+    public void ExitButton() // 나가기 버튼
+    {
+        sfxManager.PlaySound(0);
+        Application.Quit();
     }
 
     public void FadeOut()
@@ -62,7 +110,6 @@ public class StartManager : MonoBehaviour
     public void StartButton()
     {
         sfxManager.PlaySound(8);
-        bgmManager.StopSound();
         if (PlayerPrefs.HasKey("Max Stage"))
         {
             LoadingCanvasManager.Instance.ChangeScene("Main Scene");

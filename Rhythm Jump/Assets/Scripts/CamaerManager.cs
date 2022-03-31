@@ -24,21 +24,21 @@ public class CamaerManager : MonoBehaviour
             if (zoomSize > curSize) // ÁÜ¾Æ¿ô
             {
                 vCam.m_Lens.OrthographicSize += 0.05f;
-                if (curSize >= zoomSize)
+                if (vCam.m_Lens.OrthographicSize >= zoomSize)
                 {
                     zoom = false;
+                    vCam.m_Lens.OrthographicSize = Mathf.FloorToInt(vCam.m_Lens.OrthographicSize);
                 }
             }
             else if (zoomSize < curSize) // ÁÜÀÎ
             {
                 vCam.m_Lens.OrthographicSize -= 0.05f;
-                if (curSize <= zoomSize)
+                if (vCam.m_Lens.OrthographicSize <= zoomSize)
                 {
                     zoom = false;
+                    vCam.m_Lens.OrthographicSize = Mathf.FloorToInt(vCam.m_Lens.OrthographicSize);
                 }
             }
-
-            curSize = Mathf.FloorToInt(vCam.m_Lens.OrthographicSize);
         }
     }
 
