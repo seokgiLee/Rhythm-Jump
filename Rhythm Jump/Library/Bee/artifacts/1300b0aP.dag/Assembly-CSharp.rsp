@@ -304,6 +304,7 @@
 "Assets/Scripts/CamaerManager.cs"
 "Assets/Scripts/EndingManager.cs"
 "Assets/Scripts/FloorManager.cs"
+"Assets/Scripts/FPSManager.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/LoadingCanvasManager.cs"
 "Assets/Scripts/MapManager.cs"

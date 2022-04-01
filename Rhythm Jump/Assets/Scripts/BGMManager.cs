@@ -40,4 +40,9 @@ public class BGMManager : MonoBehaviour
     {
         audioSource.Play();
     }
+
+    public void NullSound()
+    {
+        audioSource.clip = null;
+    }
 }

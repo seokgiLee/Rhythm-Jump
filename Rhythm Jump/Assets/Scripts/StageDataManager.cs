@@ -24,7 +24,7 @@ public class StageDataManager : MonoBehaviour
         stageDatas.Add(null);
         stageDatas.Add(new StageData(1, 30, 2, 3, 2, 0.3f, new int[] { 1, 0, 3, 0, 5, 0, 6, 0, 0, 7, 0, 8, 0, 0 }, 0f));
         stageDatas.Add(new StageData(2, 30, 3, 2, 2, 0.3f, new int[] { 5, 0, 6, 0, 1, 0, 4, 0, 0, 7, 0, 8, 0, 0 }, 0f));
-        stageDatas.Add(new StageData(3, 30, 3, 3, 2, 0.3f, new int[] { 7, 0, 6, 0, 8, 0, 5, 0, 0, 7, 0, 6, 0, 8, 0, 5, 0, 9, 0 }, 0f));
+        stageDatas.Add(new StageData(3, 30, 3, 3, 1.5f, 0.3f, new int[] { 7, 0, 6, 0, 8, 0, 5, 0, 0, 9, 0 }, 0.1f));
         stageDatas.Add(new StageData(4, 30, 2, 3, 2, 0.3f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0, 0, 7, 0, 8, 0, 7, 0, 0, 5, 0, 0, 7, 0, 0, 6, 0, 0, 8, 0, 0 }, 0f));
         stageDatas.Add(new StageData(5, 30, 3, 2, 2, 0.3f, new int[] { 5, 0, 6, 0, 5, 0, 6, 0, 0, 7, 0, 8, 0, 7, 0, 8, 0, 0, 11, 11, 0, 0 }, 1f));
         stageDatas.Add(new StageData(6, 30, 4, 1, 2, 0.3f, new int[] { 7, 0, 0, 8, 0, 0, 7, 0, 0, 8, 0, 0, 7, 0, 0, 8, 0, 0, 7, 0, 0, 8, 0, 0 }, 0.5f));

@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - BackGround
     - CamaerManager
     - EndingManager
+    - FPSManager
     - FloorManager
     - GameManager
     - LoadingCanvasManager
@@ -59,10 +60,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -434,6 +433,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 7428}
     - Class: 114
       Script: {instanceID: 8336}
+    - Class: 114
+      Script: {instanceID: 126436}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -656,7 +657,7 @@ ScriptsOnlyBuild:
     className: CinemachineCollider
   - hash:
       serializedVersion: 2
-      Hash: 43c5a0bc2f787323967f887a16d07b1b
+      Hash: d778c0f92016b43582d78eb3fdd537cf
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StartManager
@@ -2028,6 +2029,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 12347aad3b5cbe9980257110878f6097
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FPSManager
   platform: 13
   scenePathNames:
   - Assets/Scenes/Start Scene.unity
@@ -2036,4 +2043,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Stage Scene.unity
   - Assets/Scenes/Ending Scene.unity
   playerPath: "C:/Unity/Rhythm-Jump/\uB9AC\uB4EC\uC810\uD504 \uAC1C\uBC1C/Rhythm
-    Jump(0331).apk"
+    Jump(0401).apk"

@@ -179,7 +179,7 @@ public class MapManager : MonoBehaviour
             if (beatTime > 0.5f)
             {
                 beatTime = 0;
-                sfxManager.PlaySound(2);
+                //sfxManager.PlaySound(2);
             }
 
             if (buttonClick)
@@ -670,7 +670,7 @@ public class MapManager : MonoBehaviour
     {
         patternStart = false;
         sfxManager.PlaySound(8);
-        bgmManager.StopSound();
+        bgmManager.NullSound();
         ContinueButton();
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");

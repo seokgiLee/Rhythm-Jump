@@ -691,6 +691,7 @@ public class GameManager : MonoBehaviour
                 bgmManager.curStageNum = floorNum + 1;
                 LoadingCanvasManager.Instance.ChangeScene("Stage Scene");
             }
+            bgmManager.NullSound();
         }
         else
         {

@@ -790,7 +790,7 @@ public class TutorialManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Max Stage", 1);
         sfxManager.PlaySound(8);
-        bgmManager.StopSound();
+        bgmManager.NullSound();
         ContinueButton();
         cameraManager.Zoom(0);
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");

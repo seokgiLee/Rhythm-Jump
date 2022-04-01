@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
 {
+    public AudioSource audio;
     public GameObject pause;
     public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
     public bool backButton; // 스마트폰 뒤로가기 버튼 클릭가능 여부
@@ -42,7 +43,10 @@ public class StartManager : MonoBehaviour
             audioMixer.SetFloat("BGM", -20);
         }
 
+        audio.Play();
         FadeOut();
+
+        Application.targetFrameRate = 60;
     }
 
     void Update()
