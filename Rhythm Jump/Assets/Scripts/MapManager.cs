@@ -68,6 +68,11 @@ public class MapManager : MonoBehaviour
     public int isOdd; // 홀짝 판별
     public int small; // 테두리 개수
 
+    public float curSpeed; // 현재 박자 배속
+    public Text curSpeedText; // 현재 박자 배속 텍스트
+    public Text speedText; // 박자 배속 변화량 텍스트
+    public Animator speedAnimation;
+
     void Awake()
     {
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
@@ -461,8 +466,46 @@ public class MapManager : MonoBehaviour
                         isOdd = (isOdd + 1) % 2;
                         nextPattern = true;
                         break;
+                    case 101: // 2배 느리게
+                        curSpeed /= 2;
+                        speedText.text = "÷2";
+                        speedAnimation.SetFloat("speed", curSpeed);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        Invoke("SpeedChange", 1.3f / curSpeed);
+                        patternTime *= 2;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime();
+                        }
+                        nextPattern = true;
+                        break;
+                    case 102: // 2배 빠르게
+                        curSpeed *= 2;
+                        speedText.text = "×2";
+                        speedAnimation.SetFloat("speed", curSpeed);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        Invoke("SpeedChange", 1.3f / curSpeed);
+                        patternTime /= 2;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime();
+                        }
+                        nextPattern = true;
+                        break;
                 }
             }
+        }
+    }
+
+    public void SpeedChange()
+    {
+        if (curSpeed >= 1)
+        {
+            curSpeedText.text = "×" + curSpeed.ToString();
+        }
+        else
+        {
+            curSpeedText.text = "÷" + (1f / curSpeed).ToString();
         }
     }
 
