@@ -12,8 +12,9 @@ public class StageData
     public float patternAccuracy; // 리듬 정확도
     public int[] patternNums; // 스테이지 패턴
     public float bgmStartTime; // BGM 시작시간
+    public float bgmSpeed; // BGM 속도
 
-    public StageData(int s,int l, int r,int c, float t,float a, int[] n, float b)
+    public StageData(int s,int l, int r,int c, float t,float a, int[] n, float b, float p = 1)
     {
         stageNum = s;
         cutLine = l;
@@ -23,5 +24,6 @@ public class StageData
         patternAccuracy = a;
         patternNums = n;
         bgmStartTime = b;
+        bgmSpeed = p;
     }
 }

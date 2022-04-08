@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 1639.3334
-    y: 752.6667
+    x: 1200
+    y: 729.3334
     width: 270
     height: 532
   m_ShowMode: 0
@@ -67,9 +67,9 @@ MonoBehaviour:
     width: 1732
     height: 1016
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Inspector
   m_RootView: {fileID: 8}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 0
 --- !u!114 &4
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 270, y: 321}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 239
+  controlID: 85
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 121}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 190
+  controlID: 24
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -194,7 +194,7 @@ MonoBehaviour:
     y: 0
     width: 1732
     height: 1016
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_MinSize: {x: 841, y: 492}
   m_MaxSize: {x: 28006, y: 14042}
   vertical: 0
-  controlID: 150
+  controlID: 49
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_MinSize: {x: 565, y: 492}
   m_MaxSize: {x: 24005, y: 14042}
   vertical: 1
-  controlID: 214
+  controlID: 171
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 215
+  controlID: 172
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_MinSize: {x: 565, y: 271}
   m_MaxSize: {x: 24005, y: 10021}
   vertical: 0
-  controlID: 27
+  controlID: 127
 --- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -525,8 +525,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1639.3334
-    y: 752.6667
+    x: 1200
+    y: 729.3334
     width: 270
     height: 511
   m_ViewDataDictionary: {fileID: 0}
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 91606
+  m_LastSelectedObjectID: 22694
 --- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 8c590000
       m_LastClickedID: 0
       m_ExpandedIDs: 42fbffff
       m_RenameOverlay:
@@ -1090,8 +1090,8 @@ MonoBehaviour:
     m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f25a0000
-    m_LastClickedID: 23282
+    m_SelectedIDs: 5c5b0000
+    m_LastClickedID: 23388
     m_ExpandedIDs: 00000000e05a0000e25a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1387,21 +1387,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Animation
+    - Assets/Sound/BGM
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Animation
+  - Assets/Sound/BGM
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Unity\Rhythm-Jump\Rhythm Jump
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e85a0000
-    m_LastClickedID: 23272
+    m_SelectedIDs: 605b0000
+    m_LastClickedID: 23392
     m_ExpandedIDs: 00000000e05a0000e25a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 148a0000506d0000ee5400005a550000bc530000846f0000e0550000ac570000b261000072f6ffffcc5800002a690000485b0000665b0000c2e600001e5b00005e5b00006662ffff345e00004e5a00003259000002590000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1482,7 +1482,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 66}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 109.999985

@@ -19,10 +19,11 @@ public class BGMManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void PlaySound(int i, float t)
+    public void PlaySound(int i, float t, float p = 1)
     {
         audioSource.clip = bgmAudios[i];
         audioSource.time = t;
+        audioSource.pitch = p;
         audioSource.Play();
     }
 

@@ -59,6 +59,7 @@ public class MapManager : MonoBehaviour
     public int stageNum; // 현재 스테이지 번호
 
     public float bgmStartTime; // BGM 시작시간
+    public float bgmSpeed; // BGM 속도
     public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
     public int[] patternNums; // 패턴순서 모음
@@ -88,6 +89,7 @@ public class MapManager : MonoBehaviour
         patternAccuracy = stageData.stageDatas[0].patternAccuracy;
         patternNums = stageData.stageDatas[0].patternNums;
         bgmStartTime = stageData.stageDatas[0].bgmStartTime;
+        bgmSpeed = stageData.stageDatas[0].bgmSpeed;
         cameraBorderPosition.transform.position = new Vector3((float)(floorCol) / 2 - 0.5f, -1 * ((float)(floorRow) / 2 - 0.5f), 0);
         cameraBorder.size = new Vector2(floorCol + 2, floorRow + 2);
 
@@ -664,7 +666,7 @@ public class MapManager : MonoBehaviour
     {
         Debug.Log("시작");
         sfxManager.PlaySound(11);
-        bgmManager.PlaySound(bgmManager.curStageNum, bgmStartTime);
+        bgmManager.PlaySound(bgmManager.curStageNum, bgmStartTime, bgmSpeed);
         playerManager.PlayerStart(false);
         patternStart = true;
         nextPattern = true;
