@@ -22,20 +22,9 @@ public class FloorManager : MonoBehaviour
         transform.DOMove(new Vector3(i % floorCol, -1 * i / floorCol), 0.5f).SetEase(Ease.Linear);
     }
 
-    public void PatternTime()
+    public void PatternTime(float t)
     {
-        if (mapManager != null)
-        {
-            patternTime = mapManager.patternTime;
-        }
-        else if(gameManager != null)
-        {
-            patternTime = gameManager.patternTime;
-        }
-        else
-        {
-            patternTime = tutorialManager.patternTime;
-        }
+        patternTime = t;
     }
 
     public void floorPatternStart() // 패턴 시작

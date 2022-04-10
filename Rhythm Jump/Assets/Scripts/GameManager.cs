@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < buttons.Length; i++)
                     {
                         buttons[i].image.DOColor(new Color(1, 0, 0), patternTime * patternAccuracy);
-                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(0.5f);
                     }
                     colorHint = false;
                 }
@@ -716,7 +716,7 @@ public class GameManager : MonoBehaviour
         patternNums = stageData.stageDatas[50].patternNums;
         for (int i = 0; i < floorRow * floorCol; i++)
         {
-            floors[i].PatternTime();
+            floors[i].PatternTime(patternTime);
         }
         playerX = 6;
         playerY = -6;

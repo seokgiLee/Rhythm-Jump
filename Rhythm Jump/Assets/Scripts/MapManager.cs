@@ -105,7 +105,7 @@ public class MapManager : MonoBehaviour
         {
             floorsPosition[i].SetActive(true);
             floorsPosition[i].transform.position = new Vector3(i % floorCol, -1 * i / floorCol + 10);
-            floors[i].PatternTime();
+            floors[i].PatternTime(patternTime);
         }
 
         if (floorRow > floorCol)
@@ -153,7 +153,6 @@ public class MapManager : MonoBehaviour
         time += Time.deltaTime;
         playerTime += Time.deltaTime;
 
-
         if (start)
         {
             if (time > 0.5f)
@@ -185,8 +184,7 @@ public class MapManager : MonoBehaviour
 
             if (beatTime > 0.5f)
             {
-                beatTime = 0;
-                //sfxManager.PlaySound(2);
+                beatTime -= 0.5f;
             }
 
             if (buttonClick)
@@ -202,13 +200,13 @@ public class MapManager : MonoBehaviour
                 Debug.Log("버튼 활성화");
                 buttonOn = true;
                 isPattern = true;
-
+                Debug.Log(time + ", "+playerTime);
                 if (colorHint)
                 {
                     for (int i = 0; i < buttons.Length; i++)
                     {
                         buttons[i].image.DOColor(new Color(1, 0, 0), patternTime * patternAccuracy);
-                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(0.5f);
                     }
                     colorHint = false;
                 }
@@ -474,10 +472,11 @@ public class MapManager : MonoBehaviour
                         speedAnimation.SetFloat("speed", curSpeed);
                         speedAnimation.SetTrigger("isSpeedChange");
                         Invoke("SpeedChange", 1.3f / curSpeed);
+                        playerTime += patternTime;
                         patternTime *= 2;
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
-                            floors[i].PatternTime();
+                            floors[i].PatternTime(patternTime);
                         }
                         nextPattern = true;
                         break;
@@ -490,7 +489,7 @@ public class MapManager : MonoBehaviour
                         patternTime /= 2;
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
-                            floors[i].PatternTime();
+                            floors[i].PatternTime(patternTime);
                         }
                         nextPattern = true;
                         break;

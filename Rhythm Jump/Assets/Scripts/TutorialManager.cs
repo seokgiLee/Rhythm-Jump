@@ -90,7 +90,7 @@ public class TutorialManager : MonoBehaviour
 
         for (int i = 0; i < floorRow * floorCol; i++)
         {
-            floors[i].PatternTime();
+            floors[i].PatternTime(patternTime);
         }
 
         if (floorRow > floorCol)
@@ -217,7 +217,7 @@ public class TutorialManager : MonoBehaviour
                     for (int i = 0; i < buttons.Length; i++)
                     {
                         buttons[i].image.DOColor(new Color(1, 0, 0), patternTime * patternAccuracy);
-                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(0.5f);
                     }
                     colorHint = false;
                 }
