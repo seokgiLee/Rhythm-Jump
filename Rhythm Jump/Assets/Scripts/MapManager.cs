@@ -200,7 +200,6 @@ public class MapManager : MonoBehaviour
                 Debug.Log("버튼 활성화");
                 buttonOn = true;
                 isPattern = true;
-                Debug.Log(time + ", "+playerTime);
                 if (colorHint)
                 {
                     for (int i = 0; i < buttons.Length; i++)
