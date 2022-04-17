@@ -28,6 +28,7 @@ public class CamaerManager : MonoBehaviour
                 {
                     zoom = false;
                     vCam.m_Lens.OrthographicSize = Mathf.FloorToInt(vCam.m_Lens.OrthographicSize);
+                    curSize = zoomSize;
                 }
             }
             else if (zoomSize < curSize) // ÁÜÀÎ
@@ -37,6 +38,7 @@ public class CamaerManager : MonoBehaviour
                 {
                     zoom = false;
                     vCam.m_Lens.OrthographicSize = Mathf.FloorToInt(vCam.m_Lens.OrthographicSize);
+                    curSize = zoomSize;
                 }
             }
         }

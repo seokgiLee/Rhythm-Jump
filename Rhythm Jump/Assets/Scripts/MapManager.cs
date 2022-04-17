@@ -200,12 +200,13 @@ public class MapManager : MonoBehaviour
                 Debug.Log("버튼 활성화");
                 buttonOn = true;
                 isPattern = true;
+
                 if (colorHint)
                 {
                     for (int i = 0; i < buttons.Length; i++)
                     {
                         buttons[i].image.DOColor(new Color(1, 0, 0), patternTime * patternAccuracy);
-                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(0.5f);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy * 2);
                     }
                     colorHint = false;
                 }

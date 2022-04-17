@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public PlayerManager playerManager;
 
     public GameObject pause;
+    public GameObject gamePause;
+    public GameObject stagePause;
     public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
     public bool backButton; // 스마트폰 뒤로가기 버튼 클릭가능 여부
     public GameObject option;
@@ -129,6 +131,7 @@ public class GameManager : MonoBehaviour
             small = (floorRow + 1) / 2;
         }
 
+        pause = gamePause;
         Invoke("MapStart", 1);
     }
 
@@ -217,6 +220,13 @@ public class GameManager : MonoBehaviour
 
         if (patternStart)
         {
+            beatTime += Time.deltaTime;
+
+            if (beatTime > 0.5f)
+            {
+                beatTime -= 0.5f;
+            }
+
             if (buttonClick)
             {
                 playerTime -= patternTime;
@@ -269,10 +279,7 @@ public class GameManager : MonoBehaviour
                         buttons[i].interactable = false;
                     }
 
-                    for (int i = 0; i < buttonAnimations.Length; i++)
-                    {
-                        buttonAnimations[i].SetTrigger("isStop");
-                    }
+                    ButtonAnimationStop();
 
                     if (cutLine < errorCount) // 실패
                     {
@@ -657,6 +664,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void ButtonAnimationStart()
+    {
+        for (int i = 0; i < buttonAnimations.Length; i++)
+        {
+            buttonAnimations[i].SetTrigger("isStart");
+        }
+    }
+
+    void ButtonAnimationStop()
+    {
+        for (int i = 0; i < buttonAnimations.Length; i++)
+        {
+            buttonAnimations[i].SetTrigger("isStop");
+        }
+    }
+
     public void StartButton()
     {
         if (floorNum < maxStage)
@@ -668,10 +691,7 @@ public class GameManager : MonoBehaviour
                 {
                     buttons[i].interactable = false;
                 }
-                for (int i = 0; i < buttonAnimations.Length; i++)
-                {
-                    buttonAnimations[i].SetTrigger("isStop");
-                }
+                ButtonAnimationStop();
 
                 playerPosition.transform.DOMoveY(floorsPosition[24].transform.position.y, 1f);
                 floorsPosition[49].transform.DOMoveY(floorsPosition[24].transform.position.y, 1f);
@@ -714,18 +734,22 @@ public class GameManager : MonoBehaviour
         patternTime = stageData.stageDatas[50].patternTime;
         patternAccuracy = stageData.stageDatas[50].patternAccuracy;
         patternNums = stageData.stageDatas[50].patternNums;
+
         for (int i = 0; i < floorRow * floorCol; i++)
         {
             floors[i].PatternTime(patternTime);
         }
+        Invoke("ButtonAnimationStart", 3f);
         playerX = 6;
         playerY = -6;
         floorNum = 24;
         CountDown3();
     }
 
-    public void StageEnd() // 스테이지 종료 버튼
+    public void StageEnd() // 마지막 스테이지 끝
     {
+        pause = gamePause;
+
         sfxManager.PlaySound(8);
         endAnimation.SetTrigger("isUp");
         if (cutLine < errorCount) // 실패
@@ -740,10 +764,7 @@ public class GameManager : MonoBehaviour
             {
                 buttons[i].interactable = true;
             }
-            for (int i = 0; i < buttonAnimations.Length; i++)
-            {
-                buttonAnimations[i].SetTrigger("isStart");
-            }
+            Invoke("ButtonAnimationStart", 3f);
 
             floorsPosition[49].transform.DOMoveX(playerX, 1f);
             floorsPosition[49].transform.DOMoveY(playerY, 1f);
@@ -810,6 +831,7 @@ public class GameManager : MonoBehaviour
     void PatternStart() // 패턴시작
     {
         Debug.Log("시작");
+        pause = stagePause;
         sfxManager.PlaySound(11);
         bgmManager.PlaySound(50, 0);
         playerManager.PlayerStart(false);
@@ -841,10 +863,7 @@ public class GameManager : MonoBehaviour
         {
             buttons[i].interactable = true;
         }
-        for (int i = 0; i < buttonAnimations.Length; i++)
-        {
-            buttonAnimations[i].SetTrigger("isStart");
-        }
+        ButtonAnimationStart();
     }
 
     public void OptionButton() // 옵션 버튼
@@ -914,6 +933,39 @@ public class GameManager : MonoBehaviour
         playerMove = false;
         sfxManager.PlaySound(0);
         Application.Quit();
+    }
+
+    public void StageExitButton() // 스테이지 종료 버튼
+    {
+        sfxManager.PlaySound(0);
+        Time.timeScale = 1;
+        pause.SetActive(false);
+        pause = gamePause;
+
+        ButtonAnimationStop();
+        bgmManager.PlaySound(0, 0);
+        cameraManager.Zoom(5);
+        patternTime = 2f;
+        patternAccuracy = 0.2f;
+        floorNum = 49;
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].interactable = true;
+        }
+        Invoke("ButtonAnimationStart", 3f);
+
+        floorsPosition[49].transform.DOMoveX(playerX, 1f);
+        floorsPosition[49].transform.DOMoveY(playerY, 1f);
+        playerX = 14;
+        playerY = -12;
+        playerPosition.transform.DOMoveX(playerX, 1f).SetDelay(1f); ;
+        floorsPosition[49].transform.DOMoveX(playerX, 1f).SetDelay(1f); ;
+        cameraPosition.transform.DOMoveX(playerX, 1f).SetDelay(1f); ;
+        playerPosition.transform.DOMoveY(playerY, 1f).SetDelay(2f);
+        floorsPosition[49].transform.DOMoveY(playerY, 1f).SetDelay(2f);
+        cameraPosition.transform.DOMoveY(playerY, 1f).SetDelay(2f);
+        Invoke("PlayerMoveStart", 2f);
     }
 
     IEnumerator BackButton()
