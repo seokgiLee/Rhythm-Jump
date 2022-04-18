@@ -337,7 +337,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (pattern < 11)
                 {
-                    startNum = small;
+                    startNum = small - 1;
                 }
                 else if (pattern < 12)
                 {

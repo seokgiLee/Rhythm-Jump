@@ -300,7 +300,7 @@ public class MapManager : MonoBehaviour
                 }
                 else if (pattern < 11)
                 {
-                    startNum = small;
+                    startNum = small - 1;
                 }
                 else if (pattern < 12)
                 {
@@ -412,7 +412,7 @@ public class MapManager : MonoBehaviour
                             }
                         }
                         startNum++;
-                        if (startNum > small)
+                        if (startNum >= small)
                         {
                             nextPattern = true;
                         }
