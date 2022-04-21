@@ -45,7 +45,8 @@ public class MapManager : MonoBehaviour
     public int floorCol; // 발판의 열
     public int floorNum; // 플레이어가 밟은 발판 번호
 
-    public bool colorHint; // 버튼 색깔 힌트
+    public bool colorHint; // 버튼 색깔 힌트 (박자 틀림)
+    public bool colorHint2; // 버튼 색깔 힌트 (속도 변화)
     public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
     public float playerTime; // 플레이어 타이밍용 시간
@@ -209,6 +210,15 @@ public class MapManager : MonoBehaviour
                         buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy * 2);
                     }
                     colorHint = false;
+                }
+                else if(colorHint2)
+                {
+                    for (int i = 0; i < buttons.Length; i++)
+                    {
+                        buttons[i].image.DOColor(new Color(0, 1, 0), patternTime * patternAccuracy);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy * 2);
+                    }
+                    colorHint2 = false;
                 }
             }
             // 정해진 시간초과
@@ -472,13 +482,15 @@ public class MapManager : MonoBehaviour
                         speedAnimation.SetFloat("speed", curSpeed);
                         speedAnimation.SetTrigger("isSpeedChange");
                         Invoke("SpeedChange", 1.3f / curSpeed);
-                        playerTime += patternTime;
+                        playerTime = time = 0;
                         patternTime *= 2;
+                        patternAccuracy /= 2;
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
                             floors[i].PatternTime(patternTime);
                         }
                         nextPattern = true;
+                        colorHint2 = true;
                         break;
                     case 102: // 2배 빠르게
                         curSpeed *= 2;
@@ -486,12 +498,15 @@ public class MapManager : MonoBehaviour
                         speedAnimation.SetFloat("speed", curSpeed);
                         speedAnimation.SetTrigger("isSpeedChange");
                         Invoke("SpeedChange", 1.3f / curSpeed);
+                        playerTime = time = 0;
                         patternTime /= 2;
+                        patternAccuracy *= 2;
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
                             floors[i].PatternTime(patternTime);
                         }
                         nextPattern = true;
+                        colorHint2 = true;
                         break;
                 }
             }
