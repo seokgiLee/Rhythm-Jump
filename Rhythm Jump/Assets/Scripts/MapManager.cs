@@ -74,6 +74,7 @@ public class MapManager : MonoBehaviour
     public Text curSpeedText; // 현재 박자 배속 텍스트
     public Animator speedAnimation;
 
+    int n = 0;
     void Awake()
     {
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
@@ -198,7 +199,11 @@ public class MapManager : MonoBehaviour
             if (playerTime > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
             {
                 // 버튼 활성화
-                Debug.Log("버튼 활성화");
+                if (n % 2 > 0)
+                    Debug.Log("버튼 활성화, 홀");
+                else
+                    Debug.Log("버튼 활성화, 짝");
+                n++;
                 buttonOn = true;
                 isPattern = true;
 
