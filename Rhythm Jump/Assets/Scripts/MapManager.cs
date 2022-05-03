@@ -544,6 +544,66 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 114: // 4배 느리게
+                        curSpeed /= 4;
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange();
+                        playerTime = time = 0;
+                        buttonOn = buttonClick = false;
+                        patternTime *= 4;
+                        patternAccuracy /= 4;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 104: // 4배 빠르게
+                        curSpeed *= 4;
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange();
+                        playerTime = time = 0;
+                        buttonOn = buttonClick = false;
+                        patternTime /= 4;
+                        patternAccuracy *= 4;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 115: // 5배 느리게
+                        curSpeed /= 5;
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange();
+                        playerTime = time = 0;
+                        buttonOn = buttonClick = false;
+                        patternTime *= 5;
+                        patternAccuracy /= 5;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 105: // 5배 빠르게
+                        curSpeed *= 5;
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange();
+                        playerTime = time = 0;
+                        buttonOn = buttonClick = false;
+                        patternTime /= 5;
+                        patternAccuracy *= 5;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
                 }
             }
         }
