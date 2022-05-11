@@ -484,6 +484,46 @@ public class MapManager : MonoBehaviour
                         isOdd = (isOdd + 1) % 2;
                         nextPattern = true;
                         break;
+                    case 12: // 왼쪽 절반
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            for (int j = 0; j <= (floorCol - 1) / 2; j++)
+                            {
+                                floorPattern(j + i * floorCol);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
+                    case 13: // 오른쪽 절반
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            for (int j = floorCol - 1; j > (floorCol - 1) / 2; j--)
+                            {
+                                floorPattern(j + i * floorCol);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
+                    case 14: // 위쪽 절반
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            for (int j = 0; j <= (floorRow - 1) / 2; j++)
+                            {
+                                floorPattern(j * floorCol + i);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
+                    case 15: // 아래쪽 절반
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            for (int j = floorRow - 1; j > (floorRow - 1) / 2; j--)
+                            {
+                                floorPattern(j * floorCol + i);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
                     case 112: // 2배 느리게
                         curSpeed /= 2;
                         speedAnimation.SetTrigger("isSpeedChange");
