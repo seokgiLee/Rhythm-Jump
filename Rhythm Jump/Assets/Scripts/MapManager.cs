@@ -324,6 +324,10 @@ public class MapManager : MonoBehaviour
                 {
                     startNum = 1;
                 }
+                else
+                {
+                    startNum = 0;
+                }
             }
 
             if (time > patternTime && isPattern)
@@ -497,7 +501,7 @@ public class MapManager : MonoBehaviour
                     case 13: // 오른쪽 절반
                         for (int i = 0; i < floorRow; i++)
                         {
-                            for (int j = floorCol - 1; j > (floorCol - 1) / 2; j--)
+                            for (int j = floorCol - 1; j >= floorCol / 2; j--)
                             {
                                 floorPattern(j + i * floorCol);
                             }
@@ -517,12 +521,36 @@ public class MapManager : MonoBehaviour
                     case 15: // 아래쪽 절반
                         for (int i = 0; i < floorCol; i++)
                         {
-                            for (int j = floorRow - 1; j > (floorRow - 1) / 2; j--)
+                            for (int j = floorRow - 1; j >= floorRow / 2; j--)
                             {
                                 floorPattern(j * floorCol + i);
                             }
                         }
                         nextPattern = true;
+                        break;
+                    case 16: // 양쪽 세로
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            floorPattern(startNum + i * floorCol);
+                            floorPattern(floorCol - startNum - 1 + i * floorCol);
+                        }
+                        startNum += 1;
+                        if (startNum >= (floorCol + 1) / 2)
+                        {
+                            nextPattern = true;
+                        }
+                        break;
+                    case 17: // 양쪽 가로
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            floorPattern(startNum + i);
+                            floorPattern((floorRow - 1) * floorCol - startNum + i);
+                        }
+                        startNum += floorCol;
+                        if (startNum / floorCol >= (floorRow + 1) / 2)
+                        {
+                            nextPattern = true;
+                        }
                         break;
                     case 112: // 2배 느리게
                         curSpeed /= 2;
@@ -767,11 +795,10 @@ public class MapManager : MonoBehaviour
 
     void FloorDamage()
     {
-        if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
+        if (floors[floorNum].damage > 0) // 플레이어가 검은 발판을 밟으면 데미지
         {
             Debug.Log("검은 발판");
             ErrorCount();
-            floors[floorNum].damage = false;
             explosion[floorNum].SetTrigger("isExplosion");
             sfxManager.PlaySound(3);
         }

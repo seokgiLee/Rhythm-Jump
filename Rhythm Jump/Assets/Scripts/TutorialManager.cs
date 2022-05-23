@@ -564,11 +564,10 @@ public class TutorialManager : MonoBehaviour
 
     void FloorDamage()
     {
-        if (floors[floorNum].damage) // 플레이어가 검은 발판을 밟으면 데미지
+        if (floors[floorNum].damage > 0) // 플레이어가 검은 발판을 밟으면 데미지
         {
             Debug.Log("검은 발판");
             ErrorCount();
-            floors[floorNum].damage = false;
             explosion[floorNum].SetTrigger("isExplosion");
             sfxManager.PlaySound(3);
         }

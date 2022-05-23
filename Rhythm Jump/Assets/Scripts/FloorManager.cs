@@ -9,7 +9,7 @@ public class FloorManager : MonoBehaviour
     public MapManager mapManager;
     public GameManager gameManager;
     public TutorialManager tutorialManager;
-    public bool damage;
+    public int damage = 0;
     float patternTime;
 
     void Awake()
@@ -35,12 +35,12 @@ public class FloorManager : MonoBehaviour
     void floorPatternDamage() // 데미지를 받는 패턴
     {
         spriteRenderer.DOColor(new Color(0.3f, 0.3f, 0.3f, 150 / 255f), patternTime / 2);
-        damage = true;
+        damage++;
         Invoke("floorPatternEnd", patternTime);
     }
     void floorPatternEnd() // 패턴 끝
     {
         spriteRenderer.DOColor(new Color(1, 1, 1, 150 / 255f), patternTime / 4);
-        damage = false;
+        damage--;
     }
 }
