@@ -334,7 +334,7 @@ public class MapManager : MonoBehaviour
             {
                 isPattern = false;
                 time -= patternTime;
-                
+
                 switch (pattern)
                 {
                     case 0: // 공백타임
@@ -552,11 +552,14 @@ public class MapManager : MonoBehaviour
                             nextPattern = true;
                         }
                         break;
+                    case 212: // 2배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(2, false);
+                        nextPattern = true;
+                        break;
                     case 112: // 2배 느리게
                         curSpeed /= 2;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime *= 2;
                         patternAccuracy /= 2;
@@ -567,11 +570,14 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 202: // 2배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(2);
+                        nextPattern = true;
+                        break;
                     case 102: // 2배 빠르게
                         curSpeed *= 2;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime /= 2;
                         patternAccuracy *= 2;
@@ -582,11 +588,14 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 213: // 3배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(3, false);
+                        nextPattern = true;
+                        break;
                     case 113: // 3배 느리게
                         curSpeed /= 3;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime *= 3;
                         patternAccuracy /= 3;
@@ -597,11 +606,14 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 203: // 3배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(3);
+                        nextPattern = true;
+                        break;
                     case 103: // 3배 빠르게
                         curSpeed *= 3;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime /= 3;
                         patternAccuracy *= 3;
@@ -612,11 +624,14 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 214: // 4배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(4, false);
+                        nextPattern = true;
+                        break;
                     case 114: // 4배 느리게
                         curSpeed /= 4;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime *= 4;
                         patternAccuracy /= 4;
@@ -627,11 +642,14 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 204: // 4배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(4);
+                        nextPattern = true;
+                        break;
                     case 104: // 4배 빠르게
                         curSpeed *= 4;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime /= 4;
                         patternAccuracy *= 4;
@@ -642,11 +660,14 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 215: // 5배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(5, false);
+                        nextPattern = true;
+                        break;
                     case 115: // 5배 느리게
                         curSpeed /= 5;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime *= 5;
                         patternAccuracy /= 5;
@@ -657,11 +678,14 @@ public class MapManager : MonoBehaviour
                         nextPattern = true;
                         colorHint2 = true;
                         break;
+                    case 205: // 5배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / curSpeed);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(5);
+                        nextPattern = true;
+                        break;
                     case 105: // 5배 빠르게
                         curSpeed *= 5;
-                        speedAnimation.SetTrigger("isSpeedChange");
-                        SpeedChange();
-                        playerTime = time = 0;
                         buttonOn = buttonClick = false;
                         patternTime /= 5;
                         patternAccuracy *= 5;
@@ -677,15 +701,25 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void SpeedChange()
+    public void SpeedChange(int n = 1, bool fast = true)
     {
-        if (curSpeed >= 1)
+        float speed;
+        if (fast)
         {
-            curSpeedText.text = "×" + curSpeed.ToString();
+            speed = curSpeed * n;
         }
         else
         {
-            curSpeedText.text = "÷" + (1f / curSpeed).ToString();
+            speed = curSpeed / n;
+        }
+
+        if (speed >= 1)
+        {
+            curSpeedText.text = "×" + speed.ToString();
+        }
+        else
+        {
+            curSpeedText.text = "÷" + (1f / speed).ToString();
         }
     }
 
