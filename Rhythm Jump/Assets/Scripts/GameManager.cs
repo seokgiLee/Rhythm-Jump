@@ -58,9 +58,11 @@ public class GameManager : MonoBehaviour
     public int floorNum; // 플레이어가 밟은 발판 번호
 
     public bool hint; // 버튼 힌트 효과음 여부
-    public bool colorHint; // 버튼 색깔 힌트
+    public bool colorHint; // 버튼 색깔 힌트 (박자 틀림)
+    public bool colorHint2; // 버튼 색깔 힌트 (속도 변화)
     public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
+    public float time2; // 시간변화 확인용 시간
     public float playerTime; // 플레이어 타이밍용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
     public int stageNum; // 현재 스테이지 번호
     public GameObject[] clearNotes; // 스테이지 클리어 표시 음표
 
+    public float bgmStartTime; // BGM 시작시간
+    public float bgmSpeed; // BGM 속도
     public bool patternStart; // 패턴 시작
     public bool nextPattern; // 다음패턴 시작여부
     public int[] patternNums; // 패턴순서 모음
@@ -80,6 +84,12 @@ public class GameManager : MonoBehaviour
     public int startNum; // 패턴 시작발판
     public int isOdd; // 홀짝 판별
     public int small; // 테두리 개수
+
+    public float curSpeed; // 현재 박자 배속
+    public Text curSpeedText; // 현재 박자 배속 텍스트
+    public Animator speedAnimation;
+
+    public bool finalStage; // 마지막 스테이지 진행중 여부
 
     void Awake()
     {
@@ -119,6 +129,8 @@ public class GameManager : MonoBehaviour
         playerX = ((curStage - 1) % floorRow) * 2;
         playerY = -2 * ((curStage - 1) / floorRow);
         floorNum = curStage - 1;
+        bgmStartTime = stageData.stageDatas[50].bgmStartTime;
+        bgmSpeed = stageData.stageDatas[50].bgmSpeed;
         cameraPosition.transform.position = new Vector3(playerX, playerY, -10);
         playerPosition.transform.position = new Vector3(playerX, playerY + 10);
 
@@ -220,13 +232,6 @@ public class GameManager : MonoBehaviour
 
         if (patternStart)
         {
-            beatTime += Time.deltaTime;
-
-            if (beatTime > 0.5f)
-            {
-                beatTime -= 0.5f;
-            }
-
             if (buttonClick)
             {
                 playerTime -= patternTime;
@@ -234,25 +239,37 @@ public class GameManager : MonoBehaviour
             }
 
             // 정해진 시간에 도달
-            if (playerTime > patternTime * (1 - patternAccuracy) && !buttonClick && !buttonOn)
+            if (playerTime > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
             {
                 // 버튼 활성화
                 Debug.Log("버튼 활성화");
                 buttonOn = true;
                 isPattern = true;
 
-                if (colorHint)
+                if (colorHint2)
+                {
+                    for (int i = 0; i < buttons.Length; i++)
+                    {
+                        buttons[i].image.DOColor(new Color(0, 1, 0), patternTime * patternAccuracy);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy * 2);
+                    }
+                    colorHint = false;
+                    colorHint2 = false;
+                }
+                else if (colorHint)
                 {
                     for (int i = 0; i < buttons.Length; i++)
                     {
                         buttons[i].image.DOColor(new Color(1, 0, 0), patternTime * patternAccuracy);
-                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(0.5f);
+                        buttons[i].image.DOColor(new Color(1, 1, 1), patternTime * patternAccuracy).SetDelay(patternTime * patternAccuracy * 2);
                     }
                     colorHint = false;
+                    colorHint2 = false;
                 }
             }
+
             // 정해진 시간초과
-            else if (playerTime > patternTime * (1 + patternAccuracy))
+            if (playerTime > patternTime * (1 + patternAccuracy))
             {
                 Debug.Log("시간초과");
                 ErrorCount();
@@ -271,8 +288,9 @@ public class GameManager : MonoBehaviour
                     // 맵 종료
                     pattern = 0;
                     patternStart = false;
-                    endAnimation.SetTrigger("isDown");
+                    endAnimation.SetBool("isDown", true);
                     bgmManager.StopSound();
+                    ButtonAnimationStop();
 
                     for (int i = 0; i < buttons.Length; i++)
                     {
@@ -343,13 +361,17 @@ public class GameManager : MonoBehaviour
                 {
                     startNum = 1;
                 }
+                else
+                {
+                    startNum = 0;
+                }
             }
 
-            if (time > patternTime && isPattern)
+            if (time - time2 > patternTime && isPattern)
             {
                 isPattern = false;
-                time -= patternTime;
-                
+                time2 = time;
+
                 switch (pattern)
                 {
                     case 0: // 공백타임
@@ -449,7 +471,7 @@ public class GameManager : MonoBehaviour
                             }
                         }
                         startNum++;
-                        if (startNum > small)
+                        if (startNum >= small)
                         {
                             nextPattern = true;
                         }
@@ -474,16 +496,267 @@ public class GameManager : MonoBehaviour
                     case 11: // 홀짝
                         for (int i = 0; i < floorRow * floorCol; i++)
                         {
-                            if (i % 2 == isOdd % 2)
+                            if (floorCol % 2 < 1)
                             {
-                                floorPattern(i);
+                                if ((i / floorCol) % 2 < 1)
+                                {
+                                    if (i % 2 == isOdd % 2)
+                                    {
+                                        floorPattern(i);
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (i % 2 == (isOdd + 1) % 2)
+                                    {
+                                        floorPattern(i);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (i % 2 == isOdd % 2)
+                                {
+                                    floorPattern(i);
+                                }
                             }
                         }
                         isOdd = (isOdd + 1) % 2;
                         nextPattern = true;
                         break;
+                    case 12: // 왼쪽 절반
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            for (int j = 0; j <= (floorCol - 1) / 2; j++)
+                            {
+                                floorPattern(j + i * floorCol);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
+                    case 13: // 오른쪽 절반
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            for (int j = floorCol - 1; j >= floorCol / 2; j--)
+                            {
+                                floorPattern(j + i * floorCol);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
+                    case 14: // 위쪽 절반
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            for (int j = 0; j <= (floorRow - 1) / 2; j++)
+                            {
+                                floorPattern(j * floorCol + i);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
+                    case 15: // 아래쪽 절반
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            for (int j = floorRow - 1; j >= floorRow / 2; j--)
+                            {
+                                floorPattern(j * floorCol + i);
+                            }
+                        }
+                        nextPattern = true;
+                        break;
+                    case 16: // 양쪽 세로
+                        for (int i = 0; i < floorRow; i++)
+                        {
+                            floorPattern(startNum + i * floorCol);
+                            floorPattern(floorCol - startNum - 1 + i * floorCol);
+                        }
+                        startNum += 1;
+                        if (startNum >= (floorCol + 1) / 2)
+                        {
+                            nextPattern = true;
+                        }
+                        break;
+                    case 17: // 양쪽 가로
+                        for (int i = 0; i < floorCol; i++)
+                        {
+                            floorPattern(startNum + i);
+                            floorPattern((floorRow - 1) * floorCol - startNum + i);
+                        }
+                        startNum += floorCol;
+                        if (startNum / floorCol >= (floorRow + 1) / 2)
+                        {
+                            nextPattern = true;
+                        }
+                        break;
+                    case 212: // 2배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(2, false);
+                        nextPattern = true;
+                        break;
+                    case 112: // 2배 느리게
+                        curSpeed /= 2;
+                        buttonOn = buttonClick = false;
+                        patternTime *= 2;
+                        patternAccuracy /= 2;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 202: // 2배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(2);
+                        nextPattern = true;
+                        break;
+                    case 102: // 2배 빠르게
+                        curSpeed *= 2;
+                        buttonOn = buttonClick = false;
+                        patternTime /= 2;
+                        patternAccuracy *= 2;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 213: // 3배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(3, false);
+                        nextPattern = true;
+                        break;
+                    case 113: // 3배 느리게
+                        curSpeed /= 3;
+                        buttonOn = buttonClick = false;
+                        patternTime *= 3;
+                        patternAccuracy /= 3;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 203: // 3배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(3);
+                        nextPattern = true;
+                        break;
+                    case 103: // 3배 빠르게
+                        curSpeed *= 3;
+                        buttonOn = buttonClick = false;
+                        patternTime /= 3;
+                        patternAccuracy *= 3;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 214: // 4배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(4, false);
+                        nextPattern = true;
+                        break;
+                    case 114: // 4배 느리게
+                        curSpeed /= 4;
+                        buttonOn = buttonClick = false;
+                        patternTime *= 4;
+                        patternAccuracy /= 4;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 204: // 4배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(4);
+                        nextPattern = true;
+                        break;
+                    case 104: // 4배 빠르게
+                        curSpeed *= 4;
+                        buttonOn = buttonClick = false;
+                        patternTime /= 4;
+                        patternAccuracy *= 4;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 215: // 5배 느리게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / patternTime);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(5, false);
+                        nextPattern = true;
+                        break;
+                    case 115: // 5배 느리게
+                        curSpeed /= 5;
+                        buttonOn = buttonClick = false;
+                        patternTime *= 5;
+                        patternAccuracy /= 5;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
+                    case 205: // 5배 빠르게 준비
+                        speedAnimation.SetFloat("animationSpeed", 1 / curSpeed);
+                        speedAnimation.SetTrigger("isSpeedChange");
+                        SpeedChange(5);
+                        nextPattern = true;
+                        break;
+                    case 105: // 5배 빠르게
+                        curSpeed *= 5;
+                        buttonOn = buttonClick = false;
+                        patternTime /= 5;
+                        patternAccuracy *= 5;
+                        for (int i = 0; i < floorRow * floorCol; i++)
+                        {
+                            floors[i].PatternTime(patternTime);
+                        }
+                        nextPattern = true;
+                        colorHint2 = true;
+                        break;
                 }
             }
+        }
+    }
+
+    public void SpeedChange(int n = 1, bool fast = true)
+    {
+        float speed;
+        if (fast)
+        {
+            speed = curSpeed * n;
+        }
+        else
+        {
+            speed = curSpeed / n;
+        }
+
+        if (speed >= 1)
+        {
+            curSpeedText.text = "×" + speed.ToString();
+        }
+        else
+        {
+            curSpeedText.text = "÷" + (1f / speed).ToString();
         }
     }
 
@@ -627,7 +900,7 @@ public class GameManager : MonoBehaviour
                     break;
             }
             cameraPosition.transform.DOMove(new Vector3(playerX, playerY, -10), 1f);
-            Invoke("FloorDamage", 1f);
+            Invoke("FloorDamage", 1f / (2 / patternTime));
         }
         else // 버튼을 누르는 타이밍이 아님
         {
@@ -644,7 +917,7 @@ public class GameManager : MonoBehaviour
         speachTexts[1].text = s.floorRow.ToString() + "×" + stageData.stageDatas[floorNum + 1].floorCol.ToString();
         speachTexts[2].text = s.cutLine.ToString() + "회 이하";
         speachTexts[3].text = s.patternTime.ToString() + "초";
-        speachTexts[4].text = (s.patternAccuracy * 100).ToString() + " %";
+        speachTexts[4].text = (s.patternAccuracy * s.patternTime).ToString() + " 초";
     }
 
     void SpeachBubbleOff() // 스테이지 정보 말풍선 끄기
@@ -667,7 +940,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < buttonAnimations.Length; i++)
         {
-            buttonAnimations[i].SetTrigger("isStart");
+            buttonAnimations[i].SetBool("isStart", true);
         }
     }
 
@@ -675,13 +948,13 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < buttonAnimations.Length; i++)
         {
-            buttonAnimations[i].SetTrigger("isStop");
+            buttonAnimations[i].SetBool("isStart", false);
         }
     }
 
-    public void StartButton()
+    public void StartButton() // 스테이지 이동 버튼
     {
-        if (floorNum < maxStage)
+        if (floorNum < maxStage && !finalStage)
         {
             playerMove = false;
             if (floorNum == 49) // 마지막 맵
@@ -721,6 +994,7 @@ public class GameManager : MonoBehaviour
 
     void FinalStage() // 마지막 스테이지 시작
     {
+        finalStage = true;
         bgmManager.StopSound();
         cameraManager.Zoom(8);
         curPatternNum = 0;
@@ -750,7 +1024,16 @@ public class GameManager : MonoBehaviour
         pause = gamePause;
 
         sfxManager.PlaySound(8);
-        endAnimation.SetTrigger("isUp");
+        endAnimation.SetBool("isDown", false);
+        curSpeed = 1;
+        curSpeedText.text = "×" + curSpeed.ToString();
+        ButtonAnimationStop();
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].interactable = false;
+        }
+
         if (cutLine < errorCount) // 실패
         {
             bgmManager.PlaySound(0, 0);
@@ -759,10 +1042,6 @@ public class GameManager : MonoBehaviour
             patternAccuracy = 0.2f;
             floorNum = 49;
 
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                buttons[i].interactable = true;
-            }
             Invoke("ButtonAnimationStart", 3f);
 
             floorsPosition[49].transform.DOMoveX(playerX, 1f);
@@ -796,6 +1075,7 @@ public class GameManager : MonoBehaviour
     void MapStart()
     {
         start = true;
+        beatTime = 0;
         time = 0;
         playerTime = 0;
     }
@@ -832,7 +1112,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("시작");
         pause = stagePause;
         sfxManager.PlaySound(11);
-        bgmManager.PlaySound(50, 0);
+        bgmManager.PlaySound(50, bgmStartTime, bgmSpeed);
         playerManager.PlayerStart(false);
         playerMove = false;
         patternStart = true;
@@ -848,6 +1128,8 @@ public class GameManager : MonoBehaviour
 
     void PlayerMoveStart() // 패턴없이 박자에 맞춰서 이동만
     {
+        time2 = 0;
+        finalStage = false;
         playerManager.PlayerStart(false);
         playerMove = true;
         patternStart = false;
@@ -868,6 +1150,7 @@ public class GameManager : MonoBehaviour
     public void OptionButton() // 옵션 버튼
     {
         sfxManager.PlaySound(0);
+        bgmManager.PauseSound();
         Time.timeScale = 0;
         option.SetActive(true);
     }
@@ -907,6 +1190,7 @@ public class GameManager : MonoBehaviour
     public void OptionCloseButton() // 옵션 닫기
     {
         sfxManager.PlaySound(0);
+        bgmManager.ContinueSound();
         Time.timeScale = 1;
         option.SetActive(false);
     }
@@ -914,6 +1198,7 @@ public class GameManager : MonoBehaviour
     public void PauseButton() // 일시정지 버튼
     {
         sfxManager.PlaySound(0);
+        bgmManager.PauseSound();
         Time.timeScale = 0;
         pause.SetActive(true);
         bgmManager.PauseSound();
@@ -922,9 +1207,9 @@ public class GameManager : MonoBehaviour
     public void ContinueButton() // 계속하기 버튼
     {
         sfxManager.PlaySound(0);
+        bgmManager.ContinueSound();
         Time.timeScale = 1;
         pause.SetActive(false);
-        bgmManager.ContinueSound();
     }
 
     public void ExitButton() // 나가기 버튼
@@ -941,6 +1226,8 @@ public class GameManager : MonoBehaviour
         pause.SetActive(false);
         pause = gamePause;
 
+        curSpeed = 1;
+        curSpeedText.text = "×" + curSpeed.ToString();
         ButtonAnimationStop();
         bgmManager.PlaySound(0, 0);
         cameraManager.Zoom(5);
@@ -950,7 +1237,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            buttons[i].interactable = true;
+            buttons[i].interactable = false;
         }
         Invoke("ButtonAnimationStart", 3f);
 

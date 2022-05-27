@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
@@ -23,6 +24,12 @@ public class MapManager : MonoBehaviour
     public GameObject pause;
     public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
     public bool backButton; // 스마트폰 뒤로가기 버튼 클릭가능 여부
+    public GameObject option;
+    public AudioMixer audioMixer;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+    public float sfx;
+    public float bgm;
 
     public Button[] buttons;
     public Animator[] countDowns;
@@ -47,8 +54,8 @@ public class MapManager : MonoBehaviour
 
     public bool colorHint; // 버튼 색깔 힌트 (박자 틀림)
     public bool colorHint2; // 버튼 색깔 힌트 (속도 변화)
-    public float beatTime; // 버튼 효과음용 시간
     public float time; // 발판패턴용 시간
+    public float time2; // 시간변화 확인용 시간
     public float playerTime; // 플레이어 타이밍용 시간
     public float patternTime; // 패턴주기
     public float patternAccuracy; // 박자 정확도
@@ -74,9 +81,12 @@ public class MapManager : MonoBehaviour
     public Text curSpeedText; // 현재 박자 배속 텍스트
     public Animator speedAnimation;
 
-    int n = 0;
     void Awake()
     {
+        sfx = PlayerPrefs.GetFloat("SFX");
+        bgm = PlayerPrefs.GetFloat("BGM");
+        sfxSlider.value = sfx;
+        bgmSlider.value = bgm;
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
         sfxManager.PlaySound(7);
@@ -139,7 +149,11 @@ public class MapManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Escape) && backButton) // 뒤로가기
             {
-                if (pause.activeSelf) // 일시정지창이 켜져있으면 계속하기
+                if (option.activeSelf) // 옵션이 켜져있으면 끄기
+                {
+                    OptionCloseButton();
+                }
+                else if (pause.activeSelf) // 일시정지창이 켜져있으면 끄기
                 {
                     ContinueButton();
                 }
@@ -182,13 +196,6 @@ public class MapManager : MonoBehaviour
 
         if (patternStart)
         {
-            beatTime += Time.deltaTime;
-
-            if (beatTime > 0.5f)
-            {
-                beatTime -= 0.5f;
-            }
-
             if (buttonClick)
             {
                 playerTime -= patternTime;
@@ -199,11 +206,7 @@ public class MapManager : MonoBehaviour
             if (playerTime > patternTime * (1 - patternAccuracy) && !buttonOn && !buttonClick)
             {
                 // 버튼 활성화
-                if (n % 2 > 0)
-                    Debug.Log("버튼 활성화, 홀");
-                else
-                    Debug.Log("버튼 활성화, 짝");
-                n++;
+                Debug.Log("버튼 활성화");
                 buttonOn = true;
                 isPattern = true;
 
@@ -280,7 +283,7 @@ public class MapManager : MonoBehaviour
 
                     for (int i = 0; i < buttonAnimations.Length; i++)
                     {
-                        buttonAnimations[i].SetTrigger("isStop");
+                        buttonAnimations[i].SetBool("isStart", false);
                     }
                 }
                 else
@@ -330,10 +333,10 @@ public class MapManager : MonoBehaviour
                 }
             }
 
-            if (time > patternTime && isPattern)
+            if (time - time2 > patternTime && isPattern)
             {
                 isPattern = false;
-                time -= patternTime;
+                time2 = time;
 
                 switch (pattern)
                 {
@@ -893,7 +896,7 @@ public class MapManager : MonoBehaviour
         {
             for (int i = 0; i < buttonAnimations.Length; i++)
             {
-                buttonAnimations[i].SetTrigger("isStart");
+                buttonAnimations[i].SetBool("isStart", true);
             }
         }
     }
@@ -906,20 +909,68 @@ public class MapManager : MonoBehaviour
         LoadingCanvasManager.Instance.ChangeScene("Main Scene");
     }
 
+    public void OptionButton() // 옵션 버튼
+    {
+        sfxManager.PlaySound(0);
+        bgmManager.PauseSound();
+        Time.timeScale = 0;
+        option.SetActive(true);
+    }
+
+    public void BGMAudioControl() // 볼륨조절
+    {
+        float bgm = bgmSlider.value;
+
+        if (bgm == -40)
+        {
+            audioMixer.SetFloat("BGM", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("BGM", bgm);
+        }
+
+        PlayerPrefs.SetFloat("BGM", bgm);
+    }
+
+    public void SFXAudioControl() // 볼륨조절
+    {
+        float sfx = sfxSlider.value;
+
+        if (sfx == -40)
+        {
+            audioMixer.SetFloat("SFX", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("SFX", sfx);
+        }
+
+        PlayerPrefs.SetFloat("SFX", sfx);
+    }
+
+    public void OptionCloseButton() // 옵션 닫기
+    {
+        sfxManager.PlaySound(0);
+        bgmManager.ContinueSound();
+        Time.timeScale = 1;
+        option.SetActive(false);
+    }
+
     public void PauseButton() // 일시정지 버튼
     {
         sfxManager.PlaySound(0);
+        bgmManager.PauseSound();
         Time.timeScale = 0;
         pause.SetActive(true);
-        bgmManager.PauseSound();
     }
 
     public void ContinueButton() // 계속하기 버튼
     {
         sfxManager.PlaySound(0);
+        bgmManager.ContinueSound();
         Time.timeScale = 1;
         pause.SetActive(false);
-        bgmManager.ContinueSound();
     }
 
     public void ExitButton() // 나가기 버튼

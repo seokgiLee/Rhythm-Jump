@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -20,6 +21,12 @@ public class TutorialManager : MonoBehaviour
     public GameObject pause;
     public float backButtonTime; // 스마트폰 뒤로가기 버튼용 타이머
     public bool backButton; // 스마트폰 뒤로가기 버튼 클릭가능 여부
+    public GameObject option;
+    public AudioMixer audioMixer;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+    public float sfx;
+    public float bgm;
 
     public Button[] buttons;
     public Animator[] countDowns;
@@ -76,6 +83,10 @@ public class TutorialManager : MonoBehaviour
 
     void Awake()
     {
+        sfx = PlayerPrefs.GetFloat("SFX");
+        bgm = PlayerPrefs.GetFloat("BGM");
+        sfxSlider.value = sfx;
+        bgmSlider.value = bgm;
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
         sfxManager.PlaySound(7);
@@ -122,7 +133,11 @@ public class TutorialManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Escape) && backButton) // 뒤로가기
             {
-                if (pause.activeSelf) // 일시정지창이 켜져있으면 계속하기
+                if (option.activeSelf) // 옵션이 켜져있으면 끄기
+                {
+                    OptionCloseButton();
+                }
+                else if (pause.activeSelf) // 일시정지창이 켜져있으면 끄기
                 {
                     ContinueButton();
                 }
@@ -645,7 +660,7 @@ public class TutorialManager : MonoBehaviour
         {
             for (int i = 0; i < buttonAnimations.Length; i++)
             {
-                buttonAnimations[i].SetTrigger("isStart");
+                buttonAnimations[i].SetBool("isStart", true);
             }
         }
     }
@@ -659,7 +674,7 @@ public class TutorialManager : MonoBehaviour
 
         for (int i = 0; i < buttonAnimations.Length; i++)
         {
-            buttonAnimations[i].SetTrigger("isStop");
+            buttonAnimations[i].SetBool("isStart", false);
         }
     }
 
@@ -769,20 +784,68 @@ public class TutorialManager : MonoBehaviour
         bgmManager.PlaySound(51, 0.5f);
     }
 
+    public void OptionButton() // 옵션 버튼
+    {
+        sfxManager.PlaySound(0);
+        bgmManager.PauseSound();
+        Time.timeScale = 0;
+        option.SetActive(true);
+    }
+
+    public void BGMAudioControl() // 볼륨조절
+    {
+        float bgm = bgmSlider.value;
+
+        if (bgm == -40)
+        {
+            audioMixer.SetFloat("BGM", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("BGM", bgm);
+        }
+
+        PlayerPrefs.SetFloat("BGM", bgm);
+    }
+
+    public void SFXAudioControl() // 볼륨조절
+    {
+        float sfx = sfxSlider.value;
+
+        if (sfx == -40)
+        {
+            audioMixer.SetFloat("SFX", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("SFX", sfx);
+        }
+
+        PlayerPrefs.SetFloat("SFX", sfx);
+    }
+
+    public void OptionCloseButton() // 옵션 닫기
+    {
+        sfxManager.PlaySound(0);
+        bgmManager.ContinueSound();
+        Time.timeScale = 1;
+        option.SetActive(false);
+    }
+
     public void PauseButton() // 일시정지 버튼
     {
         sfxManager.PlaySound(0);
+        bgmManager.PauseSound();
         Time.timeScale = 0;
         pause.SetActive(true);
-        bgmManager.PauseSound();
     }
 
     public void ContinueButton() // 계속하기 버튼
     {
         sfxManager.PlaySound(0);
+        bgmManager.ContinueSound();
         Time.timeScale = 1;
         pause.SetActive(false);
-        bgmManager.ContinueSound();
     }
 
     public void ExitButton() // 나가기 버튼
